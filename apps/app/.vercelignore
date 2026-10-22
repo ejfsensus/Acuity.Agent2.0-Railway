@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.nuxt
+.output
+.data
+.swc
+.turbo
+node_modules
