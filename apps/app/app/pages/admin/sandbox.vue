@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { formatDistanceToNow } from 'date-fns'
-import { LazyModalConfirm } from '#components'
 
 useSeoMeta({ title: 'Sandbox - Admin' })
 
 const toast = useToast()
-const overlay = useOverlay()
 const { showError } = useErrorToast()
-const confirmModal = overlay.create(LazyModalConfirm, { destroyOnClose: true })
 
 const {
   status,
@@ -60,7 +57,7 @@ const isInitialLoading = computed(() => status.value === null)
 async function saveSnapshotConfig() {
   isSavingConfig.value = true
   try {
-    await persistSnapshotConfig(false)
+    await persistSnapshotConfig()
 
     await Promise.all([
       refreshSnapshotConfig(),
@@ -69,58 +66,22 @@ async function saveSnapshotConfig() {
 
     toast.add({
       title: 'Snapshot repository updated',
-      description: 'Repository is ready. The active snapshot cache was reset; run sync to build the first snapshot.',
+      description: 'Repository verified. The knowledge library is being pulled onto the persistent volume.',
       icon: 'i-lucide-check',
     })
   } catch (error) {
-    const status = getHttpStatus(error)
-    if (status === 409) {
-      const confirmed = await confirmModal.open({
-        title: 'Use existing repository?',
-        description: 'This repository already exists and is not marked as managed by the app. Confirm only if you want to adopt it.',
-        confirmLabel: 'Adopt repository',
-        cancelLabel: 'Cancel',
-      })
-
-      if (confirmed) {
-        try {
-          await persistSnapshotConfig(true)
-          await Promise.all([
-            refreshSnapshotConfig(),
-            checkStatus(),
-          ])
-          toast.add({
-            title: 'Repository adopted',
-            description: 'The app will now use this existing repository for snapshots.',
-            icon: 'i-lucide-check',
-          })
-          return
-        } catch (secondError) {
-          showError(secondError, { fallback: 'Failed to adopt existing repository' })
-          return
-        }
-      }
-      return
-    }
-
     showError(error, { fallback: 'Failed to update snapshot repository' })
   } finally {
     isSavingConfig.value = false
   }
 }
 
-function getHttpStatus(error: unknown): number | null {
-  const maybe = error as { statusCode?: number, response?: { status?: number } }
-  return maybe.statusCode || maybe.response?.status || null
-}
-
-async function persistSnapshotConfig(allowExistingRepo: boolean) {
+async function persistSnapshotConfig() {
   await $fetch('/api/snapshot/config', {
     method: 'PUT',
     body: {
       snapshotRepo: snapshotRepoInput.value,
       snapshotBranch: snapshotBranchInput.value,
-      allowExistingRepo,
     },
   })
 }
@@ -155,7 +116,7 @@ watch(selectedSuggestion, (value) => {
         Sandbox
       </h1>
       <p class="text-sm text-muted max-w-lg">
-        Manage sandbox snapshots. Snapshots are pre-configured environments used by the AI to read documentation.
+        Manage the persistent knowledge library and the Git revision available to the AI.
       </p>
     </header>
 
@@ -165,7 +126,7 @@ watch(selectedSuggestion, (value) => {
       </p>
       <div class="rounded-lg border border-default p-4 space-y-4">
         <p class="text-xs text-muted">
-          This repository stores the aggregated docs that snapshots are created from. If it doesn't exist, the app creates it automatically.
+          Select an existing repository to pull onto the Railway volume. Public repositories can be read without a token; private repositories need GitHub credentials.
         </p>
 
         <div class="grid grid-cols-3 gap-3">
@@ -206,7 +167,7 @@ watch(selectedSuggestion, (value) => {
           </div>
 
           <p class="text-xs text-muted mb-2">
-            Choose one from your accessible repositories, or type a new name above and the app will create it automatically.
+            Choose an accessible repository, or enter its owner/repository name above.
           </p>
 
           <template v-if="repoCatalogStatus === 'pending'">
@@ -329,11 +290,11 @@ watch(selectedSuggestion, (value) => {
                 {{ status.latestSnapshotId }}
               </p>
               <p v-if="createdAgo" class="text-xs text-muted">
-                Created {{ createdAgo }}
+                Checked {{ createdAgo }}
               </p>
             </div>
             <div v-else class="text-sm text-muted">
-              No snapshots available from Vercel.
+              No remote Git revision available. Configure a repository and branch above.
             </div>
           </div>
           <div v-if="!isInitialLoading" class="flex items-center gap-2">
@@ -364,10 +325,10 @@ watch(selectedSuggestion, (value) => {
       <div class="rounded-lg bg-elevated/50 p-4 text-xs text-muted space-y-2">
         <p>
           <strong class="text-highlighted">How it works:</strong>
-          Snapshots are pre-built sandbox environments created from your documentation repositories.
+          A snapshot identifies the Git revision checked out on the persistent Railway volume. The bundled sacred-text library is mounted alongside it.
         </p>
         <p>
-          When a new snapshot is created on Vercel, it will be synced automatically.
+          Use Sync now to pull a newer Git revision. The mounted library and snapshot metadata survive container restarts.
         </p>
       </div>
     </section>

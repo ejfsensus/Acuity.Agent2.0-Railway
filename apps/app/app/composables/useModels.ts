@@ -25,20 +25,17 @@ const gatewayModels = [
   'minimax/minimax-m2.7',
 ]
 
-const fallbackModel = gatewayModels[0]
+const fallbackModel = 'deepseek/deepseek-v4-pro'
 
 export function useModels() {
   const config = useRuntimeConfig()
   const configuredModels = parseModels(config.public.ai?.models)
-    .filter(model => gatewayModels.includes(model))
-  const configuredDefault = config.public.ai?.defaultModel && gatewayModels.includes(config.public.ai.defaultModel)
-    ? config.public.ai.defaultModel
-    : undefined
+  const configuredDefault = config.public.ai?.defaultModel || undefined
 
   const defaultModel = configuredDefault || configuredModels[0] || fallbackModel
   const models = Array.from(new Set([
     defaultModel,
-    ...gatewayModels,
+    ...(configuredModels.length ? configuredModels : gatewayModels),
   ].filter(Boolean)))
 
   const model = useCookie<string>('model', {

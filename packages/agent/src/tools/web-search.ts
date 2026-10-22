@@ -84,7 +84,7 @@ export const braveWebSearchTool = tool({
     search_lang: z.string().optional().describe('Search language, e.g. en.'),
     safesearch: z.enum(['off', 'moderate', 'strict']).optional(),
   }),
-  execute: async function* ({ query, count = 10, freshness, country, search_lang, safesearch }, { abortSignal }) {
+  execute: async function* ({ query, count = 10, freshness, country, search_lang: searchLang, safesearch }, { abortSignal }) {
     yield { status: 'loading' as const }
     const start = Date.now()
 
@@ -96,7 +96,7 @@ export const braveWebSearchTool = tool({
           count,
           freshness,
           country,
-          search_lang,
+          search_lang: searchLang,
           safesearch,
           text_decorations: false,
           result_filter: 'web',

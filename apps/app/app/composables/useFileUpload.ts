@@ -9,23 +9,10 @@ function createObjectUrl(file: File): string {
   return URL.createObjectURL(file)
 }
 
-function fileToInput(file: File): HTMLInputElement {
-  const dataTransfer = new DataTransfer()
-  dataTransfer.items.add(file)
-
-  const input = document.createElement('input')
-  input.type = 'file'
-  input.files = dataTransfer.files
-
-  return input
-}
-
 export function useFileUploadWithStatus(chatId: string) {
   const files = shallowRef<FileWithStatus[]>([])
   const { showError } = useErrorToast()
   const { loggedIn } = useUserSession()
-
-  const upload = useUpload(`/api/upload/${chatId}`, { method: 'PUT' })
 
   function updateFileAt(id: string, update: Partial<FileWithStatus>) {
     files.value = files.value.map(f => f.id === id ? { ...f, ...update } : f)
@@ -47,8 +34,9 @@ export function useFileUploadWithStatus(chatId: string) {
 
     const uploadPromises = filesWithStatus.map(async (fileWithStatus) => {
       try {
-        const input = fileToInput(fileWithStatus.file)
-        const response = await upload(input) as BlobResult | BlobResult[] | undefined
+        const body = new FormData()
+        body.append('files', fileWithStatus.file)
+        const response = await $fetch<BlobResult>(`/api/upload/${chatId}`, { method: 'PUT', body })
 
         if (!response) {
           throw new Error('Upload failed')

@@ -13,7 +13,7 @@ const paramsSchema = z.object({
 
 /**
  * POST /api/sync/:source
- * Sync a specific source using Vercel Sandbox (admin only).
+ * Sync a specific source to the Railway knowledge base (admin only).
  */
 export default defineEventHandler(async (event) => {
   const requestLog = useLogger(event)
@@ -63,9 +63,6 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    if (blobs.length > 0) {
-      await blob.del(blobs.map(b => b.pathname))
-    }
 
     source = {
       id: dbSource.id,
@@ -95,7 +92,7 @@ export default defineEventHandler(async (event) => {
       message: 'Snapshot repository is not configured',
       data: {
         why: 'Sync needs a GitHub repository where the aggregated knowledge base snapshot can be written',
-        fix: 'Set NUXT_GITHUB_SNAPSHOT_REPO in Vercel or configure the snapshot repository in Admin > Sandbox',
+        fix: 'Set NUXT_GITHUB_SNAPSHOT_REPO in Railway or configure the snapshot repository in Admin > Sandbox',
       },
     })
   }
@@ -106,7 +103,7 @@ export default defineEventHandler(async (event) => {
       message: 'GitHub write token is not configured',
       data: {
         why: 'Sync must push the aggregated knowledge base into the snapshot repository',
-        fix: 'Install/configure the GitHub App for the snapshot repository or set NUXT_GITHUB_TOKEN in Vercel',
+        fix: 'Install/configure the GitHub App for the snapshot repository or set NUXT_GITHUB_TOKEN in Railway',
       },
     })
   }

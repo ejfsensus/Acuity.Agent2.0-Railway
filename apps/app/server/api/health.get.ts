@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     checks.database = 'error'
   }
 
-  const knowledgeBase = existsSync(join(SANDBOX_ROOT, '.git')) ? 'ready' : 'empty'
+  const knowledgeBase = existsSync(join(SANDBOX_ROOT, '.git')) || existsSync(join(SANDBOX_ROOT, 'docs/sacred-texts/ATTRIBUTION.txt')) ? 'ready' : 'empty'
 
   const healthy = checks.database === 'ok'
 

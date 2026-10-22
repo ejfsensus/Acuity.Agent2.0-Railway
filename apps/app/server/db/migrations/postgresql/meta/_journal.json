@@ -29,6 +29,13 @@
       "when": 1777270835925,
       "tag": "0003_chemical_dorian_gray",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792682700000,
+      "tag": "0004_auth_id_defaults",
+      "breakpoints": true
     }
   ]
 }

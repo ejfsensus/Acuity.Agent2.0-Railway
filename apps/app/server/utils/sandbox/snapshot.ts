@@ -1,6 +1,6 @@
+import { appKvGet, appKvSet } from '../app-kv'
 import type { SnapshotMetadata } from './types'
 import { KV_KEYS } from './types'
-import { appKvGet, appKvSet } from '../app-kv'
 
 /** Returns current snapshot metadata from KV, null if none exists */
 export async function getCurrentSnapshot(): Promise<SnapshotMetadata | null> {

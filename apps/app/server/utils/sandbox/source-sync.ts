@@ -1,8 +1,13 @@
-import { createError, log } from 'evlog'
+import { cp, mkdir, mkdtemp, readdir, realpath, rename, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { basename, dirname, extname, join, resolve } from 'node:path'
+import { log } from 'evlog'
 import { youtube } from '@googleapis/youtube'
 import { YoutubeTranscript } from 'youtube-transcript'
-import type { SandboxLike } from './types'
 import type { FileSource, GitHubSource, Source, SyncSourceResult, YouTubeSource } from '../../workflows/sync-docs/types'
+import type { SandboxLike } from './types'
+import { SANDBOX_ROOT } from './local'
+import { generateRepoUrl, gitAuthEnv } from './git'
 
 interface YouTubeVideo {
   id: string
@@ -20,128 +25,85 @@ interface VideoIndex {
   hasTranscript: boolean
 }
 
-/** Syncs GitHub source to sandbox, returns result with file count and status */
-export async function syncGitHubSource(
-  sandbox: SandboxLike,
-  source: GitHubSource,
-): Promise<SyncSourceResult> {
-  const basePath = source.basePath || '/docs'
-  const outputPath = source.outputPath || source.id
-  const targetDir = `/vercel/sandbox${basePath}/${outputPath}`
+const TEXT_EXTENSIONS = new Set(['.md', '.mdx', '.txt', '.html', '.htm', '.usx', '.xml', '.json', '.jsonl', '.csv', '.yml', '.yaml', '.rst', '.tex'])
 
-  try {
-    await sandbox.runCommand({
-      cmd: 'mkdir',
-      args: ['-p', targetDir],
-      cwd: '/vercel/sandbox',
-    })
+export function sourceDirectory(source: { id: string, basePath?: string, outputPath?: string }): string {
+  const root = resolve(SANDBOX_ROOT)
+  const output = source.outputPath || source.id
+  if (output.startsWith('/') || output.split('/').some(part => part === '.' || part === '..')) throw new Error('Invalid source output path')
+  const target = resolve(root, (source.basePath || '/docs').replace(/^\/+/, ''), output)
+  const relative = target.slice(root.length + 1)
+  if (!target.startsWith(`${root}/`) || relative.split('/').includes('.git') || relative === 'docs/sacred-texts' || relative.startsWith('docs/sacred-texts/')) {
+    throw new Error('Source path must be inside the knowledge base and outside reserved directories')
+  }
+  return target
+}
 
-    if (source.readmeOnly) {
-      const fileCount = await syncReadmeOnly(sandbox, source, targetDir)
-      return { sourceId: source.id, label: source.label, success: true, fileCount }
+async function copyTextTree(source: string, target: string): Promise<number> {
+  let count = 0
+  await mkdir(target, { recursive: true })
+  for (const entry of await readdir(source, { withFileTypes: true })) {
+    if (entry.name === '.git' || entry.isSymbolicLink()) continue
+    const from = join(source, entry.name)
+    const to = join(target, entry.name)
+    if (entry.isDirectory()) count += await copyTextTree(from, to)
+    else if (entry.isFile() && TEXT_EXTENSIONS.has(extname(entry.name).toLowerCase())) {
+      await cp(from, to)
+      count++
     }
+  }
+  return count
+}
 
-    const fileCount = await syncFullRepository(sandbox, source, targetDir)
+export async function syncGitHubSource(sandbox: SandboxLike, source: GitHubSource, token?: string): Promise<SyncSourceResult> {
+  let temporary: string | undefined
+  let staged: string | undefined
+  try {
+    const target = sourceDirectory(source)
+    const repoUrl = generateRepoUrl(source.repo)
+    const branch = await sandbox.runCommand({ cmd: 'git', args: ['check-ref-format', '--branch', source.branch], cwd: SANDBOX_ROOT })
+    if (branch.exitCode !== 0) throw new Error('Invalid GitHub source branch')
+    if (source.readmeOnly) {
+      const response = await fetch(`https://api.github.com/repos/${source.repo}/readme?ref=${encodeURIComponent(source.branch)}`, {
+        headers: { Accept: 'application/vnd.github.raw+json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        signal: AbortSignal.timeout(60_000),
+      })
+      if (!response.ok) throw new Error(`README fetch failed (HTTP ${response.status})`)
+      await mkdir(target, { recursive: true })
+      await writeFile(join(target, 'README.md'), await response.text())
+      return { sourceId: source.id, label: source.label, success: true, fileCount: 1 }
+    }
+    temporary = await mkdtemp(join(tmpdir(), 'acuity-source-'))
+    const clone = join(temporary, 'repository')
+    const contentPath = source.contentPath || ''
+    if (contentPath.startsWith('/') || contentPath.split('/').includes('..')) throw new Error('Invalid repository content path')
+    const cloned = await sandbox.runCommand({
+      cmd: 'git',
+      args: ['clone', '--depth', '1', '--single-branch', '--branch', source.branch, ...(contentPath ? ['--filter=blob:none', '--sparse'] : []), '--', repoUrl, clone],
+      env: gitAuthEnv(token), cwd: SANDBOX_ROOT, timeoutMs: 300_000,
+    })
+    if (cloned.exitCode !== 0) throw new Error(`Repository clone failed: ${await cloned.stderr()}`)
+    if (contentPath) {
+      const checkedOut = await sandbox.runCommand({ cmd: 'git', args: ['-C', clone, 'sparse-checkout', 'set', '--', contentPath], env: gitAuthEnv(token), cwd: SANDBOX_ROOT, timeoutMs: 300_000 })
+      if (checkedOut.exitCode !== 0) throw new Error(`Content checkout failed: ${await checkedOut.stderr()}`)
+    }
+    const cloneRoot = await realpath(clone)
+    const content = await realpath(join(clone, contentPath))
+    if (content !== cloneRoot && !content.startsWith(`${cloneRoot}/`)) throw new Error('Content path escapes the repository')
+    await mkdir(dirname(target), { recursive: true })
+    staged = await mkdtemp(join(dirname(target), '.sync-'))
+    const fileCount = await copyTextTree(content, staged)
+    if (!fileCount) throw new Error('Repository content contains no supported text files')
+    await rm(target, { recursive: true, force: true })
+    await rename(staged, target)
+    staged = undefined
     return { sourceId: source.id, label: source.label, success: true, fileCount }
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    return { sourceId: source.id, label: source.label, success: false, fileCount: 0, error: errorMessage }
+    return { sourceId: source.id, label: source.label, success: false, fileCount: 0, error: error instanceof Error ? error.message : String(error) }
+  } finally {
+    if (temporary) await rm(temporary, { recursive: true, force: true })
+    if (staged) await rm(staged, { recursive: true, force: true })
   }
-}
-
-/** Fetches and saves README.md from repository to target directory */
-async function syncReadmeOnly(
-  sandbox: SandboxLike,
-  source: GitHubSource,
-  targetDir: string,
-): Promise<number> {
-  const readmeUrl = `https://raw.githubusercontent.com/${source.repo}/${source.branch}/README.md`
-
-  const result = await sandbox.runCommand({
-    cmd: 'curl',
-    args: ['-sL', '-o', `${targetDir}/README.md`, readmeUrl],
-    cwd: '/vercel/sandbox',
-  })
-
-  if (result.exitCode !== 0) {
-    throw createError({
-      message: `Failed to fetch README from ${source.repo}`,
-      why: await result.stderr(),
-      fix: 'Ensure the repository is public or token has access, and README.md exists',
-    })
-  }
-
-  return 1
-}
-
-/** Clones repository with sparse checkout, copies content path, and filters to keep only docs files */
-async function syncFullRepository(
-  sandbox: SandboxLike,
-  source: GitHubSource,
-  targetDir: string,
-): Promise<number> {
-  const contentPath = source.contentPath || ''
-  const tempDir = `/tmp/sync-${source.id}-${Date.now()}`
-
-  const cloneResult = await sandbox.runCommand({
-    cmd: 'sh',
-    args: [
-      '-c',
-      [
-        `git clone --depth 1 --single-branch --branch ${source.branch}`,
-        `--filter=blob:none --sparse`,
-        `https://github.com/${source.repo}.git ${tempDir}`,
-        `&& cd ${tempDir}`,
-        `&& git sparse-checkout set ${contentPath || '.'}`,
-      ].join(' '),
-    ],
-    cwd: '/vercel/sandbox',
-  })
-
-  if (cloneResult.exitCode !== 0) {
-    const stderr = await cloneResult.stderr()
-    throw createError({
-      message: `Failed to clone repository ${source.repo}`,
-      why: stderr,
-      fix: 'Check that the repository exists, branch is correct, and token has access if private',
-    })
-  }
-
-  const sourcePath = contentPath ? `${tempDir}/${contentPath}` : tempDir
-  await sandbox.runCommand({
-    cmd: 'sh',
-    args: ['-c', `cp -r ${sourcePath}/* ${targetDir}/ 2>/dev/null || cp -r ${sourcePath}/. ${targetDir}/`],
-    cwd: '/vercel/sandbox',
-  })
-
-  await sandbox.runCommand({
-    cmd: 'sh',
-    args: [
-      '-c',
-      `find ${targetDir} -type f ! \\( -name "*.md" -o -name "*.mdx" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" -o -name "*.txt" -o -name "*.html" -o -name "*.htm" -o -name "*.usx" \\) -delete`,
-    ],
-    cwd: '/vercel/sandbox',
-  })
-
-  await sandbox.runCommand({
-    cmd: 'sh',
-    args: ['-c', `find ${targetDir} -type d -empty -delete`],
-    cwd: '/vercel/sandbox',
-  })
-
-  await sandbox.runCommand({
-    cmd: 'rm',
-    args: ['-rf', tempDir],
-    cwd: '/vercel/sandbox',
-  })
-
-  const countResult = await sandbox.runCommand({
-    cmd: 'sh',
-    args: ['-c', `find ${targetDir} -type f -name "*.md" -o -name "*.mdx" | wc -l`],
-    cwd: '/vercel/sandbox',
-  })
-
-  return parseInt((await countResult.stdout()).trim()) || 0
 }
 
 /** Synchronizes a YouTube channel to the sandbox filesystem */
@@ -165,12 +127,8 @@ export async function syncYouTubeSource(
       }
     }
 
-    const targetDir = `${source.basePath}/${source.outputPath}`
-    await sandbox.runCommand({
-      cmd: 'mkdir',
-      args: ['-p', targetDir],
-      cwd: '/vercel/sandbox',
-    })
+    const targetDir = sourceDirectory(source)
+    await mkdir(targetDir, { recursive: true })
 
     const videosIndex: VideoIndex[] = []
     let successCount = 0
@@ -182,12 +140,7 @@ export async function syncYouTubeSource(
         const filename = `${video.id}-${slugify(video.title)}.md`
         const filepath = `${targetDir}/${filename}`
 
-        // Write file using shell command
-        await sandbox.runCommand({
-          cmd: 'sh',
-          args: ['-c', `cat > '${filepath}' << 'EOFMARKER'\n${markdown}\nEOFMARKER`],
-          cwd: '/vercel/sandbox',
-        })
+        await writeFile(filepath, markdown)
 
         videosIndex.push({
           id: video.id,
@@ -210,20 +163,15 @@ export async function syncYouTubeSource(
       handle: source.handle,
       videos: videosIndex,
     }
-    // Write index file
-    const indexContent = JSON.stringify(indexData, null, 2)
-    await sandbox.runCommand({
-      cmd: 'sh',
-      args: ['-c', `cat > '${targetDir}/videos.json' << 'EOFMARKER'\n${indexContent}\nEOFMARKER`],
-      cwd: '/vercel/sandbox',
-    })
+    await writeFile(join(targetDir, 'videos.json'), JSON.stringify(indexData, null, 2))
 
     log.info('sync', `YouTube sync completed: ${successCount}/${videos.length} videos`)
 
     return {
       sourceId: source.id,
       label: source.label,
-      success: true,
+      success: successCount === videos.length,
+      error: successCount === videos.length ? undefined : 'Some video transcripts could not be synchronized',
       fileCount: successCount + 1,
     }
   } catch (error) {
@@ -355,106 +303,19 @@ function slugify(text: string): string {
     .slice(0, 50)
 }
 
-/** Writes pre-loaded file contents to sandbox */
-export async function syncFileSource(
-  sandbox: SandboxLike,
-  source: FileSource,
-): Promise<SyncSourceResult> {
-  const basePath = source.basePath || '/files'
-  const outputPath = source.outputPath || source.id
-  const targetDir = `/vercel/sandbox${basePath}/${outputPath}`
-
+/** Keeps uploaded originals in object storage so a retry never loses source data. */
+export async function syncFileSource(_sandbox: SandboxLike, source: FileSource): Promise<SyncSourceResult> {
   try {
-    log.info('sync', `Starting file sync for "${source.label}"`)
-
-    await sandbox.runCommand({
-      cmd: 'mkdir',
-      args: ['-p', targetDir],
-      cwd: '/vercel/sandbox',
-    })
-
-    if (source.files.length === 0) {
-      log.info('sync', `No files provided for "${source.label}"`)
-      return { sourceId: source.id, label: source.label, success: true, fileCount: 0 }
-    }
-
-    let fileCount = 0
-
+    const target = sourceDirectory(source)
+    await mkdir(target, { recursive: true })
     for (const entry of source.files) {
-      try {
-        const filepath = `${targetDir}/${entry.filename}`
-
-        await sandbox.runCommand({
-          cmd: 'sh',
-          args: ['-c', `cat > '${filepath}' << 'EOFMARKER'\n${entry.content}\nEOFMARKER`],
-          cwd: '/vercel/sandbox',
-        })
-
-        fileCount++
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : String(error)
-        log.warn('sync', `Failed to sync file ${entry.filename}: ${errorMessage}`)
-      }
+      if (basename(entry.filename) !== entry.filename || !TEXT_EXTENSIONS.has(extname(entry.filename).toLowerCase())) throw new Error('Invalid source filename')
+      await writeFile(join(target, entry.filename), entry.content)
     }
-
-    log.info('sync', `File sync completed for "${source.label}": ${fileCount} files`)
-
-    return { sourceId: source.id, label: source.label, success: true, fileCount }
+    return { sourceId: source.id, label: source.label, success: true, fileCount: source.files.length }
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    log.error('sync', `File sync failed for "${source.label}": ${errorMessage}`)
-    return { sourceId: source.id, label: source.label, success: false, fileCount: 0, error: errorMessage }
+    return { sourceId: source.id, label: source.label, success: false, fileCount: 0, error: error instanceof Error ? error.message : String(error) }
   }
-}
-
-/** Removes directories in the sandbox that don't belong to any active source */
-export async function cleanupStaleSources(
-  sandbox: SandboxLike,
-  sources: Source[],
-): Promise<string[]> {
-  const expectedDirs = new Map<string, Set<string>>()
-
-  for (const source of sources) {
-    const basePath = source.basePath || (source.type === 'youtube' ? '/youtube' : source.type === 'file' ? '/files' : '/docs')
-    const outputPath = source.outputPath || source.id
-    if (!expectedDirs.has(basePath)) {
-      expectedDirs.set(basePath, new Set())
-    }
-    expectedDirs.get(basePath)!.add(outputPath)
-  }
-
-  const removed: string[] = []
-  const basePaths = new Set(['/docs', '/files', '/youtube', ...expectedDirs.keys()])
-
-  for (const basePath of basePaths) {
-    const fullBase = `/vercel/sandbox${basePath}`
-    const result = await sandbox.runCommand({
-      cmd: 'sh',
-      args: ['-c', `[ -d '${fullBase}' ] && ls -1 '${fullBase}' || true`],
-      cwd: '/vercel/sandbox',
-    })
-
-    const output = (await result.stdout()).trim()
-    if (!output) continue
-
-    const existingDirs = output.split('\n').filter(Boolean)
-    const expected = expectedDirs.get(basePath) || new Set()
-
-    for (const dir of existingDirs) {
-      if (!expected.has(dir)) {
-        const staleDir = `${fullBase}/${dir}`
-        log.info('sync', `Removing stale source directory: ${staleDir}`)
-        await sandbox.runCommand({
-          cmd: 'rm',
-          args: ['-rf', staleDir],
-          cwd: '/vercel/sandbox',
-        })
-        removed.push(`${basePath}/${dir}`)
-      }
-    }
-  }
-
-  return removed
 }
 
 /** Syncs all sources sequentially, returns array of results */
@@ -469,7 +330,7 @@ export async function syncSources(
     let result: SyncSourceResult
 
     if (source.type === 'github') {
-      result = await syncGitHubSource(sandbox, source)
+      result = await syncGitHubSource(sandbox, source, config?.githubToken)
     } else if (source.type === 'youtube') {
       if (!config?.youtubeApiKey) {
         result = {

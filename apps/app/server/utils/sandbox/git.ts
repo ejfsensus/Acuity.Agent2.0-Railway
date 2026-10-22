@@ -1,6 +1,7 @@
 import { createError } from 'evlog'
-import type { SandboxLike } from './types'
 import type { SyncSourceResult } from '../../workflows/sync-docs/types'
+import type { SandboxLike } from './types'
+import { SANDBOX_ROOT } from './local'
 
 export interface GitConfig {
   email: string
@@ -11,6 +12,7 @@ export interface GitPushOptions {
   branch: string
   repoUrl: string
   commitMessage: string
+  githubToken?: string
 }
 
 export interface GitPushResult {
@@ -19,13 +21,22 @@ export interface GitPushResult {
   hasChanges: boolean
 }
 
-/** Generates GitHub repo URL with token authentication if provided */
-export function generateAuthRepoUrl(repoPath: string, token?: string): string {
-  if (!token) {
-    return `https://github.com/${repoPath}.git`
-  }
+/** Generates a validated GitHub URL without persisting credentials. */
+export function generateRepoUrl(repoPath: string): string {
+  if (!/^[\w.-]+\/[\w.-]+$/.test(repoPath)) throw new Error('Invalid GitHub repository name')
+  return `https://github.com/${repoPath}.git`
+}
 
-  return `https://x-access-token:${token}@github.com/${repoPath}.git`
+/** Credentials are inherited by trusted Git processes, never saved in the clone. */
+export function gitAuthEnv(token?: string): Record<string, string> {
+  if (!token) return {}
+  return {
+    GIT_CONFIG_COUNT: '2',
+    GIT_CONFIG_KEY_0: 'http.https://github.com/.extraheader',
+    GIT_CONFIG_VALUE_0: `Authorization: Basic ${Buffer.from(`x-access-token:${token}`).toString('base64')}`,
+    GIT_CONFIG_KEY_1: 'credential.helper',
+    GIT_CONFIG_VALUE_1: '',
+  }
 }
 
 /** Sets git user email and name in sandbox */
@@ -33,13 +44,13 @@ export async function configureGit(sandbox: SandboxLike, config: GitConfig): Pro
   await sandbox.runCommand({
     cmd: 'git',
     args: ['config', 'user.email', config.email],
-    cwd: '/vercel/sandbox',
+    cwd: SANDBOX_ROOT,
   })
 
   await sandbox.runCommand({
     cmd: 'git',
     args: ['config', 'user.name', config.name],
-    cwd: '/vercel/sandbox',
+    cwd: SANDBOX_ROOT,
   })
 }
 
@@ -48,7 +59,7 @@ export async function checkoutBranch(sandbox: SandboxLike, branch: string): Prom
   const result = await sandbox.runCommand({
     cmd: 'git',
     args: ['checkout', '-B', branch],
-    cwd: '/vercel/sandbox',
+    cwd: SANDBOX_ROOT,
   })
 
   if (result.exitCode !== 0) {
@@ -65,7 +76,7 @@ export async function hasChanges(sandbox: SandboxLike): Promise<boolean> {
   const result = await sandbox.runCommand({
     cmd: 'git',
     args: ['status', '--porcelain'],
-    cwd: '/vercel/sandbox',
+    cwd: SANDBOX_ROOT,
   })
 
   return (await result.stdout()).trim().length > 0
@@ -76,7 +87,7 @@ export async function addFiles(sandbox: SandboxLike, path: string): Promise<void
   await sandbox.runCommand({
     cmd: 'git',
     args: ['add', path],
-    cwd: '/vercel/sandbox',
+    cwd: SANDBOX_ROOT,
   })
 }
 
@@ -85,7 +96,7 @@ export async function commit(sandbox: SandboxLike, message: string): Promise<voi
   const result = await sandbox.runCommand({
     cmd: 'git',
     args: ['commit', '-m', message],
-    cwd: '/vercel/sandbox',
+    cwd: SANDBOX_ROOT,
   })
 
   if (result.exitCode !== 0) {
@@ -98,11 +109,12 @@ export async function commit(sandbox: SandboxLike, message: string): Promise<voi
 }
 
 /** Pushes branch to remote repository with upstream tracking */
-export async function push(sandbox: SandboxLike, repoUrl: string, branch: string): Promise<void> {
+export async function push(sandbox: SandboxLike, repoUrl: string, branch: string, token?: string): Promise<void> {
   const result = await sandbox.runCommand({
     cmd: 'git',
     args: ['push', '--set-upstream', repoUrl, branch],
-    cwd: '/vercel/sandbox',
+    env: gitAuthEnv(token),
+    cwd: SANDBOX_ROOT,
   })
 
   if (result.exitCode !== 0) {
@@ -134,7 +146,7 @@ export function generateCommitMessage(results: SyncSourceResult[]): string {
 export async function pushChanges(
   sandbox: SandboxLike,
   options: GitPushOptions,
-  gitConfig: GitConfig = { email: 'bot@vercel.com', name: 'Knowledge Agent Bot' },
+  gitConfig: GitConfig = { email: 'bot@acuity.institute', name: 'Acuity Knowledge Agent' },
 ): Promise<GitPushResult> {
   try {
     await configureGit(sandbox, gitConfig)
@@ -142,12 +154,13 @@ export async function pushChanges(
 
     const changesExist = await hasChanges(sandbox)
     if (!changesExist) {
+      await push(sandbox, options.repoUrl, options.branch, options.githubToken)
       return { success: true, hasChanges: false }
     }
 
     await addFiles(sandbox, '.')
     await commit(sandbox, options.commitMessage)
-    await push(sandbox, options.repoUrl, options.branch)
+    await push(sandbox, options.repoUrl, options.branch, options.githubToken)
 
     return { success: true, hasChanges: true }
   } catch (error) {

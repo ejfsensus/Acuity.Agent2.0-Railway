@@ -37,6 +37,9 @@
   },
   "packageManager": "bun@1.2.22",
   "overrides": {
+    "better-auth": "1.5.1",
+    "@better-auth/core": "1.5.1",
+    "@better-auth/telemetry": "1.5.1",
     "minimatch": "^10.0.1"
   }
 }

@@ -1,8 +1,8 @@
 import { log } from 'evlog'
+import type { SyncConfig } from '../../workflows/sync-docs/types'
 import type { SandboxLike } from './types'
 import { LocalSandbox, ensureSandboxRoot } from './local'
 import { prepareKnowledgeBase } from './knowledge-base'
-import type { SyncConfig } from '../../workflows/sync-docs/types'
 
 /** Shared local sandbox — one clone of the knowledge base serves every caller. */
 const localSandbox = new LocalSandbox('local-knowledge-base')

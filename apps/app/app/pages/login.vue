@@ -123,13 +123,13 @@ function onGitHub() {
           </UFormField>
 
           <UButton
-          type="submit"
-          label="Sign in"
-          block
-          size="lg"
-          :loading
-          class="shadow-[0_0_28px_rgba(250,219,95,.16)]"
-        />
+            type="submit"
+            label="Sign in"
+            block
+            size="lg"
+            :loading
+            class="shadow-[0_0_28px_rgba(250,219,95,.16)]"
+          />
         </UForm>
 
         <UAlert

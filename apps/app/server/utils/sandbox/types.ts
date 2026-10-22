@@ -3,6 +3,7 @@ export interface CommandRunOptions {
   args?: string[]
   cwd?: string
   timeoutMs?: number
+  env?: Record<string, string>
 }
 
 /**

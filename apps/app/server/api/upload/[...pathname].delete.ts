@@ -1,10 +1,10 @@
-import { blob } from '../../utils/blob'
 import { z } from 'zod'
+import { blob } from '../../utils/blob'
 
 export default defineEventHandler(async (event) => {
   const requestLog = useLogger(event)
   const { user } = await requireAuthorizedUser(event)
-  const { username } = user
+  const username = user.username ?? user.id
 
   const { pathname } = await getValidatedRouterParams(event, z.object({
     pathname: z.string().min(1)

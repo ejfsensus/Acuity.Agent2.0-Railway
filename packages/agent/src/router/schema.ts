@@ -41,12 +41,12 @@ export function getConfiguredModels(): string[] {
   const fallbackModels = gateway ? GATEWAY_MODELS : [COMPATIBLE_DEFAULT_MODEL]
   const maybeAllowed = (model?: string) => !gateway || !model || ALLOWED_GATEWAY_MODELS.has(model)
 
-  return Array.from(new Set([
+  const models = Array.from(new Set([
     ...configured.filter(maybeAllowed),
     defaultModel,
     routerModel,
-    ...fallbackModels,
   ].filter(maybeAllowed).filter(Boolean) as string[]))
+  return models.length ? models : fallbackModels
 }
 
 const RAW_DEFAULT_MODEL = readEnv('AI_DEFAULT_MODEL', 'OPENAI_COMPATIBLE_DEFAULT_MODEL', 'NUXT_PUBLIC_AI_DEFAULT_MODEL')

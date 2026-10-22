@@ -3,7 +3,11 @@
 # ---------------------------------------------------------------------------
 # Builder — Bun monorepo build (packages/* then apps/app)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.3.14 AS builder
+FROM oven/bun:1.3.14 AS bun
+
+FROM node:20-bookworm-slim AS builder
+COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
+RUN ln -s /usr/local/bin/bun /usr/local/bin/bunx
 WORKDIR /app
 
 # Placeholders so the build does not require runtime secrets.
@@ -27,10 +31,8 @@ ENV HUSKY=0 \
 # "Could not find turbo.json or turbo.jsonc".
 COPY . .
 
-RUN bun install --frozen-lockfile \
- && bun run prepare \
- && cd apps/app \
- && bun run build
+RUN bun install --frozen-lockfile
+RUN cd apps/app && bun run build
 
 # ---------------------------------------------------------------------------
 # Runtime — long-lived Node service
