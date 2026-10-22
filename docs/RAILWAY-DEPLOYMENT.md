@@ -24,7 +24,9 @@ Startup applies the SQL migration journal, initializes the knowledge library, re
 
 ## Knowledge library and Git revisions
 
-The image contains `Texts/sacred_texts_archive`. Startup copies it to `docs/sacred-texts` on the volume, using `LIBRARY_STAMP` to skip unchanged copies. It is available even before a remote repository is configured. Its snapshot identifier begins with `local-`.
+The Docker library stage downloads `Texts/sacred_texts_archive` from this repository at the pinned `LIBRARY_REVISION` commit. The large archive is excluded from CLI uploads and Docker context; Railway downloads it during the build. Update that Docker build argument when publishing a new bundled library revision. The repository must remain readable by Railway's builder.
+
+Startup copies the library to `docs/sacred-texts` on the volume, using `LIBRARY_STAMP` to skip unchanged copies. It is available even before a remote repository is configured. Its snapshot identifier begins with `local-`.
 
 In Admin → Sandbox, select an existing GitHub repository and branch. Public repositories support unauthenticated pulls. Private repositories need a GitHub App installed on that repository or `NUXT_GITHUB_TOKEN`. Saving the configuration starts a pull; **Sync now** explicitly fetches the latest revision. The snapshot ID is the actual checked-out commit SHA, not a Vercel snapshot image ID.
 
@@ -56,7 +58,7 @@ Attachments are stored in the private bucket and served through signed capabilit
 
 ## Deploy and verify
 
-Run from the repository root. The bundled library makes CLI uploads large; use a longer request timeout:
+Run from the repository root. The `.railwayignore` file keeps the bundled archive out of the code upload:
 
 ```bash
 RAILWAY_HTTP_TIMEOUT=600 railway up \

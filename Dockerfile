@@ -1,5 +1,15 @@
 # syntax=docker/dockerfile:1
 
+# Download the full records library on Railway rather than uploading it with
+# every CLI deployment. Pin the commit so builds use a reproducible library.
+FROM node:20-bookworm-slim AS library
+ARG LIBRARY_REVISION=57630aed3acc90a90cf0d71d4e8ce47396b058f4
+ADD https://codeload.github.com/ejfsensus/Acuity.Agent2.0-Railway/tar.gz/${LIBRARY_REVISION} /tmp/library.tar.gz
+RUN mkdir -p /library \
+ && tar -xzf /tmp/library.tar.gz -C /library --strip-components=2 --wildcards '*/Texts/sacred_texts_archive/*' \
+ && test -s /library/sacred_texts_archive/LIBRARY_STAMP \
+ && rm /tmp/library.tar.gz
+
 # ---------------------------------------------------------------------------
 # Builder — Bun monorepo build (packages/* then apps/app)
 # ---------------------------------------------------------------------------
@@ -74,7 +84,7 @@ RUN apt-get update \
 
 COPY --from=builder /app/apps/app/.output ./.output
 COPY --from=builder /app/apps/app/server/db/migrations/postgresql ./migrations/postgresql
-COPY --from=builder /app/Texts/sacred_texts_archive /app/library/sacred-texts
+COPY --from=library /library/sacred_texts_archive /app/library/sacred-texts
 
 # Knowledge base clone lives on a mounted Railway volume so restarts do not
 # re-clone. Created here so the app works before a volume is attached.
