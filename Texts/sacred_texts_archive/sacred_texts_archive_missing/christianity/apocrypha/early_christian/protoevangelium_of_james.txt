@@ -1,0 +1,597 @@
+Infancy Gospel of James
+
+Home
+
+>
+
+Apocrypha
+
+>
+
+Infancy Gospel of James
+
+Infancy Gospel of James
+
+At a Glance
+
+Gospel
+
+Genre
+
+:
+
+(2/5) **
+
+Reliability of Dating
+
+:
+
+(3/5) ***
+
+Length of Text
+
+:
+
+Greek
+
+Original Language:
+
+Ancient Translations:
+
+Modern Translations:
+
+English
+
+Estimated Range of Dating: 140-170
+
+A.D.
+
+Chronological List of Early Christian Writings
+
+Discuss this text on the
+
+Early Writings forum
+
+.
+
+Text
+
+Roberts-Donaldson English Translation
+
+English Translation from M. R. James
+
+English Translation from Shelly Matthews
+
+English Translation from Andrew Bernhard
+
+Offsite Links
+
+Greek Text
+
+Geoff Trowbridge's Introduction
+
+The Protevangelion of James
+
+Andrew Bernhard's Information
+
+Books
+
+Robert J. Miller, ed.,
+
+The Complete Gospels: Annotated Scholars Version
+
+(Sonoma, CA: Polebridge Press 1992), pp. 373-389.
+
+Ron Cameron, ed.,
+
+The Other Gospels: Non-Canonical Gospel Texts
+
+(Philadelphia, PA: The Westminster Press 1982), pp. 107-121.
+
+Ronald F. Hock,
+
+The Infancy Gospels of James and Thomas : With Introduction, Notes, and Original Text Featuring the New Scholars Version Translation
+
+(Polebridge Press 1996)
+
+Recommended Books for the Study of Early Christian Writings
+
+Information on the Infancy Gospel of James
+
+The Infancy Narrative of James is also known as the Protevangelium of James.  In
+
+The Other Gospels
+
+, Ron Cameron says that the name
+
+Protevangelium
+
+"implies that most of the events recorded in this 'initial gospel' of James occur prior to those recorded in the gospels of the New Testament."  The gospel received this name when it was first published in the sixteenth century.
+
+There are about one hundred and thirty Greek manuscripts containing the Infancy Gospel of James, but the vast majority of these come from the tenth century or later.  The earliest known manuscript of the text was found in 1958; it is now kept in Geneva's Bodmer Library.  The manuscript dates to the third century; however, according to Cameron, "many of its readings seem to be secondary."
+
+Cameron identifies three different sources for the Infancy Gospel of James: extracanonical traditions, the Old Testament, and the Gospels of Matthew and Luke.  The mythical element of birth in a cave, for example, is an extracanonical also known to Justin Martyr.  Cameron states of the author's use of Jewish scriptures: "Not only are individual words, phrases, and even whole paragraphs reminiscent of the Septuagint; such discrete forms as the hymn and the lament of Anna also display conscious, direct 'remembrance' of the stories recorded in the scriptures."  Concerning the use of the canonical gospels, Cameron observes, "Frequently the respective passages in Matthew and Luke are harmonized into a single story in the
+
+Protevangelium of James
+
+; in some instances the two texts are conflated.  It is by combining composite traditions with a harmony of the synoptic infancy stories that the
+
+Protevangelium of James
+
+has constructed the dramatic scenes of its gospel."
+
+F. F. Bruce writes of the Infancy Gospel of James (
+
+Jesus and Christian Origins Outside the New Testament
+
+, pp. 86-87):
+
+There is, for example, the
+
+Protevangel of James
+
+, which begins with an account of the birth of Mary to Joachim and Anna in their old age, when they had given up all hope of having children.  Like the infant Samuel in the Old Testament, Mary was dedicated by her grateful mother to the service of god in the temple, and there she was placed in [the] charge of the priest Zechariah.  When she was twelve years old she was betrothed by her guardians to Joseph.  The story of the angelic annunciation and virginal conception follows the nativity narratives of Luke and Matthew, with various embellishments: Mary's chastity is vindicated, for example, by the 'ordeal of jealousy' prescribed in Numbers 5.11-28.  In a cave near Bethlehem Mary gives birth to Jesus, Salome acting as midwife.  When Herod fails to find the infant, after the visit of the wise men from the east, he tries to lay hands on the child John (later the Baptist), but when he too is not to be found (having been hidden with his mother Elizabeth in a hollow mountain) Herod has his father Zechariah put to death in the temple court.
+
+In
+
+The Complete Gospels
+
+, Ronald Hock divides the Infancy Gospel of James into three parts.  In the first eight chapters, there is the story of Mary's own unique birth and childhood, wherein it is related that Anna, Mary's mother, becomes pregnant only after supplication to God.  In the second eight chapters, the story starts "with the crisis posed by Mary's becoming a woman and thus her imminent pollution of the temple.  The priests resolve the crisis by turning her over to a divinely chosen widower, the carpenter Joseph, who agrees to be her guardian, but refeuses to marry her."  When Mary becomes pregnant, a priest suspects Joseph and Mary of wrong-doing and put the two to a test, which they pass.  In the last eight chapters, we hear of the birth of Jesus with the visit of midwifes, the hiding of Jesus from Herod in a feeding trough, and even the hiding of John from Herod in the hills with his mother Elizabeth.  These legends are embellishments upon the stories given in Matthew and Luke.
+
+The author claims to be James, the stepbrother of Jesus.  The author cannot have actually been James because the author seems to be dependent upon Matthew and Luke.  Only Matthew tells us about the massacre of the infants arranged by Herod, while only Luke tells us about the birth of John to Elizabeth.  Concerning the question of how John escaped Herod's wrath, Hock argues that the author "answered this question by having Zechariah choose death rather than tell of John's whereabouts and by having Elizabeth flee to the hills with John."  Since James' death at the hands of Ananias occured in 62 CE and since the Gospels of Matthew and Luke were composed later, the Infancy Gospel of James must be pseudonymous.
+
+According to Hock, a major development found in the Protevangelium of James is this: "Mary, the central character, is no longer a virgin in the ordinary sense of a young woman of marriageable age, but a virgin of extraordinary purity and unending duration."  Hock goes on to argue: "Indeed, Mary's purity is so emphasized that it becomes thematic and thus answers the fundamental question which guides the narrative: why Mary, of all the virgins in Israel, was chosen to be the mother of the son of God.  The answer: no one could have been any purer.  Thus Anna transforms Mary's bedroom into a sanctuary where she receives no impure food and is amused by the undefiled daughters of the Hebrews (6:5).  When she turns three years of age, these young women escort her to the temple in Jerusalem where she spends the next nine years in absolute purity and is even fed by the hand on an angel (7:4-8:2).  When, at age twelve, she is made the ward of Joseph, she spends her time spinning thread for the temple with the other virgins from Israel (10:1-12:1).  When she is later suspected of impurity, she passes a test and has her innocence proclaimed by the high priest (15:1-16:7).  Finally, when she gives birth to Jesus, two midwives certify that she remains a virgin (19:18-20:11).  In short, it is through her purity that Mary fulfills the blessing which the priests made when she was only one year old: that she might be blessed with a blessing that could not be surpassed (6:9)."
+
+Cameron also sees another theme in this infancy gospel: "In using and expanding the infancy narratives, the
+
+Protevangelium of James
+
+has carried forward the aretalogical tradition of the gospels, including in the traditional enumeration of heroic feats the birth of the holy family.  The bucolic scenes in the narrative of Jesus' birth recall other stories of the birth of 'divine men' in antiquity, and are part of that tradition of Christian propaganda which sought to demonstrate the superiority of Jesus among heroes and gods."
+
+The
+
+terminus a quo
+
+is set by the use of Matthew and Luke.  The
+
+terminus ad quem
+
+is set by a reference from Origen and by the Bodmer papyrus.  Within this range, a dating in the middle of the second century is most likely.  This dating is suggested by the prevalence of harmonies of Matthew and Luke at this time, as shown from Justin Martyr.  The Infancy Gospel of James itself may have been dependent on a harmony of Matthew and Luke, but in any case it stands in the harmonizing spirit of the era before the four canonical gospels were considered to be sacred scripture.
+
+Some Contemporary Texts
+
+Epistula Apostolorum
+
+(140-150 A.D.)
+
+Ptolemy
+
+(140-160 A.D.)
+
+Isidore
+
+(140-160 A.D.)
+
+Fronto
+
+(140-170 A.D.)
+
+Infancy Gospel of James
+
+(140-170 A.D.)
+
+Infancy Gospel of Thomas
+
+(140-170 A.D.)
+
+Gospel of Truth
+
+(140-180 A.D.)
+
+Martyrdom of Polycarp
+
+(150-160 A.D.)
+
+Justin Martyr
+
+(150-160 A.D.)
+
+Go to the
+
+Chronological List
+
+of all Early Christian Writings
+
+Please
+
+buy the CD
+
+to support the site, view it without ads, and get bonus stuff!
+
+Early Christian Writings
+
+is copyright ©
+
+Peter Kirby
+
+<
+
+E-Mail
+
+>
+
+.
+
+Follow @mrpeterkirby
+
+MLA
+
+Style
+
+Kirby, Peter. "Infancy Gospel of James."
+
+Early Christian Writings
+
+.
+
+<http://www.earlychristianwritings.com/infancyjames.html>.
+
+Gospels
+
+Matthew
+
+Mark
+
+Luke
+
+John
+
+Acts
+
+Letters of Paul
+
+Romans
+
+1 Corinthians
+
+2 Corinthians
+
+Galatians
+
+Ephesians
+
+Philippians
+
+Colossians
+
+1 Thessalonians
+
+2 Thessalonians
+
+1 Timothy
+
+2  Timothy
+
+Titus
+
+Philemon
+
+Letter to the Hebrews
+
+General Letters
+
+James
+
+1 Peter
+
+2 Peter
+
+1 John
+
+2 John
+
+3 John
+
+Jude
+
+Revelation
+
+Gospels
+
+Gospel of Thomas
+
+Egerton Gospel
+
+Gospel of Peter
+
+Oxyrhynchus 840
+
+Gospel of Mary
+
+Epistula Apostolorum
+
+Infancy Gospel of James
+
+Infancy Gospel of Thomas
+
+Acts of Pilate
+
+Diatessaron
+
+Gospel Fragments
+
+Oxyrhynchus 1224
+
+Fayyum Fragment
+
+Gospel of the Egyptians
+
+Gospel of the Hebrews
+
+Gospel of the Ebionites
+
+Gospel of the Nazoreans
+
+Traditions of Matthias
+
+Dura-Europos Gospel Harmony
+
+Apostolic Acts
+
+Preaching of Peter
+
+Acts of Peter
+
+Acts of John
+
+Acts of Paul
+
+Acts of Andrew
+
+Acts of Peter and the Twelve
+
+Book of Thomas the Contender
+
+Acts of Thomas
+
+Martyrologies
+
+Martyrdom of Polycarp
+
+Fifth and Sixth Books of Esra
+
+Acts of Carpus, Papylus, and Agathonice
+
+Letter from Vienna and Lyons
+
+Passion of the Scillitan Martyrs
+
+Acts of Apollonius
+
+Acts of Perpetua and Felicitas
+
+Didache
+
+Apocalypse of Peter
+
+Didascalia
+
+Dialogues with Jesus
+
+Sophia of Jesus Christ
+
+Secret James
+
+Gospel of Mary
+
+Dialogue of the Savior
+
+Gospel of the Savior
+
+Books of Jeu
+
+Pistis Sophia
+
+Apocalypses
+
+2nd Apocalypse of James
+
+Coptic Apocalypse of Paul
+
+1st Apocalypse of James
+
+Coptic Apocalypse of Peter
+
+Acts
+
+Acts of Peter and the Twelve
+
+Book of Thomas the Contender
+
+Letter of Peter to Philip
+
+More Nag Hammadi
+
+Apocryphon of John
+
+Gospel of Truth
+
+Treatise on the Resurrection
+
+Gospel of Philip
+
+Trimorphic Protennoia
+
+Authoritative Teaching
+
+Discourse on the Eighth and the Ninth
+
+Melchizedek
+
+Quoted Authors
+
+Basilides
+
+Naassene Fragments
+
+Valentinus
+
+Marcion
+
+Epiphanes
+
+Ophite Diagrams
+
+Gospel of Judas
+
+More Quoted Authors
+
+Ptolemy
+
+Isidore
+
+Theodotus
+
+Heracleon
+
+Apelles
+
+Julius Cassianus
+
+Apostolic Fathers
+
+Didache
+
+Epistle of Barnabas
+
+First Clement
+
+Shepherd of Hermas
+
+Ignatius of Antioch
+
+Polycarp to the Philippians
+
+Second Clement
+
+Epistle of Mathetes to Diognetus
+
+Martyrdom of Polycarp
+
+Apologists
+
+Aristides
+
+Justin Martyr
+
+Tatian
+
+Minucius Felix
+
+Athenagoras of Athens
+
+Theophilus of Antioch
+
+Quoted Authors
+
+Papias
+
+Quadratus
+
+Aristo of Pella
+
+Claudius Apollinaris
+
+Melito of Sardis
+
+Hegesippus
+
+Dionysius of Corinth
+
+Rhodon
+
+Theophilus of Caesarea
+
+More Quoted Authors
+
+Bardesanes
+
+Maximus of Jerusalem
+
+Polycrates of Ephesus
+
+Victor I
+
+Pantaenus
+
+Anonymous Anti-Montanist
+
+Serapion of Antioch
+
+Apollonius
+
+Caius
+
+Irenaeus of Lyons
+
+Hippolytus of Rome
+
+Clement of Alexandria
+
+Tertullian
+
+Origen
+
+Pagan and Jewish
+
+Mara bar Serapion
+
+Josephus
+
+Pliny the Younger
+
+Suetonius
+
+Tacitus
+
+Fronto
+
+Lucian of Samosata
+
+Marcus Aurelius
+
+Galen
+
+Celsus
+
+Talmud
+
+Philostratus
+
+Jewish/Christian
+
+The Twelve Patriarchs
+
+Non-Pagan Sibyllines
+
+Odes of Solomon
+
+Book of Elchasai
+
+Ascension of Isaiah
+
+Hypothesized Sources
+
+Passion Narrative
+
+Sayings Gospel Q
+
+Signs Gospel
+
+Anti-Marcionite Prologues
+
+Muratorian Canon
+
+Kerygmata Petrou
+
+Inscription of Abercias

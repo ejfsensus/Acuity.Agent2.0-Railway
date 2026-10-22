@@ -32,3 +32,6 @@ node_modules
 apps/app/.data
 .vercel
 .env*.local
+
+# Incomplete download. The extracted library is Texts/sacred_texts_archive.
+Texts/Sacred_Texts_Complete_Archive.zip

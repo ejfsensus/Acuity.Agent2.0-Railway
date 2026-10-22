@@ -1,0 +1,679 @@
+{
+  "source": "OpenBible GitHub",
+  "url": "https://github.com/openbibleinfo/",
+  "repos_cloned": [
+    {
+      "name": "Bible-Passage-Reference-Parser",
+      "description": "Typescript to identify and understand Bible references like John 3:16",
+      "clone_url": "https://github.com/openbibleinfo/Bible-Passage-Reference-Parser.git"
+    },
+    {
+      "name": "American-Standard-Version-Bible",
+      "description": "Full text, footnotes, and formatting of the ASV Bible (1901)",
+      "clone_url": "https://github.com/openbibleinfo/American-Standard-Version-Bible.git"
+    },
+    {
+      "name": "Bible-Geocoding-Data",
+      "description": "Geographic data for every place mentioned in the Protestant Bible",
+      "clone_url": "https://github.com/openbibleinfo/Bible-Geocoding-Data.git"
+    },
+    {
+      "name": "Bible-Passage-Reference-Parser-Languages",
+      "description": "Bible book name data for understanding Bible references in over 2,000 languages",
+      "clone_url": "https://github.com/openbibleinfo/Bible-Passage-Reference-Parser-Languages.git"
+    },
+    {
+      "name": "Bible-Query-Parser",
+      "description": "Recommend whether to treat search queries as Bible references",
+      "clone_url": "https://github.com/openbibleinfo/Bible-Query-Parser.git"
+    },
+    {
+      "name": "Bible-Reference-Formatter",
+      "description": "Javascript to convert Bible references from OSIS to human-readable formats and Paratext",
+      "clone_url": "https://github.com/openbibleinfo/Bible-Reference-Formatter.git"
+    }
+  ],
+  "files_downloaded": 18065,
+  "total_size_mb": 332.15,
+  "download_dir": "/mnt/agents/output/sacred_texts_archive/source2_openbible/",
+  "repo_summaries": [
+    {
+      "repo": "American-Standard-Version-Bible",
+      "file_count": 92,
+      "size_mb": 8.14
+    },
+    {
+      "repo": "Bible-Geocoding-Data",
+      "file_count": 6661,
+      "size_mb": 154.65
+    },
+    {
+      "repo": "Bible-Passage-Reference-Parser",
+      "file_count": 461,
+      "size_mb": 57.82
+    },
+    {
+      "repo": "Bible-Passage-Reference-Parser-Languages",
+      "file_count": 10804,
+      "size_mb": 110.95
+    },
+    {
+      "repo": "Bible-Query-Parser",
+      "file_count": 4,
+      "size_mb": 0.02
+    },
+    {
+      "repo": "Bible-Reference-Formatter",
+      "file_count": 43,
+      "size_mb": 0.57
+    }
+  ],
+  "files": [
+    {
+      "filename": "pack-f1a4040028efd70d1cd4d4242836cc3be74a9f43.pack",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/.git/objects/pack/pack-f1a4040028efd70d1cd4d4242836cc3be74a9f43.pack",
+      "size_mb": 32.347825
+    },
+    {
+      "filename": "ancient.jsonl",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/data/ancient.jsonl",
+      "size_mb": 11.015122
+    },
+    {
+      "filename": "full.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/full.spec.js",
+      "size_mb": 7.282748
+    },
+    {
+      "filename": "a1d9047.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a1d9047.geojson",
+      "size_mb": 4.810407
+    },
+    {
+      "filename": "ac5e5c4.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/ac5e5c4.geojson",
+      "size_mb": 4.810293
+    },
+    {
+      "filename": "ad7e819.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/ad7e819.geojson",
+      "size_mb": 4.808775
+    },
+    {
+      "filename": "m9ed9ce.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/m9ed9ce.geojson",
+      "size_mb": 4.802503
+    },
+    {
+      "filename": "a59f6f5.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a59f6f5.geojson",
+      "size_mb": 4.80233
+    },
+    {
+      "filename": "g9ace11.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g9ace11.geometry.geojson",
+      "size_mb": 4.79915
+    },
+    {
+      "filename": "all.kml",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/all.kml",
+      "size_mb": 4.051906
+    },
+    {
+      "filename": "a19b076.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a19b076.geojson",
+      "size_mb": 3.625579
+    },
+    {
+      "filename": "modern.jsonl",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/data/modern.jsonl",
+      "size_mb": 3.075142
+    },
+    {
+      "filename": "m777895.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/m777895.geojson",
+      "size_mb": 2.84508
+    },
+    {
+      "filename": "gcacacb.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/gcacacb.geometry.geojson",
+      "size_mb": 2.840674
+    },
+    {
+      "filename": "ascii.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/ascii.spec.js",
+      "size_mb": 2.31439
+    },
+    {
+      "filename": "a5f43dd.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a5f43dd.geojson",
+      "size_mb": 1.864393
+    },
+    {
+      "filename": "af79c1d.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/af79c1d.geojson",
+      "size_mb": 1.864393
+    },
+    {
+      "filename": "a104820.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a104820.geojson",
+      "size_mb": 1.69689
+    },
+    {
+      "filename": "af55829.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/af55829.geojson",
+      "size_mb": 1.69689
+    },
+    {
+      "filename": "a71d65f.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a71d65f.geojson",
+      "size_mb": 1.691072
+    },
+    {
+      "filename": "pack-b86952a8c21f678894a1c9bcbfb64f791106717f.pack",
+      "repo": "American-Standard-Version-Bible",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/American-Standard-Version-Bible/.git/objects/pack/pack-b86952a8c21f678894a1c9bcbfb64f791106717f.pack",
+      "size_mb": 1.630052
+    },
+    {
+      "filename": "a329990.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a329990.geojson",
+      "size_mb": 1.594002
+    },
+    {
+      "filename": "image.jsonl",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/data/image.jsonl",
+      "size_mb": 1.401056
+    },
+    {
+      "filename": "fa.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/fa.spec.js",
+      "size_mb": 1.307101
+    },
+    {
+      "filename": "tr.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/tr.spec.js",
+      "size_mb": 1.250374
+    },
+    {
+      "filename": "m9f8a0e.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/m9f8a0e.geojson",
+      "size_mb": 1.221053
+    },
+    {
+      "filename": "g10a45a.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g10a45a.geometry.geojson",
+      "size_mb": 1.206976
+    },
+    {
+      "filename": "ma87346.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/ma87346.geojson",
+      "size_mb": 1.13283
+    },
+    {
+      "filename": "g05e9e8.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g05e9e8.geometry.geojson",
+      "size_mb": 1.116762
+    },
+    {
+      "filename": "book_names.txt",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/src/full/book_names.txt",
+      "size_mb": 1.003552
+    },
+    {
+      "filename": "a702ab6.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a702ab6.geojson",
+      "size_mb": 0.9957
+    },
+    {
+      "filename": "a3ba698.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a3ba698.geojson",
+      "size_mb": 0.995697
+    },
+    {
+      "filename": "a3d18b2.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a3d18b2.geojson",
+      "size_mb": 0.995697
+    },
+    {
+      "filename": "mf93341.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/mf93341.geojson",
+      "size_mb": 0.944131
+    },
+    {
+      "filename": "a26aa94.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a26aa94.geojson",
+      "size_mb": 0.943931
+    },
+    {
+      "filename": "m2aae23.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/m2aae23.geojson",
+      "size_mb": 0.934686
+    },
+    {
+      "filename": "g353f30.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g353f30.geometry.geojson",
+      "size_mb": 0.932362
+    },
+    {
+      "filename": "gab6de1.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/gab6de1.geometry.geojson",
+      "size_mb": 0.930681
+    },
+    {
+      "filename": "data.txt",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/src/full/data.txt",
+      "size_mb": 0.784767
+    },
+    {
+      "filename": "en.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/en.spec.js",
+      "size_mb": 0.7551
+    },
+    {
+      "filename": "m46fd78.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/m46fd78.geojson",
+      "size_mb": 0.728261
+    },
+    {
+      "filename": "g1ed0bd.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g1ed0bd.geometry.geojson",
+      "size_mb": 0.724581
+    },
+    {
+      "filename": "full_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/full_bcv_parser.js",
+      "size_mb": 0.716825
+    },
+    {
+      "filename": "full_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/js/full_bcv_parser.js",
+      "size_mb": 0.709923
+    },
+    {
+      "filename": "a71d79b.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a71d79b.geojson",
+      "size_mb": 0.600757
+    },
+    {
+      "filename": "index",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/.git/index",
+      "size_mb": 0.563725
+    },
+    {
+      "filename": "fas.spec.js",
+      "repo": "Bible-Passage-Reference-Parser-Languages",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser-Languages/test/fas.spec.js",
+      "size_mb": 0.550463
+    },
+    {
+      "filename": "eng.spec.js",
+      "repo": "Bible-Passage-Reference-Parser-Languages",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser-Languages/test/eng.spec.js",
+      "size_mb": 0.547139
+    },
+    {
+      "filename": "19-PSA.usx",
+      "repo": "American-Standard-Version-Bible",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/American-Standard-Version-Bible/usx/19-PSA.usx",
+      "size_mb": 0.53087
+    },
+    {
+      "filename": "mec75f5.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/mec75f5.geojson",
+      "size_mb": 0.503851
+    },
+    {
+      "filename": "g220ecf.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g220ecf.geometry.geojson",
+      "size_mb": 0.49936
+    },
+    {
+      "filename": "ascii_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ascii_bcv_parser.js",
+      "size_mb": 0.478503
+    },
+    {
+      "filename": "me751fb.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/me751fb.geojson",
+      "size_mb": 0.472425
+    },
+    {
+      "filename": "aeb46a8.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/aeb46a8.geojson",
+      "size_mb": 0.472261
+    },
+    {
+      "filename": "a2e7601.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a2e7601.geojson",
+      "size_mb": 0.472261
+    },
+    {
+      "filename": "ascii_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/js/ascii_bcv_parser.js",
+      "size_mb": 0.470987
+    },
+    {
+      "filename": "g017f10.geometry.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/g017f10.geometry.geojson",
+      "size_mb": 0.468077
+    },
+    {
+      "filename": "uk.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/uk.spec.js",
+      "size_mb": 0.454477
+    },
+    {
+      "filename": "full.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/esm/lang/full.js",
+      "size_mb": 0.4397
+    },
+    {
+      "filename": "pl.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/pl.spec.js",
+      "size_mb": 0.428551
+    },
+    {
+      "filename": "a3bb384.geojson",
+      "repo": "Bible-Geocoding-Data",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Geocoding-Data/geometry/a3bb384.geojson",
+      "size_mb": 0.408587
+    },
+    {
+      "filename": "san.spec.js",
+      "repo": "Bible-Passage-Reference-Parser-Languages",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser-Languages/test/san.spec.js",
+      "size_mb": 0.399544
+    },
+    {
+      "filename": "fa_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/fa_bcv_parser.js",
+      "size_mb": 0.374518
+    },
+    {
+      "filename": "book_names.txt",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/src/ascii/book_names.txt",
+      "size_mb": 0.351806
+    },
+    {
+      "filename": "en_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/en_bcv_parser.js",
+      "size_mb": 0.343816
+    },
+    {
+      "filename": "uk_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/uk_bcv_parser.js",
+      "size_mb": 0.341154
+    },
+    {
+      "filename": "cs.spec.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/test/lang/cs.spec.js",
+      "size_mb": 0.340314
+    },
+    {
+      "filename": "pl_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/pl_bcv_parser.js",
+      "size_mb": 0.332054
+    },
+    {
+      "filename": "bg_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/bg_bcv_parser.js",
+      "size_mb": 0.331826
+    },
+    {
+      "filename": "ta_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ta_bcv_parser.js",
+      "size_mb": 0.330063
+    },
+    {
+      "filename": "ru_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ru_bcv_parser.js",
+      "size_mb": 0.328461
+    },
+    {
+      "filename": "sr_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/sr_bcv_parser.js",
+      "size_mb": 0.326605
+    },
+    {
+      "filename": "sk_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/sk_bcv_parser.js",
+      "size_mb": 0.326286
+    },
+    {
+      "filename": "ne_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ne_bcv_parser.js",
+      "size_mb": 0.325577
+    },
+    {
+      "filename": "ur_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ur_bcv_parser.js",
+      "size_mb": 0.325383
+    },
+    {
+      "filename": "es_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/es_bcv_parser.js",
+      "size_mb": 0.325369
+    },
+    {
+      "filename": "tl_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/tl_bcv_parser.js",
+      "size_mb": 0.325107
+    },
+    {
+      "filename": "mk_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/mk_bcv_parser.js",
+      "size_mb": 0.325083
+    },
+    {
+      "filename": "cs_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/cs_bcv_parser.js",
+      "size_mb": 0.32429
+    },
+    {
+      "filename": "el_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/el_bcv_parser.js",
+      "size_mb": 0.323372
+    },
+    {
+      "filename": "ar_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ar_bcv_parser.js",
+      "size_mb": 0.323037
+    },
+    {
+      "filename": "mr_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/mr_bcv_parser.js",
+      "size_mb": 0.322859
+    },
+    {
+      "filename": "or_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/or_bcv_parser.js",
+      "size_mb": 0.32285
+    },
+    {
+      "filename": "fr_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/fr_bcv_parser.js",
+      "size_mb": 0.322849
+    },
+    {
+      "filename": "fi_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/fi_bcv_parser.js",
+      "size_mb": 0.322805
+    },
+    {
+      "filename": "zh_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/zh_bcv_parser.js",
+      "size_mb": 0.322479
+    },
+    {
+      "filename": "tr_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/tr_bcv_parser.js",
+      "size_mb": 0.322315
+    },
+    {
+      "filename": "hi_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/hi_bcv_parser.js",
+      "size_mb": 0.321932
+    },
+    {
+      "filename": "la_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/la_bcv_parser.js",
+      "size_mb": 0.32171
+    },
+    {
+      "filename": "sw_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/sw_bcv_parser.js",
+      "size_mb": 0.32168
+    },
+    {
+      "filename": "da_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/da_bcv_parser.js",
+      "size_mb": 0.321649
+    },
+    {
+      "filename": "hu_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/hu_bcv_parser.js",
+      "size_mb": 0.321566
+    },
+    {
+      "filename": "pa_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/pa_bcv_parser.js",
+      "size_mb": 0.321512
+    },
+    {
+      "filename": "no_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/no_bcv_parser.js",
+      "size_mb": 0.321498
+    },
+    {
+      "filename": "ja_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/ja_bcv_parser.js",
+      "size_mb": 0.321361
+    },
+    {
+      "filename": "nl_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/nl_bcv_parser.js",
+      "size_mb": 0.321285
+    },
+    {
+      "filename": "de_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/de_bcv_parser.js",
+      "size_mb": 0.321272
+    },
+    {
+      "filename": "is_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/is_bcv_parser.js",
+      "size_mb": 0.321168
+    },
+    {
+      "filename": "it_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/it_bcv_parser.js",
+      "size_mb": 0.320906
+    },
+    {
+      "filename": "pt_bcv_parser.js",
+      "repo": "Bible-Passage-Reference-Parser",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source2_openbible/Bible-Passage-Reference-Parser/cjs/pt_bcv_parser.js",
+      "size_mb": 0.320836
+    }
+  ],
+  "errors": [
+    {
+      "url": "https://github.com/openbibleinfo/Bible-Passage-Reference-Parser-Languages.git",
+      "error": "git clone failed with HTTP2 framing error; successfully downloaded as ZIP archive and extracted"
+    }
+  ]
+}

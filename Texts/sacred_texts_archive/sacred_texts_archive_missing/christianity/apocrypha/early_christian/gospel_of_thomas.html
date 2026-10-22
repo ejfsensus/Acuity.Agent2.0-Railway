@@ -1,0 +1,955 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>The Gospel of Thomas</title>
+<link rel="stylesheet" media="all" href="finaldemo/layers.css" type="text/css">
+<style type="text/css">
+body {
+	behavior: url("csshover.txt");
+}
+
+body {
+  margin: 0px;
+	padding: 0px;
+}
+
+#menu ul, li, div {
+	margin: 0px;
+	padding: 0px;
+}
+LI:hover {
+	Z-INDEX: 15;
+}
+UL UL {
+  position: absolute;
+	display: none;
+}
+LI:hover UL UL {
+	DISPLAY: none;
+}
+LI:hover UL {
+	DISPLAY: block;
+}
+LI:hover LI:hover UL {
+	DISPLAY: block
+}
+li ul {
+	position: absolute;
+	display: none;
+}
+#menu ul, #menu li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul li {
+	position: relative;
+}
+#menu {
+  line-height: 1px;
+	font-size: 1px;
+}
+
+/* Styles for Menu Items */
+
+li.topli ul a {
+  display: block;
+	padding-top: 3px; padding-left: 3px; padding-bottom: 3px; padding-right: 0px;
+	margin: 0px;
+	text-decoration: none;
+  font-family: Arial,Helvetica,sans-serif;
+	line-height: 10px;
+  font-size: 10px;
+	color: rgb(246, 223, 190);
+}
+li.submenu a {
+  background-image: url("pic/arrow.gif"); background-position: right; background-repeat: no-repeat; z-index: 20;
+}
+li.submenu ul a {
+  background-image: url("pic/spacer.gif"); z-index: 25;
+}
+li.topli li:hover a {
+  color: rgb(73, 63, 40);
+	background-color: rgb(246, 223, 190);
+}
+li.topli li:hover ul li a {
+  color: rgb(246, 223, 190);
+	background-color: rgb(73, 63, 40);
+}
+#menu li.submenu ul li:hover a {
+  color: rgb(73, 63, 40);
+	background-color: rgb(246, 223, 190);
+}
+#menu li {
+  height: 16px;
+	margin: 0px; padding: 0px;
+  width: inherit;
+}
+
+/* Specific classes */
+
+ul.topul {
+  position: absolute;
+	left: 0px;
+	top: 20px;
+	background-color: black;
+}
+
+li.topli {
+  position: absolute;
+	top: 0px;
+}
+
+div.topdiv1 {
+  position: absolute;
+	top: 1px; left: 1px;
+  background-color: rgb(246, 223, 190);
+}
+
+div.topdiv2 {
+  position: absolute;
+  top: 1px; left: 1px;
+  background-color: rgb(73, 63, 40);
+}
+
+ul.subul {
+  position: absolute;
+  top: -1px;
+  background-color: black;
+}
+
+div.subdiv1 {
+  position: absolute;
+  top: 1px; left: 1px;
+  background-color: rgb(246, 223, 190);
+}
+
+div.subdiv2 {
+  position: absolute;
+  top: 1px; left: 1px;
+	background-color: rgb(73, 63, 40);
+}
+
+/* Fix some stuff with lists in the body of the page. */
+#infolayer ul {
+  position: relative;
+  display: block;
+  list-style-type: disc;
+	list-style-position: outside;
+}
+#infolayer li {
+  position: relative;
+  display: list-item;
+}
+#infolayer ul li {
+	margin-left: -16px;
+}
+#infolayer ol li {
+  margin-left: -8px;
+}
+#infolayer a {
+  color: #990033;
+}
+#infolayer a:visited {
+  color: black;
+}
+#infolayer a:hover {
+  color: red;
+}
+</style>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4053514-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body>
+
+<div id="whitetoplayer">
+  <div id="buythecd"><a href="http://earlywritings.com/buy/"><img src="pic/textanim.gif" alt="Get the CD Now!" width="108" height="39"></a></div>
+  <div id="breadcrumbs"><p><a href="index.html">Home</a> <span><b>&gt;</b></span> <a href="apocrypha.html">Apocrypha</a> <span><b>&gt;</b></span> <b>The Gospel of Thomas</b></p></div>
+  <form action="http://www.google.com/cse" id="cse-search-box" target="_blank" style="position: absolute; top: 0px; right: 118px; height: 39px; font-family: Arial, Helvetica, sans-serif; margin: 5px;">
+    <div style="background-color: rgb( 174, 134, 64 ); text-align: right; -moz-border-radius: 5px;"><div style="padding: 3px;">
+    <input type="hidden" name="cx" value="partner-pub-2665675471425577:4654561773" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" width="40" />
+    <input type="submit" name="sa" value="Search" />
+	</div></div>
+  </form>
+</div>
+
+<style>
+#ataglance div.info {
+  margin-top: 6px;
+	margin-bottom: 6px;
+}
+</style>
+
+<div id="infolayer">
+  <div id="textboundingbox">
+
+  <h1 id="textname">The Gospel of Thomas</h1>
+
+	<div id="toprightad" style="float: right;">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Top Right Article -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-2665675471425577"
+     data-ad-slot="8302713982"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+	<div id="ataglance" style="margin-left: auto; margin-right: 0 px; width: 210px; border-style: groove; border-width: 4px; color: black; border-color: rgb( 174, 134, 64 ); background-color: rgb( 250, 240, 230 ); margin-top: 5px;">
+	<div style="padding: 5px; font-size: 12px; text-align: left;" class="info">
+	  <div style="text-align: center; font-size: 14px; font-weight: bold;"><b>At a Glance</b></div>
+	  <div style="width: auto;" class="info"><div style="display: block; float: right; left: 0px; width: 75px;">Gospel</div> Genre<!--<a href="genre.html">Genre</a>-->: </div>
+	  <div style="width: auto;" class="info"><div style="display: block; float: right; left: 0px; width: 75px;">(3/5) ***</div> Reliability of Dating<!--<a href="dating.html">Reliability of Dating</a>-->: </div>
+	  <div style="width: auto;" class="info"><div style="display: block; float: right; left: 0px; width: 75px;">(2/5) **</div> Length of Text<!--<a href="lengthoftext.html">Length of Text</a>-->: </div>
+	  <div style="width: auto;" class="info"><div style="display: block; float: right; left: 0px; width: 75px;">Greek</div> Original Language: </div> 
+	  <div style="width: auto;" class="info"> <div>Ancient Translations:</div>
+		                                        <div style="margin-left: 12px;"></div> </div>
+		<div style="width: auto;" class="info"> <div>Modern Translations:</div>
+		                                        <div style="margin-left: 12px;"><a href="http://www.misericordia.edu/users/davies/thomas/Trans.htm">English</a></div> </div>
+		</div>
+	</div>
+
+
+</div>
+
+<p style="position: relative; display: inline; padding-top: 0px; margin-top: 5px;"></p>
+
+<h2>Estimated Range of Dating: 50-140 <span class="ce">A.D.</span></h2>
+
+<div><a href="index.html"><b>Chronological List of Early Christian Writings</b></a></div>
+
+<div>Discuss this text on the <a href="http://earlywritings.com/forum/viewforum.php?f=3">Early Writings forum</a>.</div>
+
+<h2>Text</h2>
+
+<ul style="margin-right: 220px;">
+<li><a href="thomas/">Collected Commentary on the Gospel of Thomas</a> - comprehensive presentation</li>
+<li><a href="text/thomas-fifth.html">English Translation by the Berlin Working Group for Coptic Gnostic Writings</a></li>
+<li><a href="text/thomas-anon.html">English Translation of the Gospel of Thomas (Anonymous)</a></li>
+<li><a href="text/thomas-scholars.html">English Translation of the Gospel of Thomas by Stephen Patterson and Marvin Meyer</a></li>
+<li><a href="text/thomas-lambdin.html">English Translation of the Gospel of Thomas by Thomas O. Lambdin</a></li>
+<li><a href="text/thomas-layton.html">English Translation of Coptic by Lambdin, of Greek by Layton</a></li>
+<li><a href="text/thomas-coptic1.html">Gospel of Thomas in Coptic</a> (no versification)</li>
+<li><a href="text/thomas-coptic2.html">Gospel of Thomas in Coptic</a> (no supralinear strokes)</li>
+</ul>
+
+<h2>Resources</h2>
+
+<ul style="margin-right: 220px;">
+<li><a href="thomas/">Collected Commentary on the Gospel of Thomas</a></li>
+</ul>
+
+<h2>Offsite Links</h2>
+
+<ul style="margin-right: 220px;">
+<li><a href="http://gospel-thomas.net/">Interlinear Coptic/English Translation of the Gospel of Thomas</a></li>
+<li><a href="http://www.kchanson.com/PTJ/thomas.html">English Translation of the Gospel of Thomas by K. C. Hanson</a></li>
+<li><a href="http://www.sofiatopia.org/equiaeon/thomas.htm">English Translation of the Gospel of Thomas by Wim van den Dungen</a></li>
+<li><a href="http://www.metalog.org/files/thomas.html">English Translation of the Gospel of Thomas by the Ecumenical Coptic Project</a></li>
+<li><a href="http://www.utoronto.ca/religion/synopsis/">The Five Gospels Parallels</a> (Matthew, Mark, Luke, John, Thomas; English)</li>
+<li><a href="http://www.misericordia.edu/users/davies/thomas/thq.htm">Q // Thomas Parallels in the Thomas version</a></li>
+<li><a href="http://users.misericordia.edu/davies/thomas/Thomas.html">The Gospel of Thomas Homepage</a></li>
+<li><a href="http://users.misericordia.edu/davies/thomas/faq.htm">Thomas FAQ</a></li>
+<li><a href="http://religion.emory.edu/faculty/robbins/SRS/vkr/enthymeme.cfm">Enthymemic Texture in the Gospel of Thomas</A></li>
+<li><a href="http://religion.emory.edu/faculty/robbins/Pdfs/RhetCompThomas.pdf">Rhetorical Composition and Sources in the Gospel of Thomas</a></li>
+<li><a href="http://www.misericordia.edu/users/davies/thomas/GospelOfGnosis.pdf">The Gospel of Gnosis: A New Gospel for a New Age</a></li>
+<li><a href="http://hbswete.co.uk/art14.html">The Oxyrhynchus Fragment by Swete</a></li>
+<li><a href="http://hbswete.co.uk/art31.html">The New Oxyrhynchus Sayings: a tentative interpretation by Swete</a></li>
+<li><a href="http://www.metalog.org/files/tpb/sabbath.gif">The Sabbath and the Week in Thomas 27</a></li>
+<li><a href="http://books.google.com/books?id=SV2Qz5ol3EwC&pg=PA54&lpg=PA54&dq=Seeing+or+Coming+to+the+Child+of+the+Living+One?+More+on+Gospel+of+Thomas+Saying+37&source=bl&ots=jatOd8rt-S&sig=LJ4zHW-Lzd1NgWYY-h6evIN8Fgg&hl=en&sa=X&ei=nsZcUIPCFYS8igKRqIHgDg&ved=0CDcQ6AEwAw#v=onepage&q=Seeing%20or%20Coming%20to%20the%20Child%20of%20the%20Living%20One%3F%20More%20on%20Gospel%20of%20Thomas%20Saying%2037&f=false">Seeing or Coming to the Child of the Living One? More on Gospel of Thomas Saying 37</a></li> <!-- http://www.jstor.org/pss/1509858 -->
+<li><a href="http://users.misericordia.edu/davies/thomas/johnthom.htm">Johannine Sayings in the Gospel of Thomas</a></li>
+<li><a href="http://www.misericordia.edu/users/davies/thomas/jblprot.htm">The Christology and Protology of the Gospel of Thomas</a></li>
+<li><a href="http://www.ntcanon.org/Gospel_of_Thomas.shtml">Glenn Davis: Gospel of Thomas</a></li>
+<li><a href="http://www.religion-online.org/showchapter.asp?title=1116&C=1232">A Historical Introduction to the New Testament: Apocryphal Gospels</a></li>
+<li><a href="http://www.murple.net/thomas/thomas_comment.html">The Gospel of Thomas - Commentary</a></li>
+<li><a href="http://historical-jesus.info/thomas.html">The gospel of Thomas & its late dating</a></li>
+<li><a href="http://christianthinktank.com/gthomas.html">What about the Gospel of Thomas? (Glenn Miller)</a></li>
+<li><a href="http://www.globalserve.net/~yuku/thomas.htm">What about the Gospel of Thomas? (Yur Kuchinsky)</a></li>
+</ul>
+
+<h2>Books</h2>
+
+<ul style="margin-right: 220px;">
+<li>Stevan L. Davies, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/1893361454/peterkirby">The Gospel of Thomas: Annotated and Explained</a> (Skylight Paths Pub 2002)</li>
+<li>Stephen J. Patterson, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/1563382490/peterkirby">The Fifth Gospel : The Gospel of Thomas Comes of Age</a> (Harrisburg, PA: Trinity Press 2000).</li>
+<li>Stephen J. Patterson, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0944344321/peterkirby">The Gospel of Thomas and Jesus</a> (Sonoma, CA: Polebridge Press 1993).</li>
+<li>Richard Valantasis, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0415116228/peterkirby">The Gospel of Thomas</a> (New York, NY: Routledge 1997).</li>
+<li>Marvin Meyer, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/006065581X/peterkirby">The Gospel of Thomas: The Hidden Sayings of Jesus</a> (Harper San Francisco 1992).</li>
+<li>John S. Kloppenborg, et al., <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0944344119/peterkirby">Q Thomas Reader</a> (Sonoma, CA: Polebriedge Press 1990).</li>
+<li>Gregory J. Riley, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0800628462/peterkirby">Resurrection Reconsidered: Thomas and John in Controversy</a> (Fortress Pr 1995).</li>
+<li>Helmut Koester, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0334024501/peterkirby">Ancient Christian Gospels</a> (Harrisburg, PA: Trinity Press 1990), pp. 75-127.</li>
+<li>Gerd L&uuml;demann, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/1573928909/peterkirby">Jesus After 2000 Years</a>, pp. 589-645.</li>
+<li>John Dominic Crossan, <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0944344240/peterkirby">Four Other Gospels</a> (Minneapolis, MN: Winston Press 1985), pp. 15-64.</li>
+<li>Ron Cameron, ed., <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0718825969/peterkirby">The Other Gospels: Non-Canonical Gospel Texts</a> (Philadelphia, PA: The Westminster Press 1982), pp. 23-37.</li>
+<li>Robert J. Miller, ed., <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0060655879/peterkirby">The Complete Gospels: Annotated Scholars Version</a> (Sonoma, CA: Polebridge Press 1992), pp. 301-322.</li>
+<li>James M. Robinson, ed., <a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0060669357/peterkirby">The Nag Hammadi Library in English</a> (San Francisco, CA: HarperCollins 1990), pp. 124-138.</li>
+</ul>
+
+<div><a href="books.html"><b>Recommended Books for the Study of Early Christian Writings</b></a></div>
+
+<h2>Information on the Gospel of Thomas</h2>
+
+<P>
+The Gospel of Thomas is extant in three Greek
+fragments and one Coptic manuscript.  The Greek
+fragments are P. Oxy. 654, which corresponds to the
+prologue and sayings 1-7 of the Gospel of Thomas; P.
+Oxy. 1, which correponds to the Gospel of Thomas
+26-30, 77.2, 31-33; and P. Oxy. 655, which corresponds
+to the Gospel of Thomas 24 and 36-39.  P. Oxy 1 is dated
+shortly after 200 CE for paleographical reasons, and
+the other two Greek fragments are estimated to have
+been written in the mid third century.  The Coptic
+text was written shortly before the year 350 CE.</p>
+<P>
+Ron Cameron comments on the textual integrity of
+Thomas (<i>The Anchor Bible Dictionary</i>, v. 6, p. 535):
+</p>
+<blockquote>
+<p>
+Substantial differences do exist between the Greek
+fragments and the Coptic text.  These are best
+explained as variants resulting from the circulation
+of more than one Greek edition of <i>Gos. Thom.</i> in
+antiquity.  The existence of three different copies of
+the Greek text of <i>Gos. Thom.</i> does give evidence of
+rather frequent copying of this gospel in the 3d
+century.  According to the critical edition of the
+Greek text by Attridge (in Layton 1989: 99), however,
+even though these copies do not come from a single ms,
+the fragmentary state of the papyri does not permit
+one to determine whether any of the mss "was copied
+from one another, whether they derive independently
+from a single archetype, or whether they represent
+distinct recensions."  It is clear, nevertheless, that
+<i>Gos. Thom.</i> was subject to redaction as it was
+transmitted.  The presence of inner-Coptic errors in
+the sole surviving translation, moreover, suggests
+that our present <i>Gos. Thom.</i> is not the first Coptic
+transcription made from the Greek.  The ms tradition
+indicates that this gospel was appropriated again and
+again in the generations following its composition.
+Like many other gospels in the first three centuries,
+the text of <i>Gos. Thom.</i> must be regarded as
+unstable.</p>
+</blockquote>
+<P>
+Ron Cameron comments on the attestation to Thomas (op. cit., p.
+535):
+</P>
+<blockquote>
+<p>
+The one incontrovertible testimonium to <i>Gos. Thom.</i>
+is found in Hippolytus of Rome (<i>Haer.</i> 5.7.20).
+Writing between the years 222-235 C.E., Hippolytus
+quoes a variant of saying 4 expressly stated to be
+taken from a text entitled <i>Gos. Thom.</i>  Possible
+references to this gospel by its title alone abound in
+early Christianity (e.g. Eus. <i>Hist. Eccl.</i> 3.25.6).
+But such indirect attestations must be treated with
+care, since they might refer to the <i>Infancy Gospel of
+Thomas</i>.  Parallels to certain sayings in <i>Gos. Thom.</i>
+are also abundant; some are found, according to
+Clement of Alexandria, in the <i>Gospel of the Hebrews</i>
+and the <i>Gospel of the Egyptians</i>.  However, a direct
+dependence of <i>Gos. Thom.</i> upon another noncanonical
+gospel is problematic and extremely unlikely.  The
+relationship of <i>Gos. Thom.</i> to the <i>Diatessaron</i> of
+Tatian is even more vexed, exacerbated by untold
+difficulties in reconstructing the textual basis of
+Tatian's tradition, and has not yet been resolved.</p>
+</blockquote>
+<P>
+In <a href="http://www.miseri.edu/users/davies/thomas/correl.htm">Statistical Correlation Analysis of Thomas and the Synoptics</a>, Stevan Davies argues that the Gospel of Thomas is independent of the canonical gospels on account of differences in order of the sayings.</p>
+<P>
+In his book, Stephen J. Patterson compares the wording of each saying in Thomas to its synoptic counterpart with the conclusion that Thomas represents an autonomous stream of tradition (<i>The Gospel of Thomas and Jesus</i>, p. 18):
+</P>
+<blockquote>
+<p>
+<a rel="nofollow" href="http://www.amazon.com/exec/obidos/ASIN/0944344321/peterkirby"><img src="pic/patterson2.gif"  width=93 height=140 border=0 align=right alt="The Gospel of Thomas and Jesus: Buy at amazon.com!"></a>
+
+If Thomas were dependent upon the synoptic gospels, it would be possible to detect in the case of every Thomas-synoptic parallel the same tradition-historical development behind both the Thomas version of the saying and one or more of the synoptic versions.  That is, Thomas' author/editor, in taking up the synoptic version, would have inherited all of the accumulated tradition-historical baggage owned by the synoptic text, and then added to it his or her own redactional twist.  In the following texts this is not the case.  Rather than reflecting the same tradition-historical development that stands behind their synoptic counterparts, these Thomas sayings seem to be the product of a tradition-history which, though exhibiting the same tendencies operative within the synoptic tradition, is in its own specific details quite unique.  This means, of course, that these sayings are not dependent upon their synoptic counterparts, but rather derive from a parallel and separate tradition.</p>
+</blockquote>
+<P>
+Ron Cameron argues for the independence of Thomas (op. cit., p. 537):
+</P>
+<blockquote>
+<p>
+Those who argue that <i>Gos. Thom.</i> is dependent on the
+Synoptics not only must explain the differences in
+wording and order, but also give a reason for <i>Gos.
+Thom.</i>'s choice of genre and the absence of the
+gospels' narrative material in the text.  To assert,
+for example, that <i>Gos. Thom.</i> erased the passion
+narratives because Gnosticism was concerned solely
+with a redeeming message contained in words of
+revelation (Haenchen 1961: 11) is simply not
+convincing, since the <i>Apocryphon of James</i> (NHC I,
+2), the <i>Second treatise of the Great Seth</i> (NHC VII,
+2), and the <i>Apocalypse of Peter</i> (NHC VII, 3) all
+indicate that sayings of and stories about the death
+and resurrection of Jesus were reinterpreted by
+various gnostic groups.  For any theory of dependence
+of <i>Gos. Thom.</i> on the NT to be made plausible, one must
+show that the variations in form and content of their
+individual sayings, together with the differences in
+genre and structure of their entire texts, are
+intential modifications of their respective parallels,
+designed to serve a particular purpose.</p>
+</blockquote>
+<P>
+On dating, Ron Cameron states (op. cit., p. 536):
+</P>
+<blockquote>
+<p>
+Determining a plausible date of composition is
+speculative and depends on a delicate weighing of
+critical judgments about the history of the
+transmission of the sayings-of-Jesus tradition and the
+process of the formation of the written gospel texts. 
+The earliest possible date would be in the middle of
+the 1st century, when sayings collections such as the
+Synoptic Sayings Gospel Q first began to be compiled. 
+The latest possible date would be toward the end of
+the 2d century, prior to the copying of <i>P. Oxy.</i> 1
+and the first reference to the text by Hippolytus.  If
+<i>Gos. Thom.</i> is a sayings collection based on an
+autonomous tradition, and not a gospel harmony
+conflated from the NT, then a date of composition in,
+say, the last decades of the 1st century would be more
+likely than a mid-to-late-2d-century date.</p>
+</blockquote>
+<P>
+Ron Cameron states on the provenance of Thomas (op. cit.,
+p. 536):
+</P>
+<blockquote>
+<p>
+The fact that Judas "the Twin" was the apostolic
+figure particularly revered in Syriac-speaking
+churches is important evidence for the date and place
+of composition of the text.  For as Koester (in Layton
+1989: 39) has shown, <i>Gos. Thom.</i>'s identification of
+this author as Jesus' brother Judas does not presuppose
+a knowledge of the NT, but "rests upon an independent
+tradition."  In addition, the peculiar, redundant name
+Didymus Judas Thomas seems to be attested only in the
+East, where the shadowy disciple named Thomas (Mark
+3:18 par.; John 14:5) or Thomas Didymus (John 11:16;
+20:24; 21:2) was identified with Judas in the Syriac
+NT and called Judas Thomas (John 14:22).  The
+occurrence of variants of this distinctive name in the
+<i>Acts of Thomas</i> is especially striking, not only
+because the latter evidently shows acquaintance with
+<i>Gos. Thom.</i> 2, 13, 22, and 52, but also because it is
+widely held that the <i>Acts of Thomas</i> was composed in
+Syriac in the early 3d century.  Other documents that
+invoke the authority of Judas Thomas by name are also
+of Syriac origin, such as the <i>Teaching of Addai</i>, the
+Abgar legend (Eus. <i>Histl. Eccl.</i> 1.13.1-22), and the
+<i>Book of Thomas the Contender</i> (NHC II, 7).</p>
+<P>
+Accordingly, the naming of Judas Thomas as the
+ostensible author of <i>Gos. Thom.</i> serves to locate the
+likely composition of the text in a bilingual
+environment in E. Syria.</p>
+</blockquote>
+<P>
+Patterson writes on the dating and provenance of Thomas (op. cit., p. 120):
+</P>
+<blockquote>
+<p>
+While the cumulative nature of the sayings collection understandably makes the Gospel of Thomas difficult to date with precision, several factors weigh in favor of a date well before the end of the first century: the way in which Thomas appeals to the authority of particular prominent figures (Thomas, James) against the competing claims of others (Peter, Matthew); in genre, the sayings collection, which seems to have declined in importance after the emergence of the more biographical and dialogical forms near the end of the first century; and its primitive christology, which seems to presuppose a theological climate even more primitive than the later stages of the synoptic sayings gospel, Q.  Together these factors suggest a date for Thomas in the vicinity of 70-80 C.E.  As for its provenance, while it is possible, even likely, that an early version of this collection associated with James circulated in the environs of Jerusalem, the Gospel of Thomas in more or less its present state comes from eastern Syria, where the popularity of the apostle Thomas (Judas Didymos Thomas) is well attested.</p>
+</blockquote>
+<P>
+Ron Cameron comments (op. cit., p. 540):
+</P>
+<blockquote>
+<p>
+<i>Gos. Thom.</i> took Jesus seriously as a teacher who
+spoke with authority.  It celebrated his memory by
+preserving sayings in his name that sanctioned the
+formation of a distinctive community.  The gospel
+locates its group's position within the Christian
+tradition as an independent Jesus movement, which
+persisted over the course of several generations of
+social history without becoming an apocalyptic or
+kerygmatic sect.  Authorized by interpreting the
+written legacy of Jesus, <i>Gos. Thom.</i> maintained its
+autonomy and distinct identity by acts of creative
+attribution.  Jesus was characterized as the
+embodiment of Wisdom; his words, which could harness
+the very power of the universe, offered her path of
+'knowing' as an investment of the imagination.  <i>Gos.
+Thom.</i> defines the role of its community in
+constructing the fabric of society as a process of
+sapiental insight and research.  The gospel,
+therefore, charts the course of salvation as a study
+in interpretation, providing the elixir of life to
+those for whom the secret of the kingdom is disclosed
+in the interpretation of Jesus' words.</p>
+</blockquote>
+
+<p>For information on the individual sayings in the Gospel of Thomas, please take a look at the <a href="thomas/">Collected Commentary on the Gospel of Thomas</a>. These webpages present every saying of the Gospel of Thomas alongside scholarly commentary, parallel references in other literature, comments from visitors, the original Greek and Coptic, and multiple translations to provide you with deeper insight into the meaning of the Gospel of Thomas.</p>
+
+<div style="float: left; margin-right: 20px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Rectangle - left -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-2665675471425577"
+     data-ad-slot="3495055140"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+
+<h2>Some Contemporary Texts</h2>
+
+<ul style="display: table;">
+<li><a href="colossians.html">Colossians</a> (50-80 A.D.)</li>
+<li><a href="signs.html">Signs Gospel</a> (50-90 A.D.)</li>
+<li><a href="hebrews.html">Book of Hebrews</a> (50-95 A.D.)</li>
+<li><a href="didache.html">Didache</a> (50-120 A.D.)</li>
+<li><b>Gospel of Thomas</b> (50-140 A.D.)</li>
+<li><a href="oxyrhynchus1224.html">Oxyrhynchus 1224 Gospel</a> (50-140 A.D.)</li>
+<li><a href="apocalypseadam.html">Apocalypse of Adam</a> (50-150 A.D.)</li>
+<li><a href="eugnostos.html">Eugnostos the Blessed</a> (50-150 A.D.)</li>
+<li><a href="sophia.html">Sophia of Jesus Christ</a> (50-200 A.D.)</li>
+</ul>
+
+</div>
+ 
+<div style='clear: both;'></div>
+
+<hr width="50%">
+
+<p style="text-align: center">Go to the <a href="index.html">Chronological List</a> of all Early Christian Writings</p>
+
+<hr width="50%">
+
+<p style="text-align: center;"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2665675471425577";
+/* Leaderboard-bot */
+google_ad_slot = "4364046558";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></p>
+
+<p style="text-align: center; font-size:125%;">Please <a href="http://earlywritings.com/buy/">buy the CD</a> to support the site, view it without ads, and get bonus stuff!</p>
+
+
+  <div id="infoleft"></div>
+  <div id="inforight"></div>
+  <div id="footer">
+    <div id="footleft"></div>
+    <div id="footright"></div>
+  </div>
+
+  	<div id="whitebottomlayer">
+	<p id="copyrightnotice"><a href="index.html">Early Christian Writings</a> is copyright &copy; 
+  <script language="JavaScript">
+  <!--
+  var months=new Array(13);
+  months[1]="Jan.";
+  months[2]="Feb.";
+  months[3]="Mar.";
+  months[4]="Apr.";
+  months[5]="May";
+  months[6]="June";
+  months[7]="July";
+  months[8]="Aug.";
+  months[9]="Sept.";
+  months[10]="Oct.";
+  months[11]="Nov.";
+  months[12]="Dec.";
+  var time=new Date();
+  var lmonth=months[time.getMonth() + 1];
+  var date=time.getDate();
+  var year=time.getYear();
+  if (year < 2000)
+    year = year + 1900;
+  document.write("2001-" + year);
+  // -->
+  </script>	
+    Peter Kirby <code>&lt;<a href="http://www.peterkirby.com/">E-Mail</a>&gt</code>.</p>
+	  <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2Fearlychristianwritingscom%2F121187514627340&amp;send=false&amp;layout=box_count&amp;width=55&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:55px; height:65px; float: left; margin-left: 15px;" allowTransparency="true"></iframe>
+	  <div style="float: left; margin-right: 10px;">
+	<!-- Place this tag where you want the +1 button to render. -->
+	<div class="g-plusone"></div>
+	<!-- Place this tag after the last +1 button tag. -->
+	<script type="text/javascript">
+	  (function() {
+	    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	    po.src = 'https://apis.google.com/js/plusone.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	  })();
+	</script>
+	  <div><a href="https://twitter.com/mrpeterkirby" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @mrpeterkirby</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>
+	  </div>
+	<div id="buythecd"><a href="http://earlywritings.com/buy/"><img src="pic/textanim.gif" alt="Get the CD Now!" width="108" height="39"></a></div>
+  <div style="width: 500px; font-size: 12px; margin-top: 8px; margin-left: auto; margin-right: auto; padding-left: 50px;"><div style="position: absolute; width: 40px; height: 40px;"><b>MLA<br>Style</b></div><div style="position: relative; left: 40px;"><p>Kirby, Peter. "The Gospel of Thomas." <i>Early Christian Writings</i>.  
+  <script language="JavaScript">
+  <!--
+  document.write(year + ". " + date + " " + lmonth + " " + year);
+  // -->
+  </script>
+ &lt;http://www.earlychristianwritings.com/thomas.html&gt;.</p></div></div>
+  </div></div><div id="headlayer">
+  <div id="headleft"></div>
+  <div id="headright"></div>
+
+<ul id="menu" style="position: absolute; margin-left: -149px; left: 50%; top: 83px; width: 0px; height: 0px;">
+<li class="topli" style="left: 0px; width: 87px; height: 29px;"><a href="newtestament.html"><img src="pic/spacer.gif" style="position: absolute; left: 0px; top: 0px; width: 87px; height: 29px; border: 0px;" alt="New Testament"></a>
+	<ul class="topul" style="width: 133px; height: 99px;">
+	<div class="topdiv1" style="width: 131px; height: 97px"><div class="topdiv2" style="width: 130px; height: 96px;">
+		<li class="submenu"><a>Gospels</a>
+		  <ul class="subul" style="left: 129px; width: 51px; height: 67px;">
+  		<div class="subdiv1" style="width: 49px; height: 65px;"><div class="subdiv2" style="width: 48px; height: 64px;">
+				<li><a href="matthew.html">Matthew</a></li> 
+				<li><a href="mark.html">Mark</a></li> 
+				<li><a href="luke.html">Luke</a></li> 
+				<li><a href="john.html">John</a></li>
+  		</div></div>
+			</ul>
+		</li>
+		<li><a href="acts.html"><span>Acts</span></a></li>
+		<li class="submenu"><a><span>Letters of Paul</span></a>
+			<ul class="subul" style="left: 129px; width: 88px; height: 211px;">
+			<div class="subdiv1" style="width: 86px; height: 209px;"><div class="subdiv2" style="width: 85px; height: 208px;">
+				<li><a href="romans.html">Romans</a></li> 
+				<li><a href="1corinthians.html">1 Corinthians</a></li> 
+				<li><a href="2corinthians.html">2 Corinthians</a></li> 
+				<li><a href="galatians.html">Galatians</a></li> 
+				<li><a href="ephesians.html">Ephesians</a></li> 
+				<li><a href="philippians.html">Philippians</a></li> 
+				<li><a href="colossians.html">Colossians</a></li> 
+				<li><a href="1thessalonians.html">1 Thessalonians</a></li> 
+				<li><a href="2thessalonians.html">2 Thessalonians</a></li> 
+				<li><a href="1timothy.html">1 Timothy</a></li> 
+				<li><a href="2timothy.html">2  Timothy</a></li> 
+				<li><a href="titus.html">Titus</a></li> 
+				<li><a href="philemon.html">Philemon</a></li> 
+			</div></div>
+			</ul>
+		</li>
+		<li><a href="hebrews.html"><span>Letter to the Hebrews</span></a></li>
+		<li class="submenu"><a><span>General Letters</span></a>
+			<ul class="subul" style="left: 129px; width: 51px; height: 115px;">
+			<div class="subdiv1" style="width: 49px; height: 113px;"><div class="subdiv2" style="width: 48px; height: 112px;"> 
+				<li><a href="james.html">James</a></li> 
+				<li><a href="1peter.html">1 Peter</a></li> 
+				<li><a href="2peter.html">2 Peter</a></li> 
+				<li><a href="1john.html">1 John</a></li> 
+				<li><a href="2john.html">2 John</a></li> 
+				<li><a href="3john.html">3 John</a></li> 
+				<li><a href="jude.html">Jude</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li><a href="revelation.html"><span>Revelation</span></a></li>
+	</div></div>
+	</ul>
+</li>
+<li class="topli" style="left: 87px; width: 62px; height: 29px;"><a href="apocrypha.html"><img src="pic/spacer.gif" style="position: absolute; left: 0px; top: 0px; width: 62px; height: 29px; border: 0px;" alt="Apocrypha"></a>
+  <ul class="topul" style="width: 133px; height: 115px;">
+	<div class="topdiv1" style="width: 131px; height: 113px;"><div class="topdiv2" style="width: 130px; height: 112px;">
+	  <li class="submenu"><a>Gospels</a>
+		  <ul class="subul" style="left: 129px; width: 131px; height: 163px;">
+			<div class="subdiv1" style="width: 129px; height: 161px;"><div class="subdiv2" style="width: 128px; height: 160px;">
+			  <li><a href="thomas.html">Gospel of Thomas</a></li>
+				<li><a href="egerton.html">Egerton Gospel</a></li>
+				<li><a href="gospelpeter.html">Gospel of Peter</a></li>
+				<li><a href="oxyrhynchus840.html">Oxyrhynchus 840</a></li>
+				<li><a href="gospelmary.html">Gospel of Mary</a></li>
+				<li><a href="apostolorum.html">Epistula Apostolorum</a></li>
+				<li><a href="infancyjames.html">Infancy Gospel of James</a></li>
+				<li><a href="infancythomas.html">Infancy Gospel of Thomas</a></li>
+				<li><a href="actspilate.html">Acts of Pilate</a></li>
+				<li><a href="diatessaron.html">Diatessaron</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>Gospel Fragments</a>
+		   <ul class="subul" style="left: 129px; width: 156px; height: 131px;">
+			 <div class="subdiv1" style="width: 154px; height: 129px;"><div class="subdiv2" style="width: 153px; height: 128px;">
+			   <li><a href="oxyrhynchus1224.html">Oxyrhynchus 1224</a></li>
+				 <li><a href="secretmark.html">Fayyum Fragment</a></li>
+				 <li><a href="gospelegyptians.html">Gospel of the Egyptians</a></li>
+				 <li><a href="gospelhebrews.html">Gospel of the Hebrews</a></li>
+				 <li><a href="gospelebionites.html">Gospel of the Ebionites</a></li>
+				 <li><a href="gospelnazoreans.html">Gospel of the Nazoreans</a></li>
+				 <li><a href="traditionsmatthias.html">Traditions of Matthias</a></li>
+				 <li><a href="dura.html">Dura-Europos Gospel Harmony</a></li>
+			 </div></div>
+			 </ul>
+		</li>
+		<li class="submenu"><a>Apostolic Acts</a>
+		  <ul class="subul" style="left: 129px; width: 158px; height: 131px;">
+			<div class="subdiv1" style="width: 156px; height: 129px;"><div class="subdiv2" style="width: 155px; height: 128px;">
+			  <li><a href="preachingpeter.html">Preaching of Peter</a></li>
+				<li><a href="actspeter.html">Acts of Peter</a></li>
+				<li><a href="actsjohn.html">Acts of John</a></li>
+				<li><a href="actspaul.html">Acts of Paul</a></li>
+				<li><a href="actsandrew.html">Acts of Andrew</a></li>
+				<li><a href="actspetertwelve.html">Acts of Peter and the Twelve</a></li>
+				<li><a href="contender.html">Book of Thomas the Contender</a></li>
+				<li><a href="actsthomas.html">Acts of Thomas</a></li>
+			</div></div>
+			</ul>
+		</li>
+    <li class="submenu"><a>Martyrologies</a>
+		  <ul class="subul" style="left: 129px; width: 203px; height: 115px;">
+			<div class="subdiv1" style="width: 201px; height: 113px;"><div class="subdiv2" style="width: 200px; height: 112px;">
+			  <li><a href="martyrdompolycarp.html">Martyrdom of Polycarp</a></li>
+				<li><a href="esra.html">Fifth and Sixth Books of Esra</a></li>
+				<li><a href="carpus.html">Acts of Carpus, Papylus, and Agathonice</a></li>
+				<li><a href="viennalyons.html">Letter from Vienna and Lyons</a></li>
+				<li><a href="scillitan.html">Passion of the Scillitan Martyrs</a></li>
+				<li><a href="actsapollonius-2.html">Acts of Apollonius</a></li>
+				<li><a href="actsperpetua.html">Acts of Perpetua and Felicitas</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li><a href="didache.html">Didache</a></li>
+	  <li><a href="apocalypsepeter.html">Apocalypse of Peter</a></li>
+		<li><a href="didascalia.html">Didascalia</a></li>
+	</div></div>
+	</ul>
+</li>
+<li class="topli" style="left: 149px; width: 52px; height: 29px;"><a href="gnostics.html"><img src="pic/spacer.gif" style="position: absolute; left: 0px; top: 0px; width: 52px; height: 29px; border: 0px;" alt="Gnostics"></a>
+  <ul class="topul" style="width: 133px; height: 99px;">
+	<div class="topdiv1" style="width: 131px; height: 97px;"><div class="topdiv2" style="width: 130px; height: 96px;">
+	  <li class="submenu"><a>Dialogues with Jesus</a>
+		  <ul class="subul" style="left: 129px; width: 116px; height: 115px;">
+			<div class="subdiv1" style="width: 114px; height: 113px;"><div class="subdiv2" style="width: 113px; height: 112px;">
+			  <li><a href="sophia.html">Sophia of Jesus Christ</a></li>
+				<li><a href="secretjames.html">Secret James</a></li>
+				<li><a href="gospelmary.html">Gospel of Mary</a></li>
+				<li><a href="dialoguesavior.html">Dialogue of the Savior</a></li>
+				<li><a href="gospelsavior.html">Gospel of the Savior</a></li>
+				<li><a href="jeu.html">Books of Jeu</a></li>
+				<li><a href="pistis.html">Pistis Sophia</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li class="submenu"><a>Apocalypses</a>
+		  <ul class="subul" style="left: 129px; width: 138px; height: 67px;">
+			<div class="subdiv1" style="width: 136px; height: 65px;"><div class="subdiv2" style="width: 135px; height: 64px;">
+			  <li><a href="apocalypsejames2.html">2nd Apocalypse of James</a></li>
+				<li><a href="nhlapocalypsepaul.html">Coptic Apocalypse of Paul</a></li>
+				<li><a href="apocalypsejames1.html">1st Apocalypse of James</a></li>
+				<li><a href="nhlapocalypsepeter.html">Coptic Apocalypse of Peter</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li class="submenu"><a>Acts</a>
+		  <ul class="subul" style="left: 129px; width: 158px; height: 51px;">
+			<div class="subdiv1" style="width: 156px; height: 49px;"><div class="subdiv2" style="width: 155px; height: 48px;">
+			  <li><a href="actspetertwelve.html">Acts of Peter and the Twelve</a></li>
+				<li><a href="contender.html">Book of Thomas the Contender</a></li>
+				<li><a href="petertophilip.html">Letter of Peter to Philip</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li class="submenu"><a>More Nag Hammadi</a>
+		  <ul class="subul" style="left: 129px; width: 189px; height: 131px;">
+			<div class="subdiv1" style="width: 187px; height: 129px;"><div class="subdiv2" style="width: 186px; height: 128px;">
+			  <li><a href="apocryphonjohn.html">Apocryphon of John</a></li>
+				<li><a href="gospeltruth.html">Gospel of Truth</a></li>
+				<li><a href="treatiseres.html">Treatise on the Resurrection</a></li>
+				<li><a href="gospelphilip.html">Gospel of Philip</a></li>
+			  <li><a href="trimorphic.html">Trimorphic Protennoia</a></li>
+				<li><a href="authoritative.html">Authoritative Teaching</a></li>
+				<li><a href="eighthninth.html">Discourse on the Eighth and the Ninth</a></li>
+				<li><a href="melchizedek.html">Melchizedek</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>Quoted Authors</a>
+		  <ul class="subul" style="left: 129px; width: 111px; height: 115px;">
+			<div class="subdiv1" style="width: 109px; height: 113px;"><div class="subdiv2" style="width: 108px; height: 112px;">
+			  <li><a href="basilides.html">Basilides</a></li>
+				<li><a href="naassene.html">Naassene Fragments</a></li>
+				<li><a href="valentinus.html">Valentinus</a></li>
+				<li><a href="marcion.html">Marcion</a></li>
+				<li><a href="epiphanes.html">Epiphanes</a></li>
+				<li><a href="ophite.html">Ophite Diagrams</a></li>
+				<li><a href="gospeljudas.html">Gospel of Judas</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>More Quoted Authors</a>
+		  <ul class="subul" style="left: 129px; width: 111px; height: 99px;">
+			<div class="subdiv1" style="width: 109px; height: 97px;"><div class="subdiv2" style="width: 108px; height: 96px;">
+				<li><a href="ptolemy.html">Ptolemy</a></li>
+				<li><a href="isidore.html">Isidore</a></li>
+				<li><a href="theodotus.html">Theodotus</a></li>
+				<li><a href="heracleon.html">Heracleon</a></li>
+				<li><a href="apelles.html">Apelles</a></li>
+				<li><a href="cassianus.html">Julius Cassianus</a></li>
+			</div></div>
+			</ul>
+		</li>
+	</div></div>
+	</ul>
+</li>
+<li class="topli" style="left: 201px; width: 85px; height: 29px;"><a href="churchfathers.html"><img src="pic/spacer.gif" style="position: absolute; left: 0px; top: 0px; width: 85px; height: 29px; border: 0px;" alt="Church Fathers"></a>
+  <ul class="topul" style="width: 133px; height: 147px;">
+	<div class="topdiv1" style="width: 131px; height: 145px;"><div class="topdiv2" style="width: 130px; height: 144px;">
+	  <li class="submenu"><a>Apostolic Fathers</a>
+		  <ul class="subul" style="left: 129px; width: 163px; height: 147px;">
+			<div class="subdiv1" style="width: 161px; height: 145px;"><div class="subdiv2" style="width: 160px; height: 144px;">
+			  <li><a href="didache.html">Didache</a></li>
+			  <li><a href="barnabas.html">Epistle of Barnabas</a></li>
+			  <li><a href="1clement.html">First Clement</a></li>
+			  <li><a href="shepherd.html">Shepherd of Hermas</a></li>
+			  <li><a href="ignatius.html">Ignatius of Antioch</a></li>
+			  <li><a href="polycarp.html">Polycarp to the Philippians</a></li>
+			  <li><a href="2clement.html">Second Clement</a></li>
+			  <li><a href="diognetus.html">Epistle of Mathetes to Diognetus</a></li>
+			  <li><a href="martyrdompolycarp.html">Martyrdom of Polycarp</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>Apologists</a>
+		  <ul class="subul" style="left: 129px; width: 120px; height: 99px;">
+			<div class="subdiv1" style="width: 118px; height: 97px;"><div class="subdiv2" style="width: 117px; height: 96px;">
+			  <li><a href="aristides.html">Aristides</a></li>
+			  <li><a href="justin.html">Justin Martyr</a></li>
+			  <li><a href="tatian.html">Tatian</a></li>
+			  <li><a href="octavius.html">Minucius Felix</a></li>
+			  <li><a href="athenagoras.html">Athenagoras of Athens</a></li>
+			  <li><a href="theophilus.html">Theophilus of Antioch</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>Quoted Authors</a>
+		  <ul class="subul" style="left: 129px; width: 123px; height: 147px;">
+			<div class="subdiv1" style="width: 121px; height: 145px;"><div class="subdiv2" style="width: 120px; height: 144px;">
+			  <li><a href="papias.html">Papias</a></li>
+			  <li><a href="quadratus.html">Quadratus</a></li>
+			  <li><a href="aristo.html">Aristo of Pella</a></li>
+			  <li><a href="apollinaris.html">Claudius Apollinaris</a></li>
+			  <li><a href="melito.html">Melito of Sardis</a></li>
+			  <li><a href="hegesippus.html">Hegesippus</a></li>
+			  <li><a href="dionysius.html">Dionysius of Corinth</a></li>
+			  <li><a href="rhodon.html">Rhodon</a></li>
+			  <li><a href="theophiluscaesarea.html">Theophilus of Caesarea</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>More Quoted Authors</a>
+		  <ul class="subul" style="left: 129px; width: 136px; height: 147px;">
+			<div class="subdiv1" style="width: 134px; height: 145px;"><div class="subdiv2" style="width: 133px; height: 144px;">
+			  <li><a href="bardesanes.html">Bardesanes</a></li>
+			  <li><a href="maximus.html">Maximus of Jerusalem</a></li>
+			  <li><a href="polycrates.html">Polycrates of Ephesus</a></li>
+			  <li><a href="victor.html">Victor I</a></li>
+			  <li><a href="pantaenus.html">Pantaenus</a></li>
+			  <li><a href="antimontanist.html">Anonymous Anti-Montanist</a></li>
+			  <li><a href="serapion.html">Serapion of Antioch</a></li>
+			  <li><a href="apollonius.html">Apollonius</a></li>
+			  <li><a href="caius.html">Caius</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li><a href="irenaeus.html">Irenaeus of Lyons</a></li>
+		<li><a href="hippolytus.html">Hippolytus of Rome</a></li>
+		<li><a href="clement.html">Clement of Alexandria</a></li>
+		<li><a href="tertullian.html">Tertullian</a></li>
+		<li><a href="origen.html">Origen</a></li>
+	</div></div>
+	</ul>
+</li>
+<li class="topli" style="left: 286px; width: 41px; height: 29px;"><a href="other.html"><img src="pic/spacer.gif" style="position: absolute; left: 0px; top: 0px; width: 85px; height: 29px; border: 0px;" alt="Other"></a>
+  <ul class="topul" style="width: 133px; height: 115px;">
+	<div class="topdiv1" style="width: 131px; height: 113px;"><div class="topdiv2" style="width: 130px; height: 112px;">
+	  <li class="submenu"><a>Pagan and Jewish</a>
+		  <ul class="subul" style="left: 129px; width: 105px; height: 195px;">
+			<div class="subdiv1" style="width: 103px; height: 193px;"><div class="subdiv2" style="width: 102px; height: 192px;">
+			  <li><a href="mara.html">Mara bar Serapion</a></li>
+			  <li><a href="josephus.html">Josephus</a></li>
+			  <li><a href="pliny.html">Pliny the Younger</a></li>
+			  <li><a href="suetonius.html">Suetonius</a></li>
+			  <li><a href="tacitus.html">Tacitus</a></li>
+			  <li><a href="fronto.html">Fronto</a></li>
+			  <li><a href="lucian.html">Lucian of Samosata</a></li>
+			  <li><a href="aurelius.html">Marcus Aurelius</a></li>
+			  <li><a href="galen.html">Galen</a></li>
+			  <li><a href="celsus.html">Celsus</a></li>
+			  <li><a href="talmud.html">Talmud</a></li>
+			  <li><a href="philostratus.html">Philostratus</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>Jewish/Christian</a>
+		  <ul class="subul" style="left: 129px; width: 117px; height: 83px;">
+			<div class="subdiv1" style="width: 115px; height: 81px;"><div class="subdiv2" style="width: 114px; height: 80px;">
+			  <li><a href="patriarchs.html">The Twelve Patriarchs</a></li>
+			  <li><a href="sibylline.html">Non-Pagan Sibyllines</a></li>
+			  <li><a href="odes.html">Odes of Solomon</a></li>
+			  <li><a href="elchasai.html">Book of Elchasai</a></li>
+			  <li><a href="ascension.html">Ascension of Isaiah</a></li>
+			</div></div>
+			</ul>
+		</li>
+	  <li class="submenu"><a>Hypothesized Sources</a>
+		  <ul class="subul" style="left: 129px; width: 117px; height: 51px;">
+			<div class="subdiv1" style="width: 115px; height: 49px;"><div class="subdiv2" style="width: 114px; height: 48px;">
+			  <li><a href="passion.html">Passion Narrative</a></li>
+			  <li><a href="q.html">Sayings Gospel Q</a></li>
+			  <li><a href="signs.html">Signs Gospel</a></li>
+			</div></div>
+			</ul>
+		</li>
+		<li><a href="antimarcion.html">Anti-Marcionite Prologues</a></li>
+		<li><a href="muratorian.html">Muratorian Canon</a></li>
+		<li><a href="kerygmatapetrou.html">Kerygmata Petrou</a></li>
+		<li><a href="abercius.html">Inscription of Abercias</a></li>
+	</div></div>
+	</ul>
+</li>
+</ul>	
+</div><![if !IE]><script language="JavaScript"> 
+<!--
+var view = document.defaultView; var symboltab = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8704,0,8707,0,0, 8715,0,0,8727,0,0,8722,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,8773,913,914,935,8710,917,934,915,919,921, 977,922,923,924,925,927,928,920,929,931,932,933,962, 8486,926,936,918,0,8756,0,8869,0,8254,945,946,967, 948,949,966,947,951,953,981,954,955,956,957,959,960, 952,961,963,964,965,982,969,958,968,950,0,0,0,8764,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,978,8242,8804,8725,8734,402,9827,9830, 9829,9824,8596,8592,8593,8594,8595,176,177,8243, 8805,215,8733,8706,8226,247,8800,8801,8776,8230,0, 0,8629,8501,8465,8476,8472,8855,8853,8709,8745,8746, 8835,8839,8836,8834,8838,8712,8713,8736,8711,174,169, 8482,8719,8730,8901,172,8743,8744,8660,8656,8657, 8658,8659,9674,9001,174,169,8482,8721,0,0,0,0,0,0,0, 0,0,0,0,9002,8747,8992,0,8993,0,0,0,0,0,0,0,0,0, 0]; function convNode(n) { var n1; if (n == null) return; if (n.nodeType == 3) { elem = n.parentNode; var st = view.getComputedStyle(elem, null); var val = st.getPropertyValue('font-family'); if (val.toLowerCase() == 'symbol') { var s0 = n.data, s1 = '', len = s0.length, ch; for (i = 0; i < len; i++) { ch = s0.charCodeAt(i); if (ch < 256 && symboltab[ch] != 0) ch = symboltab[ch]; s1 += String.fromCharCode(ch); } n.data = s1; } } n1 = n.firstChild; while (n1 != null) { convNode(n1); n1 = n1.nextSibling; } } convNode(document);
+// <![endif]-->
+</script><!--[if IE]>
+<script language="JavaScript">var sURL = unescape(window.location.pathname); function refresh() {window.location.href = sURL;}</script>
+<script language="JavaScript1.1">function refresh() {window.location.replace( sURL );}</script>
+<script language="JavaScript1.2">function refresh() {window.location.reload( false );}</script>
+<script language="JavaScript">window.onresize = refresh;</script>
+<![endif]-->
+<!-- Javascript tag: -->
+<!-- begin ZEDO for channel:  EarlyChristianWritings - CLB , publisher: Early Christian Writings , Ad Dimension: Pixel/Popup - 1 x 1 -->
+<script language="JavaScript">
+var zflag_nid="305"; var zflag_cid="39404/39401/1"; var zflag_sid="4519"; var zflag_width="1"; var zflag_height="1"; var zflag_sz="15"; var zflag_click="[INSERT_CLICK_TRACKER_MACRO]";
+</script>
+<script language="JavaScript" src="http://c5.zedo.com/jsc/c5/fo.js"></script>
+<!-- end ZEDO for channel:  EarlyChristianWritings - CLB , publisher: Early Christian Writings , Ad Dimension: Pixel/Popup - 1 x 1 -->
+</body> 
+</html>

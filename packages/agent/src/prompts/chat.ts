@@ -54,6 +54,17 @@ Your training data may be outdated. ONLY answer based on what you find in the so
 - NEVER make up information or guess — only state what you found
 - Always cite the source file path when quoting content
 
+## Sacred texts
+
+A library is mounted at \`docs/sacred-texts/\`. Search it before the web when the question is about scripture, a sacred book, a prayer, or a named tradition.
+
+| Task | Command |
+|------|---------|
+| Find a passage | \`grep -rl "phrase" docs/sacred-texts --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" \| head -5\` |
+| Read attribution | \`head -80 docs/sacred-texts/ATTRIBUTION.txt\` |
+
+When you quote a passage, cite the file path under \`docs/sacred-texts/\` and the edition line at the top of that file (title, translator, year, and site). If the file has no edition line, use the collection note in \`ATTRIBUTION.txt\` for that directory. PDF, DOCX, EPUB, and image files are not searchable with grep. Use the plain-text, HTML, or USX copy when one is present. If the passage is not in the library, say so.
+
 ## Fast Search Strategy
 
 ALWAYS prefer \`bash_batch\` over sequential \`bash\` calls. Combine search and read in the same batch.

@@ -1,0 +1,599 @@
+Acts of Andrew
+
+Home
+
+>
+
+Apocrypha
+
+>
+
+Acts of Andrew
+
+Acts of Andrew
+
+At a Glance
+
+Acts
+
+Genre
+
+:
+
+(2/5) **
+
+Reliability of Dating
+
+:
+
+(3/5) ***
+
+Length of Text
+
+:
+
+Greek
+
+Original Language:
+
+Ancient Translations:
+
+Modern Translations:
+
+English
+
+Estimated Range of Dating: 150-200
+
+A.D.
+
+Chronological List of Early Christian Writings
+
+Discuss this text on the
+
+Early Writings forum
+
+.
+
+Text
+
+English Translation by M.R. James
+
+Offsite Links
+
+Geoff Trowbridge's Introduction
+
+Glenn Davis: Acts of Andrew
+
+Books
+
+Wilhelm Schneemelcher, ed., translation by R. McL. Wilson,
+
+New Testament Apocrypha : Writings Relating to the Apostles Apocalypses and Related Subjects
+
+(Louisville: John Knox Press, 1992), pp. 101-151.
+
+J.N. Bremmer,
+
+The Apocryphal Acts of Andrew
+
+(Peeters 2000).
+
+Stevan Davies,
+
+The Revolt of the Widows: The Social World of the Apocryphal Acts
+
+(Southern Illinois Univ Pr 1980).
+
+Recommended Books for the Study of Early Christian Writings
+
+Information on the Acts of Andrew
+
+Jean-Marc Prieur writes concerning dating (
+
+The Anchor Bible Dictionary
+
+, v. 1, p. 246):
+
+The
+
+Manichean Psalter
+
+, which contains some allusions
+
+to the content of
+
+Acts Andr.
+
+(Allberry 1938: 142,
+
+143, 192), establishes the 3d century as the
+
+terminus
+
+ad quem
+
+for the redaction of the apocryphon, but the
+
+Acts
+
+had to have originated earlier, between 150 and
+
+200, closer to 150 than to 200.  The distinctive
+
+christology of the text, its silence concerning the
+
+historical and biblical Jesus, and its distance from
+
+later institutional organization and ecclesiastical
+
+rites militate for an early dating.  Moreover, its
+
+serene tone and unawareness of any polemic against
+
+some of its ideas as heterodox, particularly in the
+
+area of christology, show that it derived from a
+
+period when the christology of the Great Church had
+
+not yet taken firm shape.  One might repeat here the
+
+line of argumentation employed by Junod and Kaestli
+
+for locating the
+
+Acts of John
+
+in the same period
+
+(1983: 695).  Moreover,
+
+Acts John
+
+displays several
+
+affinities with
+
+Acts Andr.
+
+, such as the literary
+
+genre, structure, and theological orientations.
+
+Some Contemporary Texts
+
+Testimony of Truth
+
+(150-200 A.D.)
+
+Acts of Peter
+
+(150-200 A.D.)
+
+Acts of John
+
+(150-200 A.D.)
+
+Acts of Paul
+
+(150-200 A.D.)
+
+Acts of Andrew
+
+(150-200 A.D.)
+
+Acts of Peter and the Twelve
+
+(150-225 A.D.)
+
+Book of Thomas the Contender
+
+(150-225 A.D.)
+
+Paraphrase of Shem
+
+(150-250 A.D.)
+
+Fifth and Sixth Books of Esra
+
+(150-250 A.D.)
+
+Go to the
+
+Chronological List
+
+of all Early Christian Writings
+
+Please
+
+buy the CD
+
+to support the site, view it without ads, and get bonus stuff!
+
+Early Christian Writings
+
+is copyright ©
+
+Peter Kirby
+
+<
+
+E-Mail
+
+>
+
+.
+
+Follow @mrpeterkirby
+
+MLA
+
+Style
+
+Kirby, Peter. "Acts of Andrew."
+
+Early Christian Writings
+
+.
+
+<http://www.earlychristianwritings.com/actsandrew.html>.
+
+Gospels
+
+Matthew
+
+Mark
+
+Luke
+
+John
+
+Acts
+
+Letters of Paul
+
+Romans
+
+1 Corinthians
+
+2 Corinthians
+
+Galatians
+
+Ephesians
+
+Philippians
+
+Colossians
+
+1 Thessalonians
+
+2 Thessalonians
+
+1 Timothy
+
+2  Timothy
+
+Titus
+
+Philemon
+
+Letter to the Hebrews
+
+General Letters
+
+James
+
+1 Peter
+
+2 Peter
+
+1 John
+
+2 John
+
+3 John
+
+Jude
+
+Revelation
+
+Gospels
+
+Gospel of Thomas
+
+Egerton Gospel
+
+Gospel of Peter
+
+Oxyrhynchus 840
+
+Gospel of Mary
+
+Epistula Apostolorum
+
+Infancy Gospel of James
+
+Infancy Gospel of Thomas
+
+Acts of Pilate
+
+Diatessaron
+
+Gospel Fragments
+
+Oxyrhynchus 1224
+
+Fayyum Fragment
+
+Gospel of the Egyptians
+
+Gospel of the Hebrews
+
+Gospel of the Ebionites
+
+Gospel of the Nazoreans
+
+Traditions of Matthias
+
+Dura-Europos Gospel Harmony
+
+Apostolic Acts
+
+Preaching of Peter
+
+Acts of Peter
+
+Acts of John
+
+Acts of Paul
+
+Acts of Andrew
+
+Acts of Peter and the Twelve
+
+Book of Thomas the Contender
+
+Acts of Thomas
+
+Martyrologies
+
+Martyrdom of Polycarp
+
+Fifth and Sixth Books of Esra
+
+Acts of Carpus, Papylus, and Agathonice
+
+Letter from Vienna and Lyons
+
+Passion of the Scillitan Martyrs
+
+Acts of Apollonius
+
+Acts of Perpetua and Felicitas
+
+Didache
+
+Apocalypse of Peter
+
+Didascalia
+
+Dialogues with Jesus
+
+Sophia of Jesus Christ
+
+Secret James
+
+Gospel of Mary
+
+Dialogue of the Savior
+
+Gospel of the Savior
+
+Books of Jeu
+
+Pistis Sophia
+
+Apocalypses
+
+2nd Apocalypse of James
+
+Coptic Apocalypse of Paul
+
+1st Apocalypse of James
+
+Coptic Apocalypse of Peter
+
+Acts
+
+Acts of Peter and the Twelve
+
+Book of Thomas the Contender
+
+Letter of Peter to Philip
+
+More Nag Hammadi
+
+Apocryphon of John
+
+Gospel of Truth
+
+Treatise on the Resurrection
+
+Gospel of Philip
+
+Trimorphic Protennoia
+
+Authoritative Teaching
+
+Discourse on the Eighth and the Ninth
+
+Melchizedek
+
+Quoted Authors
+
+Basilides
+
+Naassene Fragments
+
+Valentinus
+
+Marcion
+
+Epiphanes
+
+Ophite Diagrams
+
+Gospel of Judas
+
+More Quoted Authors
+
+Ptolemy
+
+Isidore
+
+Theodotus
+
+Heracleon
+
+Apelles
+
+Julius Cassianus
+
+Apostolic Fathers
+
+Didache
+
+Epistle of Barnabas
+
+First Clement
+
+Shepherd of Hermas
+
+Ignatius of Antioch
+
+Polycarp to the Philippians
+
+Second Clement
+
+Epistle of Mathetes to Diognetus
+
+Martyrdom of Polycarp
+
+Apologists
+
+Aristides
+
+Justin Martyr
+
+Tatian
+
+Minucius Felix
+
+Athenagoras of Athens
+
+Theophilus of Antioch
+
+Quoted Authors
+
+Papias
+
+Quadratus
+
+Aristo of Pella
+
+Claudius Apollinaris
+
+Melito of Sardis
+
+Hegesippus
+
+Dionysius of Corinth
+
+Rhodon
+
+Theophilus of Caesarea
+
+More Quoted Authors
+
+Bardesanes
+
+Maximus of Jerusalem
+
+Polycrates of Ephesus
+
+Victor I
+
+Pantaenus
+
+Anonymous Anti-Montanist
+
+Serapion of Antioch
+
+Apollonius
+
+Caius
+
+Irenaeus of Lyons
+
+Hippolytus of Rome
+
+Clement of Alexandria
+
+Tertullian
+
+Origen
+
+Pagan and Jewish
+
+Mara bar Serapion
+
+Josephus
+
+Pliny the Younger
+
+Suetonius
+
+Tacitus
+
+Fronto
+
+Lucian of Samosata
+
+Marcus Aurelius
+
+Galen
+
+Celsus
+
+Talmud
+
+Philostratus
+
+Jewish/Christian
+
+The Twelve Patriarchs
+
+Non-Pagan Sibyllines
+
+Odes of Solomon
+
+Book of Elchasai
+
+Ascension of Isaiah
+
+Hypothesized Sources
+
+Passion Narrative
+
+Sayings Gospel Q
+
+Signs Gospel
+
+Anti-Marcionite Prologues
+
+Muratorian Canon
+
+Kerygmata Petrou
+
+Inscription of Abercias

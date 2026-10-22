@@ -4,6 +4,8 @@
 
 Acuity.Agent aggregates content from multiple sources into a unified, searchable knowledge base. A source is anything that produces files — GitHub repos, YouTube transcripts, and any custom source you build. Everything ends up as files in a sandbox, and the AI agent searches across all of them.
 
+The sacred-text library is vendored in this repository at `Texts/sacred_texts_archive/` and mounted into the sandbox at `docs/sacred-texts/` on startup. Attribution for each collection is in `ATTRIBUTION.txt` at that root. `grep` can search the plain-text, HTML, and USX files. The zip at `Texts/Sacred_Texts_Complete_Archive.zip` is not part of the library; it is an incomplete download and is gitignored.
+
 The system is designed to be extensible. Built-in source types handle GitHub and YouTube, but the architecture supports any source that can output files: Reddit threads, Slack exports, RSS feeds, custom APIs, static markdown — anything.
 
 ## Managing Sources
@@ -120,6 +122,7 @@ During sync, only documentation-relevant files are kept in the snapshot. All oth
 | `.mdx` | Preserved (treated as Markdown) |
 | `.yml` / `.yaml` | Preserved |
 | `.json` | Preserved |
+| `.txt`, `.html`, `.htm`, `.usx` | Preserved so scripture stays searchable with `grep` |
 | All other types | **Deleted** during sync |
 
 Source code files (`.ts`, `.js`, `.vue`, etc.), images, binaries, and any file not in the list above are automatically removed after cloning. Only the supported types end up in the snapshot repository.

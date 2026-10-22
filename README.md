@@ -1,250 +1,96 @@
-<img src="./assets/banner.jpg" width="100%" alt="Acuity.Agent banner" />
+<img src="./assets/banner.jpg" width="100%" alt="Acuity.Agent" />
 
 <p align="center">
-  <br>
-  <b>Acuity.Agent</b>
-  <br>
-  <i>Acuity Institute knowledge agent for creating pathways to wisdom.</i>
-  <br>
-  <br>
-</p>
-
-<p align="center">
-  <b>Acuity Institute.</b> Creating Pathways to Wisdom.
-</p>
-
-<p align="center">
-  <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template&env=BETTER_AUTH_SECRET,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=BETTER_AUTH_SECRET%3A%20run%20openssl%20rand%20-hex%2032%20%7C%20GITHUB_CLIENT_ID%20%2B%20SECRET%3A%20create%20a%20GitHub%20App%20at%20github.com%2Fsettings%2Fapps%2Fnew&envLink=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template%2Fblob%2Fmain%2Fdocs%2FENVIRONMENT.md&project-name=acuity-agent&repository-name=acuity-agent"><img src="https://vercel.com/button" alt="Deploy with Vercel" /></a>
+  <b>Acuity.Agent</b><br>
+  <i>Creating pathways to wisdom.</i><br><br>
+  <a href="https://acuity.institute">acuity.institute</a>
+  ·
+  <a href="https://github.com/ejfsensus/Acuity.Agent2.0-Railway">GitHub</a>
 </p>
 
 ---
 
-Acuity.Agent is a branded Acuity Institute knowledge agent built from the Vercel Labs knowledge-agent template. It stays up to date with your knowledge base using file-system search across sources, with no embeddings or vector database required. Plug in GitHub repositories, YouTube transcripts, or custom sources and deploy as a chat app, GitHub bot, Discord bot, or all at once.
+Acuity.Agent is the knowledge agent for the [Acuity Institute](https://acuity.institute). The Institute is dedicated to truth and the expansion of accurate knowledge, enlightening pathways of understanding across all areas of life. This repository is **Acuity.Agent 2.0**, prepared for deployment on Railway.
 
-## Features
+The public site puts it this way: achieving wisdom through knowledge, and enlightening pathways of understanding. The Acuity Library is a pathway to individual enlightenment, meant to improve lives, communities, and society. This agent is the instrument that searches that library and answers from what it actually finds.
 
-### File-Based Search — No Embeddings Needed
+## What the agent can read today
 
-No vector database. No chunking pipeline. No embedding model. Agents use `grep`, `find`, and `cat` inside [isolated sandboxes](./docs/ARCHITECTURE.md#3-sandbox-system) to search across all your [sources](./docs/SOURCES.md). Results are deterministic, explainable, and instant. Zero infrastructure overhead.
+The sacred-text library is vendored at `Texts/sacred_texts_archive/`. On startup the app copies it into the sandbox at `docs/sacred-texts/`, which is where the agent runs `grep`, `find`, and `cat`. `Texts/sacred_texts_archive/ATTRIBUTION.txt` names each collection, the edition to cite, and the downloads that were empty or failed their checksum. Plain text, HTML, and USX are searchable. PDF and Office files in that tree are stored, and `grep` does not read them.
 
-### Multi-Platform Bots — One Agent, Everywhere
+Other sources still arrive through sync. Until an administrator adds one and runs a sync, the sandbox has this library and nothing else. The agent is instructed to answer from files it finds, and to say when a passage is not in the available sources.
 
-Write your agent once, deploy it on the web chat, GitHub Issues, Discord - and soon Slack, Linear, and more. Powered by pluggable adapters via the [Chat SDK](https://github.com/vercel-labs/chat). Adding a new platform is [a single adapter file](./docs/CUSTOMIZATION.md#4-add-a-bot-adapter).
+What it can reach, once configured:
 
-### Built-in Admin Panel
+| Access | What it is | In this repo now |
+|---|---|---|
+| Knowledge base | The vendored sacred-text library, plus Markdown, MDX, YAML, JSON, TXT, HTML, and USX synced from sources. The agent searches the sandbox with `grep`, `find`, and `cat`. | Sacred texts are at `Texts/sacred_texts_archive/`, mounted as `docs/sacred-texts/`. |
+| GitHub sources | A repository or docs path, synced on demand | None configured in code. |
+| YouTube sources | Transcripts from a channel, up to the configured video limit | None configured in code. Needs `NUXT_YOUTUBE_API_KEY`. |
+| File sources | Documents uploaded in the admin panel | None stored in git. |
+| Chat attachments | Files a person attaches to one conversation | Per chat, not a standing library. |
+| Web search | Brave Search and Brave LLM context, used only after the sandbox has been searched | Optional. Needs `BRAVE_API_KEY`. |
 
-Full admin interface out of the box: usage stats, error logs, user management, source configuration, and content sync controls. No need for external dashboards or third-party monitoring.
+The product docs in `docs/` and `apps/app/app/content/docs/` describe how to run the software. They are not the Institute library, and they are not mounted as the agent's knowledge base unless someone adds them as a source.
 
-### AI-Powered Admin Agent
+### What the public site names, and what this agent does not hold
 
-Ask your app about itself. "What errors happened in the last 24 hours?", "Show token usage by model", "Which endpoints are slowest?" — the admin agent has access to internal tools like `query_stats`, `query_errors`, `run_sql`, and `chart` to answer operational questions in natural language.
+These appear on [acuity.institute](https://acuity.institute). They are not files in this repository, and the agent cannot quote them until they are added as sources and synced.
 
-### Smart Complexity Router
+- **The Acuity Library.** The site describes it as a pathway to enlightenment. This repository vendors the sacred-text archive under `Texts/sacred_texts_archive/`. It does not include a separate catalogue page from the public site.
+- **LumenNous** ([lumennous.acuity.institute](https://lumennous.acuity.institute)). A separate prayer engine. The site describes a library of seventy-two prayers and guided practices. That library is not part of Acuity.Agent.
+- **The Archive, The Lens, and Taking Action.** Listed under Instruments of Clarity. The site marks them Coming Soon. They are not implemented in this codebase.
+- **Webinars and Acuity Shorts.** Titles and descriptions are published on the site (testimony, consciousness, self-worth, and related talks). The agent does not have those transcripts unless a YouTube or file source is synced.
+- **The model’s general training.** The chat prompt tells the agent not to treat memory as a source. If the sandbox does not contain a text, the agent should say it could not find it.
 
-Every incoming question is classified by complexity (trivial → complex) and [routed to the right model](./docs/ARCHITECTURE.md#4-ai-agent-router--model-selection). Simple questions go to fast, cheap models. Hard questions go to powerful ones. Cost optimization happens automatically, no manual rules to maintain.
+The built-in library includes the Internet Sacred Text Archive downloads, the American Standard Version (1901) in USX, and the Berean Standard Bible in plain text. Works that were not in those downloads are still absent. The agent should say so rather than quote from memory.
 
-### Real-Time Tool Visualization
+## How a text becomes available
 
-The chat UI shows what the agent is doing in real time: which files it's reading, which commands it's running, and how long each step takes. No black box.
+1. Sign in as an admin and open `/admin`.
+2. Add a source: a GitHub repository, a YouTube channel, or an uploaded file set.
+3. Sync. Sync keeps `.md`, `.mdx`, `.yml`, `.yaml`, `.json`, `.txt`, `.html`, `.htm`, and `.usx`, and drops other file types.
+4. The agent then searches that tree. It cites the file path it read.
 
-### Shareable Conversations
+Source fields, sync behaviour, and the snapshot layout are in [docs/SOURCES.md](./docs/SOURCES.md).
 
-Share any conversation with a single click. Generates a public read-only link with full metadata — author, title, and the complete exchange.
-
-### Shared Sandbox Pool
-
-Sandboxes are pooled across users and conversations. When a chat starts, it connects to an already-running sandbox instead of creating a new one — startup in under 100ms. If none is available, a pre-built snapshot spins one up in 1–3s. Sandboxes are read-only with blocked dangerous commands, and automatically shared so multiple agents search the same up-to-date content without duplicating resources.
-
-## [Architecture](./docs/ARCHITECTURE.md)
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Your AI Application                      │
-│                     (Discord bot, GitHub bot, etc.)             │
-└─────────────────────────────────┬───────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                          @savoir/sdk                            │
-│              AI SDK compatible tools (bash, bash_batch)         │
-└─────────────────────────────────┬───────────────────────────────┘
-                                  │ API calls
-                                  ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                         apps/app                                │
-│                    (Unified Nuxt Application)                   │
-│  ┌─────────────┐  ┌──────────────┐  ┌────────────────────────┐  │
-│  │   Sandbox   │  │   Content    │  │   Vercel Workflows     │  │
-│  │   Manager   │  │     Sync     │  │   (scheduled sync)     │  │
-│  └──────┬──────┘  └──────┬───────┘  └────────────────────────┘  │
-└─────────┼────────────────┼──────────────────────────────────────┘
-          │                │
-          ▼                ▼
-   ┌────────────┐   ┌─────────────┐
-   │   Vercel   │   │   GitHub    │
-   │   Sandbox  │   │  Snapshot   │
-   │            │   │    Repo     │
-   └────────────┘   └─────────────┘
-```
-
-## Packages
-
-| Package | Description |
-|---------|-------------|
-| [`@savoir/sdk`](./packages/sdk) | [AI SDK](https://ai-sdk.dev) compatible tools for agents |
-| [`@savoir/agent`](./packages/agent) | Agent core: router, prompts, tools, types |
-| [`apps/app`](./apps/app) | Unified [Nuxt](https://nuxt.com) app (chat UI + API + bots) |
-
-## Quick Start
-
-### Using the SDK
-
-```typescript
-import { generateText } from 'ai'
-import { createSavoir } from '@savoir/sdk'
-
-const savoir = createSavoir({
-  apiUrl: process.env.SAVOIR_API_URL!,
-  apiKey: process.env.SAVOIR_API_KEY,
-})
-
-const { text } = await generateText({
-  model: yourModel, // any AI SDK compatible model
-  tools: savoir.tools, // bash and bash_batch tools
-  maxSteps: 10,
-  prompt: 'How do I configure authentication?',
-})
-
-console.log(text)
-```
-
-### Deploy to Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template&env=BETTER_AUTH_SECRET,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=BETTER_AUTH_SECRET%3A%20run%20openssl%20rand%20-hex%2032%20%7C%20GITHUB_CLIENT_ID%20%2B%20SECRET%3A%20create%20a%20GitHub%20App%20at%20github.com%2Fsettings%2Fapps%2Fnew&envLink=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fknowledge-agent-template%2Fblob%2Fmain%2Fdocs%2FENVIRONMENT.md&project-name=acuity-agent&repository-name=acuity-agent)
-
-### Self-hosting
+## Run it locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/vercel-labs/knowledge-agent-template.git
-cd acuity-agent
-
-# Install dependencies
 bun install
-
-# Configure environment variables
 cp apps/app/.env.example apps/app/.env
-# Edit .env with your configuration
-
-# Start the app
 bun run dev
 ```
 
-**Required environment variables:**
+Set `BETTER_AUTH_SECRET` and `NUXT_PUBLIC_SITE_URL` before expecting sign-in to work. Model access needs either the Vercel AI Gateway key or an OpenAI-compatible endpoint. The full variable list is in [docs/ENVIRONMENT.md](./docs/ENVIRONMENT.md).
 
 ```bash
-# Authentication
-BETTER_AUTH_SECRET=your-secret        # Secret for signing sessions/tokens
-NUXT_PUBLIC_SITE_URL=...              # Public app URL for Better Auth callbacks
-AUTHORIZED_USER_EMAILS=developments@sensusinvista.ltd # Development access allowlist
-GITHUB_CLIENT_ID=...                  # GitHub OAuth app client ID
-GITHUB_CLIENT_SECRET=...              # GitHub OAuth app client secret
-# BETTER_AUTH_API_KEY=...             # Optional Better Auth Infra API key
-
-# AI (optional — only needed for local dev, Vercel uses OIDC automatically)
-# AI_GATEWAY_API_KEY=...              # Vercel AI Gateway API key
-BRAVE_API_KEY=...                     # Brave Search API key for web search / LLM context tools
-
-# Optional OpenAI-compatible endpoint override
-# AI_PROVIDER=openai-compatible
-# OPENAI_COMPATIBLE_BASE_URL=https://api.openai.com/v1
-# OPENAI_COMPATIBLE_API_KEY=...
-# OPENAI_COMPATIBLE_MODELS=gpt-4o-mini,gpt-4o
-# OPENAI_COMPATIBLE_DEFAULT_MODEL=gpt-4o-mini
-
-# Sandbox
-# NUXT_GITHUB_SNAPSHOT_REPO=org/repo  # Optional default (can be set from admin sandbox UI)
-# NUXT_GITHUB_TOKEN=ghp_...           # Optional fallback override (GitHub App is the default path)
-
-```
-
-See [ENVIRONMENT.md](./docs/ENVIRONMENT.md) for the full list of environment variables.
-
-## Customization
-
-Acuity.Agent is designed as a **reusable template**. See the [Customization Guide](./docs/CUSTOMIZATION.md) for how to:
-
-- Rename your instance (name, icon, description)
-- Add [content sources](./docs/SOURCES.md) (GitHub repos, YouTube channels, custom)
-- Add custom AI tools
-- Add bot adapters (Slack, Linear, etc.)
-- Customize AI prompts
-- Theme the UI
-- Deploy to production
-
-**AI-assisted customization:** The project includes local skills in [`.agents/skills/`](./.agents/skills) (add-tool, add-source, add-bot-adapter, rename-project). You can delegate these tasks to an AI agent — e.g. *"Follow the rename-project skill to rename this to MyDocs"* — instead of doing them manually.
-
-## Configuration
-
-Sources are managed through the **admin interface** at `/admin`. You can add GitHub repositories and YouTube channels as knowledge sources, then trigger a sync from the UI.
-
-Sources can also be listed programmatically via the SDK (`savoir.client.getSources()`).
-
-See [SOURCES.md](./docs/SOURCES.md) for detailed source configuration options.
-
-## How It Works
-
-> For the full technical deep-dive, see [Architecture](./docs/ARCHITECTURE.md).
-
-1. **Sources in Database**: Sources are stored in SQLite via [NuxtHub](https://hub.nuxt.com), managed through the admin interface
-2. **Content Aggregation**: Sources (GitHub repos, YouTube transcripts, custom APIs, etc.) are synced to a snapshot repository via [Vercel Workflow](https://useworkflow.dev)
-3. **Sandbox Creation**: When an agent needs to search, the API creates/recovers a [Vercel Sandbox](https://vercel.com/docs/vercel-sandbox) with the snapshot repo cloned
-4. **File-based Search**: The SDK `bash` and `bash_batch` tools execute grep/find/cat commands in the sandbox to search and read content
-5. **AI Integration**: Tools are compatible with the [Vercel AI SDK](https://ai-sdk.dev) for seamless integration with any LLM
-
-## Bots
-
-Acuity.Agent includes built-in bot integrations powered by the [Vercel Chat SDK](https://github.com/vercel-labs/chat):
-
-- **GitHub Bot**: Responds to mentions in GitHub issues and PRs. Uses a [GitHub App](https://docs.github.com/en/apps) for authentication and webhooks.
-- **Discord Bot**: Responds to mentions and continues conversations in threads. Uses the [Discord API](https://discord.com/developers/docs).
-
-Both bots use the same AI agent and knowledge base as the chat interface. Want to add your own? See [Adding a Bot Adapter](./docs/CUSTOMIZATION.md#4-add-a-bot-adapter).
-
-## Development
-
-```bash
-# Install dependencies
-bun install
-
-# Start the app in dev mode
-bun run dev
-
-# Build all packages
 bun run build
-
-# Run tests
 bun run test
-
-# Lint and fix
-bun run lint:fix
+bun run lint
+bun run typecheck
 ```
 
-## Built With
+## Railway
 
-- [Nuxt](https://nuxt.com) - Full-stack Vue framework
-- [Nuxt UI](https://ui.nuxt.com) - UI component library
-- [NuxtHub](https://hub.nuxt.com) - Database, KV, and blob storage
-- [Vercel AI SDK](https://ai-sdk.dev) - AI model integration and tool system
-- [Vercel Sandbox](https://vercel.com/docs/vercel-sandbox) - Isolated execution environment
-- [Vercel Workflow](https://useworkflow.dev) - Durable workflow execution
-- [Better Auth](https://www.better-auth.com) - Authentication framework
-- [Drizzle ORM](https://orm.drizzle.team) - Type-safe database queries
-- [Vercel Chat SDK](https://github.com/vercel-labs/chat) - Bot framework for GitHub and Discord
+Production is intended to run from the Dockerfile on Railway, with Postgres for users, chats, and sources. The current deployment notes, including the database-driver fix, are in [docs/RAILWAY-DEPLOYMENT.md](./docs/RAILWAY-DEPLOYMENT.md).
 
-## Contributing
+Repository: [github.com/ejfsensus/Acuity.Agent2.0-Railway](https://github.com/ejfsensus/Acuity.Agent2.0-Railway)
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to get involved.
+## What else it can do
+
+- Chat on the web, with the search steps shown as they run.
+- The same agent on GitHub and Discord, when those bots are configured.
+- An admin assistant for usage, errors, users, and sources.
+- Shareable read-only conversations.
+
+Architecture is in [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md). Branding, tools, and bot adapters are in [docs/CUSTOMIZATION.md](./docs/CUSTOMIZATION.md).
+
+## Institute
+
+[acuity.institute](https://acuity.institute) · Beyond the Horizon of Knowledge · Est. 2026
+
+Correspondence: [hello@acuity.institute](mailto:hello@acuity.institute)
 
 ## License
 

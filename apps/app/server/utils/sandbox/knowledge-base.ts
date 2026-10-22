@@ -1,6 +1,8 @@
 import { existsSync } from 'node:fs'
-import { join } from 'node:path'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { dirname, join } from 'node:path'
 import { log } from 'evlog'
+import { installBundledLibrary, SACRED_TEXTS_SANDBOX_DIR } from './bundled-library'
 import { LocalSandbox, SANDBOX_ROOT, ensureSandboxRoot } from './local'
 import { generateAuthRepoUrl } from './git'
 import { getSnapshotRepoConfig } from './snapshot-config'
@@ -33,7 +35,9 @@ export async function prepareKnowledgeBase(): Promise<void> {
 
   if (!snapshotRepo) {
     // Not an error: the app boots and admin can still configure a repo later.
-    log.warn('sandbox', `No snapshot repository configured; ${SANDBOX_ROOT} stays empty`)
+    // The vendored library is still mounted so scripture search works.
+    log.warn('sandbox', `No snapshot repository configured; mounting the bundled library only`)
+    await installBundledLibrary()
     return
   }
 
@@ -65,10 +69,25 @@ export async function prepareKnowledgeBase(): Promise<void> {
     throw new Error(`git checkout failed: ${scrub(checkout.out, token)}`)
   }
 
-  // Drop anything left behind by a previous sync so the tree matches the remote.
-  await run(['clean', '-fd'])
+  // Keep the vendored library across cleans. It is not part of the snapshot repo.
+  await ignoreBundledLibrary()
+  await run(['clean', '-fd', '-e', SACRED_TEXTS_SANDBOX_DIR])
+  await installBundledLibrary()
 
   log.info('sandbox', `Knowledge base ready at ${SANDBOX_ROOT} (${snapshotRepo}#${branch})`)
+}
+
+/** Stops a later sync from committing the vendored library into the snapshot repo. */
+async function ignoreBundledLibrary(): Promise<void> {
+  if (!isGitRepo()) return
+
+  const exclude = join(SANDBOX_ROOT, '.git/info/exclude')
+  const line = `${SACRED_TEXTS_SANDBOX_DIR}/`
+  const current = existsSync(exclude) ? await readFile(exclude, 'utf8') : ''
+  if (current.includes(line)) return
+
+  await mkdir(dirname(exclude), { recursive: true })
+  await writeFile(exclude, `${current.trimEnd()}\n${line}\n`)
 }
 
 /** Keeps an embedded token out of logs and error messages. */

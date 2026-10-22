@@ -48,6 +48,7 @@ ENV NODE_ENV=production \
     NITRO_PORT=3000 \
     PORT=3000 \
     SANDBOX_ROOT=/vercel/sandbox \
+    SACRED_TEXTS_DIR=/app/library/sacred-texts \
     DATABASE_MIGRATIONS_DIR=/app/migrations/postgresql
 
 # The agent searches the knowledge base with a fixed allow-list of read-only
@@ -74,6 +75,7 @@ RUN apt-get update \
 
 COPY --from=builder /app/apps/app/.output ./.output
 COPY --from=builder /app/apps/app/server/db/migrations/postgresql ./migrations/postgresql
+COPY --from=builder /app/Texts/sacred_texts_archive /app/library/sacred-texts
 
 # Knowledge base clone lives on a mounted Railway volume so restarts do not
 # re-clone. Created here so the app works before a volume is attached.

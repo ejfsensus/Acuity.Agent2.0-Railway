@@ -1,0 +1,1767 @@
+[
+  {
+    "text": "The Internet Book of Shadows",
+    "href": "bos/ibos.zip",
+    "url": "https://sacred-texts.com/bos/ibos.zip"
+  },
+  {
+    "text": "The Mahabharata (text format)",
+    "href": "hin/maha/mahatxt.zip",
+    "url": "https://sacred-texts.com/hin/maha/mahatxt.zip"
+  },
+  {
+    "text": "Notes on the Folklore of the Fjort",
+    "href": "afr/fjort/fjo.txt.gz",
+    "url": "https://sacred-texts.com/afr/fjort/fjo.txt.gz"
+  },
+  {
+    "text": "At the Back of the Black Man's Mind",
+    "href": "afr/mind/mind.txt.gz",
+    "url": "https://sacred-texts.com/afr/mind/mind.txt.gz"
+  },
+  {
+    "text": "Woman's Mysteries of a Primitive People",
+    "href": "afr/wmp/wmp.txt.gz",
+    "url": "https://sacred-texts.com/afr/wmp/wmp.txt.gz"
+  },
+  {
+    "text": "Stolen Legacy",
+    "href": "afr/stle/stle.txt.gz",
+    "url": "https://sacred-texts.com/afr/stle/stle.txt.gz"
+  },
+  {
+    "text": "Origin of Species",
+    "href": "aor/darwin/origin/or.txt.gz",
+    "url": "https://sacred-texts.com/aor/darwin/origin/or.txt.gz"
+  },
+  {
+    "text": "Common Sense",
+    "href": "aor/paine/cs/cs.txt.gz",
+    "url": "https://sacred-texts.com/aor/paine/cs/cs.txt.gz"
+  },
+  {
+    "text": "Myths and Legends of our Own Land",
+    "href": "ame/lol/lol.txt.gz",
+    "url": "https://sacred-texts.com/ame/lol/lol.txt.gz"
+  },
+  {
+    "text": "The Amish",
+    "href": "ame/amish/am.txt.gz",
+    "url": "https://sacred-texts.com/ame/amish/am.txt.gz"
+  },
+  {
+    "text": "Myths of Babylonia and Assyria",
+    "href": "ane/mba/mba.txt.gz",
+    "url": "https://sacred-texts.com/ane/mba/mba.txt.gz"
+  },
+  {
+    "text": "The Philistines",
+    "href": "ane/phc/phc.txt.gz",
+    "url": "https://sacred-texts.com/ane/phc/phc.txt.gz"
+  },
+  {
+    "text": "The Seven Tablets of Creation",
+    "href": "ane/stc/stc.txt.gz",
+    "url": "https://sacred-texts.com/ane/stc/stc.txt.gz"
+  },
+  {
+    "text": "the Babylonian Legends of Creation",
+    "href": "ane/blc/blc.txt.gz",
+    "url": "https://sacred-texts.com/ane/blc/blc.txt.gz"
+  },
+  {
+    "text": "The Chaldean Account of Genesis",
+    "href": "ane/caog/caog.txt.gz",
+    "url": "https://sacred-texts.com/ane/caog/caog.txt.gz"
+  },
+  {
+    "text": "Records of the Past, 2nd series, Vol. I",
+    "href": "ane/rp/rp201/rp201.txt.gz",
+    "url": "https://sacred-texts.com/ane/rp/rp201/rp201.txt.gz"
+  },
+  {
+    "text": "Records of the Past, 2nd series, Vol. II",
+    "href": "ane/rp/rp202/rp202.txt.gz",
+    "url": "https://sacred-texts.com/ane/rp/rp202/rp202.txt.gz"
+  },
+  {
+    "text": "Records of the Past, 2nd series, Vol. III",
+    "href": "ane/rp/rp203/rp203.txt.gz",
+    "url": "https://sacred-texts.com/ane/rp/rp203/rp203.txt.gz"
+  },
+  {
+    "text": "Records of the Past, 2nd series, Vol. IV",
+    "href": "ane/rp/rp204/rp204.txt.gz",
+    "url": "https://sacred-texts.com/ane/rp/rp204/rp204.txt.gz"
+  },
+  {
+    "text": "Moon Lore",
+    "href": "astro/ml/ml.txt.gz",
+    "url": "https://sacred-texts.com/astro/ml/ml.txt.gz"
+  },
+  {
+    "text": "The Hindu Book of Astrology",
+    "href": "astro/hba/hba.txt.gz",
+    "url": "https://sacred-texts.com/astro/hba/hba.txt.gz"
+  },
+  {
+    "text": "Astrology and Religion Among the Greeks and Romans",
+    "href": "astro/argr/argr.txt.gz",
+    "url": "https://sacred-texts.com/astro/argr/argr.txt.gz"
+  },
+  {
+    "text": "Sun Lore of All Ages",
+    "href": "astro/slaa/slaa.txt.gz",
+    "url": "https://sacred-texts.com/astro/slaa/slaa.txt.gz"
+  },
+  {
+    "text": "A Journey in Southern Siberia",
+    "href": "asia/jss/jss.txt.gz",
+    "url": "https://sacred-texts.com/asia/jss/jss.txt.gz"
+  },
+  {
+    "text": "Georgian Folk Tales",
+    "href": "asia/geft/geft.txt.gz",
+    "url": "https://sacred-texts.com/asia/geft/geft.txt.gz"
+  },
+  {
+    "text": "The Laughable Stories of Bar-Hebraeus",
+    "href": "asia/lsbh/lsbh.txt.gz",
+    "url": "https://sacred-texts.com/asia/lsbh/lsbh.txt.gz"
+  },
+  {
+    "text": "Folk-lore of the Holy Land",
+    "href": "asia/flhl/flhl.txt.gz",
+    "url": "https://sacred-texts.com/asia/flhl/flhl.txt.gz"
+  },
+  {
+    "text": "Tibetan Folk Tales",
+    "href": "asia/tft/tft.txt.gz",
+    "url": "https://sacred-texts.com/asia/tft/tft.txt.gz"
+  },
+  {
+    "text": "The Oera Linda Book",
+    "href": "atl/olb/olb.txt.gz",
+    "url": "https://sacred-texts.com/atl/olb/olb.txt.gz"
+  },
+  {
+    "text": "Atlantis, the Antediluvian World",
+    "href": "atl/ataw/ataw.txt.gz",
+    "url": "https://sacred-texts.com/atl/ataw/ataw.txt.gz"
+  },
+  {
+    "text": "The Lost Continent",
+    "href": "atl/tlc/tlc.txt.gz",
+    "url": "https://sacred-texts.com/atl/tlc/tlc.txt.gz"
+  },
+  {
+    "text": "A Dweller on Two Planets",
+    "href": "atl/dtp/dtp.txt.gz",
+    "url": "https://sacred-texts.com/atl/dtp/dtp.txt.gz"
+  },
+  {
+    "text": "The Treasure of Atlantis",
+    "href": "atl/toa/toa.txt.gz",
+    "url": "https://sacred-texts.com/atl/toa/toa.txt.gz"
+  },
+  {
+    "text": "Atlantida (L'Atlantide)",
+    "href": "atl/ant/ida.txt.gz",
+    "url": "https://sacred-texts.com/atl/ant/ida.txt.gz"
+  },
+  {
+    "text": "Selestor's Men of Atlantis",
+    "href": "atl/smoa/smoa.txt.gz",
+    "url": "https://sacred-texts.com/atl/smoa/smoa.txt.gz"
+  },
+  {
+    "text": "The Forgotten Books of Eden",
+    "href": "bib/fbe/fbe.txt.gz",
+    "url": "https://sacred-texts.com/bib/fbe/fbe.txt.gz"
+  },
+  {
+    "text": "The Lost Books of the Bible",
+    "href": "bib/lbob/lbob.txt.gz",
+    "url": "https://sacred-texts.com/bib/lbob/lbob.txt.gz"
+  },
+  {
+    "text": "Chronicles of Jerahmeel",
+    "href": "bib/coj/coj.txt.gz",
+    "url": "https://sacred-texts.com/bib/coj/coj.txt.gz"
+  },
+  {
+    "text": "The Book of Enoch",
+    "href": "bib/boe/boe.txt.gz",
+    "url": "https://sacred-texts.com/bib/boe/boe.txt.gz"
+  },
+  {
+    "text": "The Life and Morals of Jesus of Nazareth (the Jefferson Bible)",
+    "href": "bib/jb/jb.txt.gz",
+    "url": "https://sacred-texts.com/bib/jb/jb.txt.gz"
+  },
+  {
+    "text": "The Complete Sayings of Jesus",
+    "href": "bib/csj/csj.txt.gz",
+    "url": "https://sacred-texts.com/bib/csj/csj.txt.gz"
+  },
+  {
+    "text": "The Biography of the Bible",
+    "href": "bib/biob/biob.txt.gz",
+    "url": "https://sacred-texts.com/bib/biob/biob.txt.gz"
+  },
+  {
+    "text": "Prolegomena to the History of Ancient Israel",
+    "href": "bib/cv/phai/phai.txt.gz",
+    "url": "https://sacred-texts.com/bib/cv/phai/phai.txt.gz"
+  },
+  {
+    "text": "Pagan Christs",
+    "href": "bib/cv/pch/pch.txt.gz",
+    "url": "https://sacred-texts.com/bib/cv/pch/pch.txt.gz"
+  },
+  {
+    "text": "Self-Contradictions of the Bible",
+    "href": "bib/cv/scb/scb.txt.gz",
+    "url": "https://sacred-texts.com/bib/cv/scb/scb.txt.gz"
+  },
+  {
+    "text": "Amitabha, A Story of Buddhist Theology",
+    "href": "bud/ami/ami.txt.gz",
+    "url": "https://sacred-texts.com/bud/ami/ami.txt.gz"
+  },
+  {
+    "text": "The Buddhist Catechism",
+    "href": "bud/tbc/tbc.txt.gz",
+    "url": "https://sacred-texts.com/bud/tbc/tbc.txt.gz"
+  },
+  {
+    "text": "The Creed of Buddha",
+    "href": "bud/cob/cob.txt.gz",
+    "url": "https://sacred-texts.com/bud/cob/cob.txt.gz"
+  },
+  {
+    "text": "The Life of Buddha",
+    "href": "bud/lob/lob.txt.gz",
+    "url": "https://sacred-texts.com/bud/lob/lob.txt.gz"
+  },
+  {
+    "text": "Sacred Books of the East, Vol. 10: The Dhammapada and Sutta Nipata",
+    "href": "bud/sbe10/sbe10.txt.gz",
+    "url": "https://sacred-texts.com/bud/sbe10/sbe10.txt.gz"
+  },
+  {
+    "text": "The Buddha's Way of Virtue",
+    "href": "bud/wov/wov.txt.gz",
+    "url": "https://sacred-texts.com/bud/wov/wov.txt.gz"
+  },
+  {
+    "text": "The Jataka, Volume I",
+    "href": "bud/j1/j1.txt.gz",
+    "url": "https://sacred-texts.com/bud/j1/j1.txt.gz"
+  },
+  {
+    "text": "The Jataka, Vol. II",
+    "href": "bud/j2/j2.txt.gz",
+    "url": "https://sacred-texts.com/bud/j2/j2.txt.gz"
+  },
+  {
+    "text": "The Jataka, Vol. III",
+    "href": "bud/j3/j3.txt.gz",
+    "url": "https://sacred-texts.com/bud/j3/j3.txt.gz"
+  },
+  {
+    "text": "The Jataka, Vol. IV",
+    "href": "bud/j4/j4.txt.gz",
+    "url": "https://sacred-texts.com/bud/j4/j4.txt.gz"
+  },
+  {
+    "text": "The Jataka, Vol. V",
+    "href": "bud/j5/j5.txt.gz",
+    "url": "https://sacred-texts.com/bud/j5/j5.txt.gz"
+  },
+  {
+    "text": "Jataka Tales",
+    "href": "bud/jt/jt.txt.gz",
+    "url": "https://sacred-texts.com/bud/jt/jt.txt.gz"
+  },
+  {
+    "text": "Esoteric Teachings of the Tibetan Tantra",
+    "href": "bud/ettt/ettt.txt.gz",
+    "url": "https://sacred-texts.com/bud/ettt/ettt.txt.gz"
+  },
+  {
+    "text": "The Gateless Gate",
+    "href": "bud/glg/glg.txt.gz",
+    "url": "https://sacred-texts.com/bud/glg/glg.txt.gz"
+  },
+  {
+    "text": "Chinese Buddhism",
+    "href": "bud/cbu/cbu.txt.gz",
+    "url": "https://sacred-texts.com/bud/cbu/cbu.txt.gz"
+  },
+  {
+    "text": "The Religion of the Samurai",
+    "href": "bud/rosa/rosa.txt.gz",
+    "url": "https://sacred-texts.com/bud/rosa/rosa.txt.gz"
+  },
+  {
+    "text": "Shinran and His Work",
+    "href": "bud/sahw/sahw.txt.gz",
+    "url": "https://sacred-texts.com/bud/sahw/sahw.txt.gz"
+  },
+  {
+    "text": "The Creed of Half Japan",
+    "href": "bud/chj/chj.txt.gz",
+    "url": "https://sacred-texts.com/bud/chj/chj.txt.gz"
+  },
+  {
+    "text": "Principal Teachings of The True Sect of Pure Land",
+    "href": "bud/ptpl/ptpl.txt.gz",
+    "url": "https://sacred-texts.com/bud/ptpl/ptpl.txt.gz"
+  },
+  {
+    "text": "Buddhist Psalms",
+    "href": "bud/bups/bups.txt.gz",
+    "url": "https://sacred-texts.com/bud/bups/bups.txt.gz"
+  },
+  {
+    "text": "Zen for Americans",
+    "href": "bud/zfa/zfa.txt.gz",
+    "url": "https://sacred-texts.com/bud/zfa/zfa.txt.gz"
+  },
+  {
+    "text": "Gleanings in Buddha-Fields",
+    "href": "bud/gbf/gbf.txt.gz",
+    "url": "https://sacred-texts.com/bud/gbf/gbf.txt.gz"
+  },
+  {
+    "text": "The Cattle Raid of Cualnge",
+    "href": "neu/celt/crc/crc.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/crc/crc.txt.gz"
+  },
+  {
+    "text": "Cuchulain of Muirthemne",
+    "href": "neu/celt/cuch/lgc.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/cuch/lgc.txt.gz"
+  },
+  {
+    "text": "Gods and Fighting Men",
+    "href": "neu/celt/gafm/gafm.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/gafm/gafm.txt.gz"
+  },
+  {
+    "text": "Legends and Stories of Ireland",
+    "href": "neu/celt/lasi/lasi.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/lasi/lasi.txt.gz"
+  },
+  {
+    "text": "True Irish Ghost Stories",
+    "href": "neu/celt/tigs/tigs.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/tigs/tigs.txt.gz"
+  },
+  {
+    "text": "The Candle of Vision",
+    "href": "neu/celt/cov/cov.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/cov/cov.txt.gz"
+  },
+  {
+    "text": "The Mabinogion",
+    "href": "neu/celt/mab/mab.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/mab/mab.txt.gz"
+  },
+  {
+    "text": "The Feuds of the Clans",
+    "href": "neu/celt/fotc/fotc.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/fotc/fotc.txt.gz"
+  },
+  {
+    "text": "Scottish Fairy and Folk Tales",
+    "href": "neu/celt/sfft/sfft.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/sfft/sfft.txt.gz"
+  },
+  {
+    "text": "Folk Tales of Brittany",
+    "href": "neu/celt/ftb/ftb.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/ftb/ftb.txt.gz"
+  },
+  {
+    "text": "Traditions and Hearthside Stories of West Cornwall, Vol. 1",
+    "href": "neu/celt/swc1/swc1.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/swc1/swc1.txt.gz"
+  },
+  {
+    "text": "Traditions and Hearthside Stories of West Cornwall, Vol. 2",
+    "href": "neu/celt/swc2/swc2.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/swc2/swc2.txt.gz"
+  },
+  {
+    "text": "The Fairy-Faith in Celtic Countries",
+    "href": "neu/celt/ffcc/ffcc.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/ffcc/ffcc.txt.gz"
+  },
+  {
+    "text": "Celtic Fairy Tales",
+    "href": "neu/celt/cft/cft.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/cft/cft.txt.gz"
+  },
+  {
+    "text": "Carmina Gadelica Vol. 1",
+    "href": "neu/celt/cg1/cg1.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/cg1/cg1.txt.gz"
+  },
+  {
+    "text": "Carmina Gadelica Vol. 2",
+    "href": "neu/celt/cg2/cg2.txt.gz",
+    "url": "https://sacred-texts.com/neu/celt/cg2/cg2.txt.gz"
+  },
+  {
+    "text": "Pistis Sophia",
+    "href": "chr/ps/ps.txt.gz",
+    "url": "https://sacred-texts.com/chr/ps/ps.txt.gz"
+  },
+  {
+    "text": "The Confessions of Saint Augustine",
+    "href": "chr/augconf/ac.txt.gz",
+    "url": "https://sacred-texts.com/chr/augconf/ac.txt.gz"
+  },
+  {
+    "text": "The Love Letters of Abelard and Heloise",
+    "href": "chr/aah/aah.txt.gz",
+    "url": "https://sacred-texts.com/chr/aah/aah.txt.gz"
+  },
+  {
+    "text": "The Writings of St. Francis of Assisi",
+    "href": "chr/wosf/wosf.txt.gz",
+    "url": "https://sacred-texts.com/chr/wosf/wosf.txt.gz"
+  },
+  {
+    "text": "Little Flowers of St. Francis",
+    "href": "chr/lff/lff.txt.gz",
+    "url": "https://sacred-texts.com/chr/lff/lff.txt.gz"
+  },
+  {
+    "text": "The Adornment of the Spiritual Marriage",
+    "href": "chr/asm/asm.txt.gz",
+    "url": "https://sacred-texts.com/chr/asm/asm.txt.gz"
+  },
+  {
+    "text": "The Cloud of Unknowing",
+    "href": "chr/cou/cou.txt.gz",
+    "url": "https://sacred-texts.com/chr/cou/cou.txt.gz"
+  },
+  {
+    "text": "The Imitation of Christ",
+    "href": "chr/ioc/ioc.txt.gz",
+    "url": "https://sacred-texts.com/chr/ioc/ioc.txt.gz"
+  },
+  {
+    "text": "The Spiritual Exercises of St. Ignatius of Loyola",
+    "href": "chr/seil/seil.txt.gz",
+    "url": "https://sacred-texts.com/chr/seil/seil.txt.gz"
+  },
+  {
+    "text": "Foxe's Book of Martyrs",
+    "href": "chr/martyrs/foxe.txt.gz",
+    "url": "https://sacred-texts.com/chr/martyrs/foxe.txt.gz"
+  },
+  {
+    "text": "The Works of Stephen Charnock",
+    "href": "chr/charnock/cha.txt.gz",
+    "url": "https://sacred-texts.com/chr/charnock/cha.txt.gz"
+  },
+  {
+    "text": "Pilgrim's Progress",
+    "href": "chr/bunyan/pp.txt.gz",
+    "url": "https://sacred-texts.com/chr/bunyan/pp.txt.gz"
+  },
+  {
+    "text": "The Interior Castle",
+    "href": "chr/tic/tic.txt.gz",
+    "url": "https://sacred-texts.com/chr/tic/tic.txt.gz"
+  },
+  {
+    "text": "The Dolorous Passion of Our Lord Jesus Christ",
+    "href": "chr/pjc/pjc.txt.gz",
+    "url": "https://sacred-texts.com/chr/pjc/pjc.txt.gz"
+  },
+  {
+    "text": "The Man of Sorrows",
+    "href": "chr/mos/mos.txt.gz",
+    "url": "https://sacred-texts.com/chr/mos/mos.txt.gz"
+  },
+  {
+    "text": "Hymns of the Eastern Church",
+    "href": "chr/hec/hec.txt.gz",
+    "url": "https://sacred-texts.com/chr/hec/hec.txt.gz"
+  },
+  {
+    "text": "The Unknown Life of Jesus Christ",
+    "href": "chr/uljc/uljc.txt.gz",
+    "url": "https://sacred-texts.com/chr/uljc/uljc.txt.gz"
+  },
+  {
+    "text": "The Baltimore Catchecism",
+    "href": "chr/balt/balt.txt.gz",
+    "url": "https://sacred-texts.com/chr/balt/balt.txt.gz"
+  },
+  {
+    "text": "Lives of the Saints",
+    "href": "chr/lots/lots.txt.gz",
+    "url": "https://sacred-texts.com/chr/lots/lots.txt.gz"
+  },
+  {
+    "text": "The Didache",
+    "href": "chr/did/did.txt.gz",
+    "url": "https://sacred-texts.com/chr/did/did.txt.gz"
+  },
+  {
+    "text": "Jesus An Essene",
+    "href": "chr/jae/jae.txt.gz",
+    "url": "https://sacred-texts.com/chr/jae/jae.txt.gz"
+  },
+  {
+    "text": "The Aquarian Gospel of Jesus Christ",
+    "href": "chr/agjc/agjc.txt.gz",
+    "url": "https://sacred-texts.com/chr/agjc/agjc.txt.gz"
+  },
+  {
+    "text": "Pageant of the Popes",
+    "href": "chr/ptp/ptp.txt.gz",
+    "url": "https://sacred-texts.com/chr/ptp/ptp.txt.gz"
+  },
+  {
+    "text": "The Trial of Christ",
+    "href": "chr/toc/toc.txt.gz",
+    "url": "https://sacred-texts.com/chr/toc/toc.txt.gz"
+  },
+  {
+    "text": "Summa Theologica",
+    "href": "chr/aquinas/summa/sum.txt.gz",
+    "url": "https://sacred-texts.com/chr/aquinas/summa/sum.txt.gz"
+  },
+  {
+    "text": "The History of Herodotus, parallel English/Greek",
+    "href": "cla/hh/hh.txt.gz",
+    "url": "https://sacred-texts.com/cla/hh/hh.txt.gz"
+  },
+  {
+    "text": "The Discourses of Epictetus",
+    "href": "cla/dep/dep.txt.gz",
+    "url": "https://sacred-texts.com/cla/dep/dep.txt.gz"
+  },
+  {
+    "text": "The Eleusinian and Bacchic Mysteries",
+    "href": "cla/ebm/ebm.txt.gz",
+    "url": "https://sacred-texts.com/cla/ebm/ebm.txt.gz"
+  },
+  {
+    "text": "Myths of Crete and Pre-Hellenic Europe",
+    "href": "cla/moc/moc.txt.gz",
+    "url": "https://sacred-texts.com/cla/moc/moc.txt.gz"
+  },
+  {
+    "text": "Pagan Regeneration",
+    "href": "cla/pr/pr.txt.gz",
+    "url": "https://sacred-texts.com/cla/pr/pr.txt.gz"
+  },
+  {
+    "text": "Five Stages of Greek Religion",
+    "href": "cla/fsgr/fsgr.txt.gz",
+    "url": "https://sacred-texts.com/cla/fsgr/fsgr.txt.gz"
+  },
+  {
+    "text": "Greek Popular Religion",
+    "href": "cla/gpr/gpr.txt.gz",
+    "url": "https://sacred-texts.com/cla/gpr/gpr.txt.gz"
+  },
+  {
+    "text": "The Iliad of Homer",
+    "href": "cla/homer/ili/ili.txt.gz",
+    "url": "https://sacred-texts.com/cla/homer/ili/ili.txt.gz"
+  },
+  {
+    "text": "The Odyssey of Homer",
+    "href": "cla/homer/ody/ody.txt.gz",
+    "url": "https://sacred-texts.com/cla/homer/ody/ody.txt.gz"
+  },
+  {
+    "text": "Euripides and His Age",
+    "href": "cla/eurip/eaha/eaha.txt.gz",
+    "url": "https://sacred-texts.com/cla/eurip/eaha/eaha.txt.gz"
+  },
+  {
+    "text": "Plutarch's Morals: Theosophical Essays",
+    "href": "cla/plu/pte/pte.txt.gz",
+    "url": "https://sacred-texts.com/cla/plu/pte/pte.txt.gz"
+  },
+  {
+    "text": "The Roman and Greek Questions",
+    "href": "cla/plu/rgq/rgq.txt.gz",
+    "url": "https://sacred-texts.com/cla/plu/rgq/rgq.txt.gz"
+  },
+  {
+    "text": "The Syrian Goddess",
+    "href": "cla/luc/tsg/tsg.txt.gz",
+    "url": "https://sacred-texts.com/cla/luc/tsg/tsg.txt.gz"
+  },
+  {
+    "text": "On the Migration of Fables",
+    "href": "comp/otmf/otmf.txt.gz",
+    "url": "https://sacred-texts.com/comp/otmf/otmf.txt.gz"
+  },
+  {
+    "text": "The Book of Poetry",
+    "href": "cfu/bop/bop.txt.gz",
+    "url": "https://sacred-texts.com/cfu/bop/bop.txt.gz"
+  },
+  {
+    "text": "The Book of Odes",
+    "href": "cfu/boo/boo.txt.gz",
+    "url": "https://sacred-texts.com/cfu/boo/boo.txt.gz"
+  },
+  {
+    "text": "The Book of Filial Duty",
+    "href": "cfu/bfd/bfd.txt.gz",
+    "url": "https://sacred-texts.com/cfu/bfd/bfd.txt.gz"
+  },
+  {
+    "text": "A Feast of Lanterns",
+    "href": "cfu/fol/fol.txt.gz",
+    "url": "https://sacred-texts.com/cfu/fol/fol.txt.gz"
+  },
+  {
+    "text": "Sacred Places in China",
+    "href": "cfu/spc/spc.txt.gz",
+    "url": "https://sacred-texts.com/cfu/spc/spc.txt.gz"
+  },
+  {
+    "text": "Myths and Legends of China",
+    "href": "cfu/mlc/mlc.txt.gz",
+    "url": "https://sacred-texts.com/cfu/mlc/mlc.txt.gz"
+  },
+  {
+    "text": "Chinese Occultism",
+    "href": "cfu/choc/choc.txt.gz",
+    "url": "https://sacred-texts.com/cfu/choc/choc.txt.gz"
+  },
+  {
+    "text": "Symzonia, Voyage of Discovery",
+    "href": "earth/sym/sym.txt.gz",
+    "url": "https://sacred-texts.com/earth/sym/sym.txt.gz"
+  },
+  {
+    "text": "Journey to the Center of the Earth",
+    "href": "earth/jce/jce.txt.gz",
+    "url": "https://sacred-texts.com/earth/jce/jce.txt.gz"
+  },
+  {
+    "text": "The Smoky God",
+    "href": "earth/smog/smog.txt.gz",
+    "url": "https://sacred-texts.com/earth/smog/smog.txt.gz"
+  },
+  {
+    "text": "At the Earth's Core",
+    "href": "earth/atec/atec.txt.gz",
+    "url": "https://sacred-texts.com/earth/atec/atec.txt.gz"
+  },
+  {
+    "text": "Pellucidar",
+    "href": "earth/pell/pell.txt.gz",
+    "url": "https://sacred-texts.com/earth/pell/pell.txt.gz"
+  },
+  {
+    "text": "A Miracle in Stone: The Great Pyramid",
+    "href": "earth/ams/ams.txt.gz",
+    "url": "https://sacred-texts.com/earth/ams/ams.txt.gz"
+  },
+  {
+    "text": "The Origin and Significance of the Great Pyramid",
+    "href": "earth/osgp/osgp.txt.gz",
+    "url": "https://sacred-texts.com/earth/osgp/osgp.txt.gz"
+  },
+  {
+    "text": "The House of the Hidden Places",
+    "href": "earth/hhp/hhp.txt.gz",
+    "url": "https://sacred-texts.com/earth/hhp/hhp.txt.gz"
+  },
+  {
+    "text": "Development of Religion and Thought in Ancient Egypt",
+    "href": "egy/rtae/rtae.txt.gz",
+    "url": "https://sacred-texts.com/egy/rtae/rtae.txt.gz"
+  },
+  {
+    "text": "Egyptian Myth and Legend",
+    "href": "egy/eml/eml.txt.gz",
+    "url": "https://sacred-texts.com/egy/eml/eml.txt.gz"
+  },
+  {
+    "text": "Ancient Egyptian Legends",
+    "href": "egy/ael/ael.txt.gz",
+    "url": "https://sacred-texts.com/egy/ael/ael.txt.gz"
+  },
+  {
+    "text": "The Canterbury Tales and Other Works of Chaucer (Middle English)",
+    "href": "neu/eng/mect/mect.txt.gz",
+    "url": "https://sacred-texts.com/neu/eng/mect/mect.txt.gz"
+  },
+  {
+    "text": "Tales from Chaucer",
+    "href": "neu/eng/tfc/tfc.txt.gz",
+    "url": "https://sacred-texts.com/neu/eng/tfc/tfc.txt.gz"
+  },
+  {
+    "text": "Songs of Innocence and of Experience",
+    "href": "neu/eng/sie/sie.txt.gz",
+    "url": "https://sacred-texts.com/neu/eng/sie/sie.txt.gz"
+  },
+  {
+    "text": "Stonehenge, A Temple Restor'd to the British Druids",
+    "href": "neu/eng/str/str.txt.gz",
+    "url": "https://sacred-texts.com/neu/eng/str/str.txt.gz"
+  },
+  {
+    "text": "The Divine Pymander",
+    "href": "eso/pym/pym.txt.gz",
+    "url": "https://sacred-texts.com/eso/pym/pym.txt.gz"
+  },
+  {
+    "text": "The Virgin of the World",
+    "href": "eso/vow/vow.txt.gz",
+    "url": "https://sacred-texts.com/eso/vow/vow.txt.gz"
+  },
+  {
+    "text": "The Life and Doctrines of Jacob Boehme",
+    "href": "eso/ldjb/ldjb.txt.gz",
+    "url": "https://sacred-texts.com/eso/ldjb/ldjb.txt.gz"
+  },
+  {
+    "text": "The Art of Worldly Wisdom",
+    "href": "eso/aww/aww.txt.gz",
+    "url": "https://sacred-texts.com/eso/aww/aww.txt.gz"
+  },
+  {
+    "text": "A Wanderer in the Sprit Lands",
+    "href": "eso/wsl/wsl.txt.gz",
+    "url": "https://sacred-texts.com/eso/wsl/wsl.txt.gz"
+  },
+  {
+    "text": "Cosmic Consciousness",
+    "href": "eso/cc/cc.txt.gz",
+    "url": "https://sacred-texts.com/eso/cc/cc.txt.gz"
+  },
+  {
+    "text": "Science of Breath",
+    "href": "eso/sob/sob.txt.gz",
+    "url": "https://sacred-texts.com/eso/sob/sob.txt.gz"
+  },
+  {
+    "text": "The Cloud Upon the Sanctuary",
+    "href": "eso/cuts/cuts.txt.gz",
+    "url": "https://sacred-texts.com/eso/cuts/cuts.txt.gz"
+  },
+  {
+    "text": "Numbers, Their Occult Power and Mystic Virtues",
+    "href": "eso/nop/nop.txt.gz",
+    "url": "https://sacred-texts.com/eso/nop/nop.txt.gz"
+  },
+  {
+    "text": "The Kybalion",
+    "href": "eso/kyb/kyb.txt.gz",
+    "url": "https://sacred-texts.com/eso/kyb/kyb.txt.gz"
+  },
+  {
+    "text": "The Confessions of Jacob Boehme",
+    "href": "eso/cjb/cjb.txt.gz",
+    "url": "https://sacred-texts.com/eso/cjb/cjb.txt.gz"
+  },
+  {
+    "text": "The Philosophy of Natural Magic",
+    "href": "eso/pnm/pnm.txt.gz",
+    "url": "https://sacred-texts.com/eso/pnm/pnm.txt.gz"
+  },
+  {
+    "text": "Occult Science in India",
+    "href": "eso/osi/osi.txt.gz",
+    "url": "https://sacred-texts.com/eso/osi/osi.txt.gz"
+  },
+  {
+    "text": "Initiation, Human and Solar",
+    "href": "eso/ihas/ihas.txt.gz",
+    "url": "https://sacred-texts.com/eso/ihas/ihas.txt.gz"
+  },
+  {
+    "text": "Tertium Organum",
+    "href": "eso/to/to.txt.gz",
+    "url": "https://sacred-texts.com/eso/to/to.txt.gz"
+  },
+  {
+    "text": "Knowledge of the Higher Worlds and Its Attainment",
+    "href": "eso/khw/khw.txt.gz",
+    "url": "https://sacred-texts.com/eso/khw/khw.txt.gz"
+  },
+  {
+    "text": "History of the Devil",
+    "href": "evil/hod/hod.txt.gz",
+    "url": "https://sacred-texts.com/evil/hod/hod.txt.gz"
+  },
+  {
+    "text": "The Evil Eye",
+    "href": "evil/tee/tee.txt.gz",
+    "url": "https://sacred-texts.com/evil/tee/tee.txt.gz"
+  },
+  {
+    "text": "Devil Worship in France",
+    "href": "evil/dwf/dwf.txt.gz",
+    "url": "https://sacred-texts.com/evil/dwf/dwf.txt.gz"
+  },
+  {
+    "text": "The Devils of Loudun",
+    "href": "evil/dol/dol.txt.gz",
+    "url": "https://sacred-texts.com/evil/dol/dol.txt.gz"
+  },
+  {
+    "text": "The Book of the Damned",
+    "href": "fort/damn/damn.txt.gz",
+    "url": "https://sacred-texts.com/fort/damn/damn.txt.gz"
+  },
+  {
+    "text": "New Lands",
+    "href": "fort/land/land.txt.gz",
+    "url": "https://sacred-texts.com/fort/land/land.txt.gz"
+  },
+  {
+    "text": "Lo!",
+    "href": "fort/lo/lo.txt.gz",
+    "url": "https://sacred-texts.com/fort/lo/lo.txt.gz"
+  },
+  {
+    "text": "Wild Talents",
+    "href": "fort/wild/wild.txt.gz",
+    "url": "https://sacred-texts.com/fort/wild/wild.txt.gz"
+  },
+  {
+    "text": "Illustrations of Masonry",
+    "href": "mas/morgan/morg.txt.gz",
+    "url": "https://sacred-texts.com/mas/morgan/morg.txt.gz"
+  },
+  {
+    "text": "Duncan's Masonic Ritual and Monitor",
+    "href": "mas/dun/dun.txt.gz",
+    "url": "https://sacred-texts.com/mas/dun/dun.txt.gz"
+  },
+  {
+    "text": "General Ahiman Rezon",
+    "href": "mas/gar/gar.txt.gz",
+    "url": "https://sacred-texts.com/mas/gar/gar.txt.gz"
+  },
+  {
+    "text": "Morals and Dogma",
+    "href": "mas/md/md.txt.gz",
+    "url": "https://sacred-texts.com/mas/md/md.txt.gz"
+  },
+  {
+    "text": "Shibboleth: A Templar Monitor",
+    "href": "mas/shib/shib.txt.gz",
+    "url": "https://sacred-texts.com/mas/shib/shib.txt.gz"
+  },
+  {
+    "text": "The Builders",
+    "href": "mas/bui/bui.txt.gz",
+    "url": "https://sacred-texts.com/mas/bui/bui.txt.gz"
+  },
+  {
+    "text": "The Meaning of Masonry",
+    "href": "mas/mom/mom.txt.gz",
+    "url": "https://sacred-texts.com/mas/mom/mom.txt.gz"
+  },
+  {
+    "text": "Symbolical Masonry",
+    "href": "mas/syma/syma.txt.gz",
+    "url": "https://sacred-texts.com/mas/syma/syma.txt.gz"
+  },
+  {
+    "text": "The Vampire, His Kith and Kin",
+    "href": "goth/vkk/vkk.txt.gz",
+    "url": "https://sacred-texts.com/goth/vkk/vkk.txt.gz"
+  },
+  {
+    "text": "The Book of Were-Wolves",
+    "href": "goth/bow/bow.txt.gz",
+    "url": "https://sacred-texts.com/goth/bow/bow.txt.gz"
+  },
+  {
+    "text": "Frankenstein, or The Modern Prometheus",
+    "href": "goth/frank/frank.txt.gz",
+    "url": "https://sacred-texts.com/goth/frank/frank.txt.gz"
+  },
+  {
+    "text": "Dracula",
+    "href": "goth/drac/drac.txt.gz",
+    "url": "https://sacred-texts.com/goth/drac/drac.txt.gz"
+  },
+  {
+    "text": "Fragments of a Faith Forgotten",
+    "href": "gno/fff/fff.txt.gz",
+    "url": "https://sacred-texts.com/gno/fff/fff.txt.gz"
+  },
+  {
+    "text": "The Gnostics and Their Remains",
+    "href": "gno/gar/gar.txt.gz",
+    "url": "https://sacred-texts.com/gno/gar/gar.txt.gz"
+  },
+  {
+    "text": "Thrice-Greatest Hermes, Vol. 1",
+    "href": "gno/th1/th1.txt.gz",
+    "url": "https://sacred-texts.com/gno/th1/th1.txt.gz"
+  },
+  {
+    "text": "Thrice-Greatest Hermes, Vol. 2",
+    "href": "gno/th2/th2.txt.gz",
+    "url": "https://sacred-texts.com/gno/th2/th2.txt.gz"
+  },
+  {
+    "text": "Thrice-Greatest Hermes, Vol. 3",
+    "href": "gno/th3/th3.txt.gz",
+    "url": "https://sacred-texts.com/gno/th3/th3.txt.gz"
+  },
+  {
+    "text": "Vedic Hymns, Part I (SBE32)",
+    "href": "hin/sbe32/sbe32.txt.gz",
+    "url": "https://sacred-texts.com/hin/sbe32/sbe32.txt.gz"
+  },
+  {
+    "text": "Vedic Hymns, Part II (SBE46)",
+    "href": "hin/sbe46/sbe46.txt.gz",
+    "url": "https://sacred-texts.com/hin/sbe46/sbe46.txt.gz"
+  },
+  {
+    "text": "Atharva Veda",
+    "href": "hin/av/av.txt.gz",
+    "url": "https://sacred-texts.com/hin/av/av.txt.gz"
+  },
+  {
+    "text": "The Upanishads, Part 1 (SBE01)",
+    "href": "hin/sbe01/sbe01.txt.gz",
+    "url": "https://sacred-texts.com/hin/sbe01/sbe01.txt.gz"
+  },
+  {
+    "text": "The Upanishads, Part 2 (SBE15)",
+    "href": "hin/sbe15/sbe15.txt.gz",
+    "url": "https://sacred-texts.com/hin/sbe15/sbe15.txt.gz"
+  },
+  {
+    "text": "Thirty Minor Upanishads",
+    "href": "hin/tmu/tmu.txt.gz",
+    "url": "https://sacred-texts.com/hin/tmu/tmu.txt.gz"
+  },
+  {
+    "text": "From the Upanishads",
+    "href": "hin/ftu/ftu.txt.gz",
+    "url": "https://sacred-texts.com/hin/ftu/ftu.txt.gz"
+  },
+  {
+    "text": "The Vishnu Purana",
+    "href": "hin/vp/vp.txt.gz",
+    "url": "https://sacred-texts.com/hin/vp/vp.txt.gz"
+  },
+  {
+    "text": "The Garuda Purana",
+    "href": "hin/gpu/gpu.txt.gz",
+    "url": "https://sacred-texts.com/hin/gpu/gpu.txt.gz"
+  },
+  {
+    "text": "Kundalini, The Mother of the Universe",
+    "href": "hin/kmu/kmu.txt.gz",
+    "url": "https://sacred-texts.com/hin/kmu/kmu.txt.gz"
+  },
+  {
+    "text": "The Ramayana and Mahabharata",
+    "href": "hin/dutt/dutt.txt.gz",
+    "url": "https://sacred-texts.com/hin/dutt/dutt.txt.gz"
+  },
+  {
+    "text": "Srimad-Bhagavad-Gita",
+    "href": "hin/sbg/sbg.txt.gz",
+    "url": "https://sacred-texts.com/hin/sbg/sbg.txt.gz"
+  },
+  {
+    "text": "Brahma Knowledge",
+    "href": "hin/brk/brk.txt.gz",
+    "url": "https://sacred-texts.com/hin/brk/brk.txt.gz"
+  },
+  {
+    "text": "Select Works of Sri Sankaracharya",
+    "href": "hin/wos/wos.txt.gz",
+    "url": "https://sacred-texts.com/hin/wos/wos.txt.gz"
+  },
+  {
+    "text": "The Yoga Sutras of Patanjali",
+    "href": "hin/ysp/ysp.txt.gz",
+    "url": "https://sacred-texts.com/hin/ysp/ysp.txt.gz"
+  },
+  {
+    "text": "Dakshinamurti Stotra",
+    "href": "hin/dast/dast.txt.gz",
+    "url": "https://sacred-texts.com/hin/dast/dast.txt.gz"
+  },
+  {
+    "text": "Hymns of the Tamil Saivite Saints",
+    "href": "hin/htss/htss.txt.gz",
+    "url": "https://sacred-texts.com/hin/htss/htss.txt.gz"
+  },
+  {
+    "text": "The Songs of Kabir",
+    "href": "hin/sok/sok.txt.gz",
+    "url": "https://sacred-texts.com/hin/sok/sok.txt.gz"
+  },
+  {
+    "text": "Yoga Vashisht or Heaven Found",
+    "href": "hin/yvhf/yvhf.txt.gz",
+    "url": "https://sacred-texts.com/hin/yvhf/yvhf.txt.gz"
+  },
+  {
+    "text": "The Gospel of Ramakrishna",
+    "href": "hin/gork/gork.txt.gz",
+    "url": "https://sacred-texts.com/hin/gork/gork.txt.gz"
+  },
+  {
+    "text": "Hindu Mythology, Vedic and Puranic",
+    "href": "hin/hmvp/hmvp.txt.gz",
+    "url": "https://sacred-texts.com/hin/hmvp/hmvp.txt.gz"
+  },
+  {
+    "text": "Karma-Yoga",
+    "href": "hin/kyog/kyog.txt.gz",
+    "url": "https://sacred-texts.com/hin/kyog/kyog.txt.gz"
+  },
+  {
+    "text": "Thirty Minor Upanishads",
+    "href": "hin/tmu/tmu.txt.gz",
+    "url": "https://sacred-texts.com/hin/tmu/tmu.txt.gz"
+  },
+  {
+    "text": "The Qur'\u00e2n, Rodwell edition",
+    "href": "isl/qr/qr.txt.gz",
+    "url": "https://sacred-texts.com/isl/qr/qr.txt.gz"
+  },
+  {
+    "text": "The Meaning of the Glorious Qur'\u00e2n,",
+    "href": "isl/pick/pick.txt.gz",
+    "url": "https://sacred-texts.com/isl/pick/pick.txt.gz"
+  },
+  {
+    "text": "The Holy Quran",
+    "href": "isl/yaq/yaq.txt.gz",
+    "url": "https://sacred-texts.com/isl/yaq/yaq.txt.gz"
+  },
+  {
+    "text": "Oriental Mysticism",
+    "href": "isl/omy/omy.txt.gz",
+    "url": "https://sacred-texts.com/isl/omy/omy.txt.gz"
+  },
+  {
+    "text": "Selections from the Poetry of the Afghans",
+    "href": "isl/spa/spa.txt.gz",
+    "url": "https://sacred-texts.com/isl/spa/spa.txt.gz"
+  },
+  {
+    "text": "The Mesnavi and The Acts of the Adepts",
+    "href": "isl/mes/mes.txt.gz",
+    "url": "https://sacred-texts.com/isl/mes/mes.txt.gz"
+  },
+  {
+    "text": "The Masnavi",
+    "href": "isl/masnavi/msn.txt.gz",
+    "url": "https://sacred-texts.com/isl/masnavi/msn.txt.gz"
+  },
+  {
+    "text": "Salaman and Absal",
+    "href": "isl/saab/saab.txt.gz",
+    "url": "https://sacred-texts.com/isl/saab/saab.txt.gz"
+  },
+  {
+    "text": "The Bustan of Sadi",
+    "href": "isl/bus/bus.txt.gz",
+    "url": "https://sacred-texts.com/isl/bus/bus.txt.gz"
+  },
+  {
+    "text": "The Diwan of Zeb-un-Nissa",
+    "href": "isl/zun/zun.txt.gz",
+    "url": "https://sacred-texts.com/isl/zun/zun.txt.gz"
+  },
+  {
+    "text": "The Secret Rose Garden",
+    "href": "isl/srg/srg.txt.gz",
+    "url": "https://sacred-texts.com/isl/srg/srg.txt.gz"
+  },
+  {
+    "text": "The Diwan of Abu'l-Ala",
+    "href": "isl/daa/daa.txt.gz",
+    "url": "https://sacred-texts.com/isl/daa/daa.txt.gz"
+  },
+  {
+    "text": "The Religion of the Koran",
+    "href": "isl/rok/rok.txt.gz",
+    "url": "https://sacred-texts.com/isl/rok/rok.txt.gz"
+  },
+  {
+    "text": "Arabian Poetry",
+    "href": "isl/arp/arp.txt.gz",
+    "url": "https://sacred-texts.com/isl/arp/arp.txt.gz"
+  },
+  {
+    "text": "Arabian Wisdom",
+    "href": "isl/arw/arw.txt.gz",
+    "url": "https://sacred-texts.com/isl/arw/arw.txt.gz"
+  },
+  {
+    "text": "The Poetic Edda",
+    "href": "neu/poe/poe.txt.gz",
+    "url": "https://sacred-texts.com/neu/poe/poe.txt.gz"
+  },
+  {
+    "text": "The Norse Discovery of America",
+    "href": "neu/nda/nda.txt.gz",
+    "url": "https://sacred-texts.com/neu/nda/nda.txt.gz"
+  },
+  {
+    "text": "The Children of Odin",
+    "href": "neu/ice/coo/coo.txt.gz",
+    "url": "https://sacred-texts.com/neu/ice/coo/coo.txt.gz"
+  },
+  {
+    "text": "Jaina Sutras, Part I (SBE22)",
+    "href": "jai/sbe22/sbe22.txt.gz",
+    "url": "https://sacred-texts.com/jai/sbe22/sbe22.txt.gz"
+  },
+  {
+    "text": "Jaina Sutras, Part II (SBE45)",
+    "href": "jai/sbe45/sbe45.txt.gz",
+    "url": "https://sacred-texts.com/jai/sbe45/sbe45.txt.gz"
+  },
+  {
+    "text": "Eighteen Treatises from the Mishna",
+    "href": "jud/etm/etm.txt.gz",
+    "url": "https://sacred-texts.com/jud/etm/etm.txt.gz"
+  },
+  {
+    "text": "The Wisdom of the Talmud",
+    "href": "jud/wott/wott.txt.gz",
+    "url": "https://sacred-texts.com/jud/wott/wott.txt.gz"
+  },
+  {
+    "text": "The Talmud: Selections",
+    "href": "jud/pol/pol.txt.gz",
+    "url": "https://sacred-texts.com/jud/pol/pol.txt.gz"
+  },
+  {
+    "text": "The Babylonian Talmud in Selection",
+    "href": "jud/bata/bata.txt.gz",
+    "url": "https://sacred-texts.com/jud/bata/bata.txt.gz"
+  },
+  {
+    "text": "The Standard Prayer Book",
+    "href": "jud/spb/spb.txt.gz",
+    "url": "https://sacred-texts.com/jud/spb/spb.txt.gz"
+  },
+  {
+    "text": "Guide for the Perplexed",
+    "href": "jud/gfp/gfp.txt.gz",
+    "url": "https://sacred-texts.com/jud/gfp/gfp.txt.gz"
+  },
+  {
+    "text": "The Duties of the Heart",
+    "href": "jud/doth/doth.txt.gz",
+    "url": "https://sacred-texts.com/jud/doth/doth.txt.gz"
+  },
+  {
+    "text": "Ancient Jewish Proverbs",
+    "href": "jud/ajp/ajp.txt.gz",
+    "url": "https://sacred-texts.com/jud/ajp/ajp.txt.gz"
+  },
+  {
+    "text": "The Golden Mountain",
+    "href": "jud/gm/gm.txt.gz",
+    "url": "https://sacred-texts.com/jud/gm/gm.txt.gz"
+  },
+  {
+    "text": "The Myth of the Birth of the Hero",
+    "href": "neu/mbh/mbh.txt.gz",
+    "url": "https://sacred-texts.com/neu/mbh/mbh.txt.gz"
+  },
+  {
+    "text": "Teutonic Myth and Legend",
+    "href": "neu/tml/tml.txt.gz",
+    "url": "https://sacred-texts.com/neu/tml/tml.txt.gz"
+  },
+  {
+    "text": "Roumanian Fairy Tales and Legends",
+    "href": "neu/rft/rft.txt.gz",
+    "url": "https://sacred-texts.com/neu/rft/rft.txt.gz"
+  },
+  {
+    "text": "Sixty Folk-Tales from Exclusively Slavonic Sources",
+    "href": "neu/sfs/sfs.txt.gz",
+    "url": "https://sacred-texts.com/neu/sfs/sfs.txt.gz"
+  },
+  {
+    "text": "Folk Tales From the Russian",
+    "href": "neu/ftr/ftr.txt.gz",
+    "url": "https://sacred-texts.com/neu/ftr/ftr.txt.gz"
+  },
+  {
+    "text": "Old Peter's Russian Tales",
+    "href": "neu/oprt/oprt.txt.gz",
+    "url": "https://sacred-texts.com/neu/oprt/oprt.txt.gz"
+  },
+  {
+    "text": "The Kalevala",
+    "href": "neu/kveng/kv.txt.gz",
+    "url": "https://sacred-texts.com/neu/kveng/kv.txt.gz"
+  },
+  {
+    "text": "Fairy Tales of Modern Greece",
+    "href": "neu/ftmg/ftmg.txt.gz",
+    "url": "https://sacred-texts.com/neu/ftmg/ftmg.txt.gz"
+  },
+  {
+    "text": "Popular Tales from the Norse",
+    "href": "neu/ptn/ptn.txt.gz",
+    "url": "https://sacred-texts.com/neu/ptn/ptn.txt.gz"
+  },
+  {
+    "text": "Abominable Snowmen",
+    "href": "lcr/abs/abs.txt.gz",
+    "url": "https://sacred-texts.com/lcr/abs/abs.txt.gz"
+  },
+  {
+    "text": "Fictitious and Symbolic Creatures in Art",
+    "href": "lcr/fsca/fsca.txt.gz",
+    "url": "https://sacred-texts.com/lcr/fsca/fsca.txt.gz"
+  },
+  {
+    "text": "Evolution of the Dragon",
+    "href": "lcr/eod/eod.txt.gz",
+    "url": "https://sacred-texts.com/lcr/eod/eod.txt.gz"
+  },
+  {
+    "text": "Intermediate Types among Primitive Folk",
+    "href": "lgbt/itp/itp.txt.gz",
+    "url": "https://sacred-texts.com/lgbt/itp/itp.txt.gz"
+  },
+  {
+    "text": "The Varieties of Religous Experience",
+    "href": "etc/vre/vre.txt.gz",
+    "url": "https://sacred-texts.com/etc/vre/vre.txt.gz"
+  },
+  {
+    "text": "Mazes and Labyriths",
+    "href": "etc/ml/ml.txt.gz",
+    "url": "https://sacred-texts.com/etc/ml/ml.txt.gz"
+  },
+  {
+    "text": "Lore of the Unicorn",
+    "href": "etc/lou/lou.txt.gz",
+    "url": "https://sacred-texts.com/etc/lou/lou.txt.gz"
+  },
+  {
+    "text": "Dragons and Dragon Lore",
+    "href": "etc/ddl/ddl.txt.gz",
+    "url": "https://sacred-texts.com/etc/ddl/ddl.txt.gz"
+  },
+  {
+    "text": "Festivals of Western Europe",
+    "href": "etc/fwe/fwe.txt.gz",
+    "url": "https://sacred-texts.com/etc/fwe/fwe.txt.gz"
+  },
+  {
+    "text": "Doctrine and Convenants",
+    "href": "mor/dc/dc.txt.gz",
+    "url": "https://sacred-texts.com/mor/dc/dc.txt.gz"
+  },
+  {
+    "text": "History of Utah, 1540-1886",
+    "href": "mor/hou/hou.txt.gz",
+    "url": "https://sacred-texts.com/mor/hou/hou.txt.gz"
+  },
+  {
+    "text": "Mysticism",
+    "href": "myst/myst/myst.txt.gz",
+    "url": "https://sacred-texts.com/myst/myst/myst.txt.gz"
+  },
+  {
+    "text": "The Path on the Rainbow",
+    "href": "nam/por/por.txt.gz",
+    "url": "https://sacred-texts.com/nam/por/por.txt.gz"
+  },
+  {
+    "text": "The Myths of Mexico and Peru",
+    "href": "nam/mmp/mmp.txt.gz",
+    "url": "https://sacred-texts.com/nam/mmp/mmp.txt.gz"
+  },
+  {
+    "text": "The Dawn of the World",
+    "href": "nam/ca/dow/dow.txt.gz",
+    "url": "https://sacred-texts.com/nam/ca/dow/dow.txt.gz"
+  },
+  {
+    "text": "Creation Myths of Primitive America",
+    "href": "nam/ca/cma/cma.txt.gz",
+    "url": "https://sacred-texts.com/nam/ca/cma/cma.txt.gz"
+  },
+  {
+    "text": "Yana Texts",
+    "href": "nam/ca/yat/yat.txt.gz",
+    "url": "https://sacred-texts.com/nam/ca/yat/yat.txt.gz"
+  },
+  {
+    "text": "The Traditions of the Hopi",
+    "href": "nam/hopi/toth/toth.txt.gz",
+    "url": "https://sacred-texts.com/nam/hopi/toth/toth.txt.gz"
+  },
+  {
+    "text": "Apu Ollantay",
+    "href": "nam/inca/oll/oll.txt.gz",
+    "url": "https://sacred-texts.com/nam/inca/oll/oll.txt.gz"
+  },
+  {
+    "text": "Spider Woman",
+    "href": "nam/nav/sws/sws.txt.gz",
+    "url": "https://sacred-texts.com/nam/nav/sws/sws.txt.gz"
+  },
+  {
+    "text": "The Algonquin Legends of New England",
+    "href": "nam/ne/al/al.txt.gz",
+    "url": "https://sacred-texts.com/nam/ne/al/al.txt.gz"
+  },
+  {
+    "text": "The Thunder Bird",
+    "href": "nam/nw/ttb/ttb.txt.gz",
+    "url": "https://sacred-texts.com/nam/nw/ttb/ttb.txt.gz"
+  },
+  {
+    "text": "The Old North Trail",
+    "href": "nam/pla/ont/ont.txt.gz",
+    "url": "https://sacred-texts.com/nam/pla/ont/ont.txt.gz"
+  },
+  {
+    "text": "Dancing Gods",
+    "href": "nam/sw/dg/dg.txt.gz",
+    "url": "https://sacred-texts.com/nam/sw/dg/dg.txt.gz"
+  },
+  {
+    "text": "Songs of the Tewa",
+    "href": "nam/sw/sot/sot.txt.gz",
+    "url": "https://sacred-texts.com/nam/sw/sot/sot.txt.gz"
+  },
+  {
+    "text": "The Edinburgh Lectures on Mental Science",
+    "href": "nth/elms/elms.txt.gz",
+    "url": "https://sacred-texts.com/nth/elms/elms.txt.gz"
+  },
+  {
+    "text": "The Dore Lectures on Mental Science",
+    "href": "nth/dlms/dlms.txt.gz",
+    "url": "https://sacred-texts.com/nth/dlms/dlms.txt.gz"
+  },
+  {
+    "text": "In Tune with the Infinite",
+    "href": "nth/twi/twi.txt.gz",
+    "url": "https://sacred-texts.com/nth/twi/twi.txt.gz"
+  },
+  {
+    "text": "Science of Getting Rich",
+    "href": "nth/sgr/sgr.txt.gz",
+    "url": "https://sacred-texts.com/nth/sgr/sgr.txt.gz"
+  },
+  {
+    "text": "Your Forces and How to Use Them",
+    "href": "nth/yfhu/yfhu.txt.gz",
+    "url": "https://sacred-texts.com/nth/yfhu/yfhu.txt.gz"
+  },
+  {
+    "text": "The Master Key System",
+    "href": "nth/mks/mks.txt.gz",
+    "url": "https://sacred-texts.com/nth/mks/mks.txt.gz"
+  },
+  {
+    "text": "The Quimby Manuscripts",
+    "href": "nth/qm/qm.txt.gz",
+    "url": "https://sacred-texts.com/nth/qm/qm.txt.gz"
+  },
+  {
+    "text": "The Secret of the Ages",
+    "href": "nth/tsoa/tsoa.txt.gz",
+    "url": "https://sacred-texts.com/nth/tsoa/tsoa.txt.gz"
+  },
+  {
+    "text": "Think and Grow Rich",
+    "href": "nth/tgr/tgr.txt.gz",
+    "url": "https://sacred-texts.com/nth/tgr/tgr.txt.gz"
+  },
+  {
+    "text": "The Secret Science Behind Miracles",
+    "href": "nth/ssbm/ssbm.txt.gz",
+    "url": "https://sacred-texts.com/nth/ssbm/ssbm.txt.gz"
+  },
+  {
+    "text": "Self-Suggestion and the New Huna Theory of Mesmerism and Hypnosis",
+    "href": "nth/ssug/ssug.txt.gz",
+    "url": "https://sacred-texts.com/nth/ssug/ssug.txt.gz"
+  },
+  {
+    "text": "The Witch-Cult in Western Europe",
+    "href": "pag/wcwe/wcwe.txt.gz",
+    "url": "https://sacred-texts.com/pag/wcwe/wcwe.txt.gz"
+  },
+  {
+    "text": "Gypsy Sorcery and Fortune Telling",
+    "href": "pag/gsft/gsft.txt.gz",
+    "url": "https://sacred-texts.com/pag/gsft/gsft.txt.gz"
+  },
+  {
+    "text": "Letters on Demonology and Witchcraft",
+    "href": "pag/scott/ldw.txt.gz",
+    "url": "https://sacred-texts.com/pag/scott/ldw.txt.gz"
+  },
+  {
+    "text": "The Sorceress",
+    "href": "pag/sor/sor.txt.gz",
+    "url": "https://sacred-texts.com/pag/sor/sor.txt.gz"
+  },
+  {
+    "text": "Irish Witchcraft and Demonology",
+    "href": "pag/iwd/iwd.txt.gz",
+    "url": "https://sacred-texts.com/pag/iwd/iwd.txt.gz"
+  },
+  {
+    "text": "Oracles of Nostradamus",
+    "href": "nos/oon/oon.txt.gz",
+    "url": "https://sacred-texts.com/nos/oon/oon.txt.gz"
+  },
+  {
+    "text": "Unwritten Literature of Hawaii",
+    "href": "pac/ulh/ulh.txt.gz",
+    "url": "https://sacred-texts.com/pac/ulh/ulh.txt.gz"
+  },
+  {
+    "text": "Hawaiian Folk Tales",
+    "href": "pac/hft/hft.txt.gz",
+    "url": "https://sacred-texts.com/pac/hft/hft.txt.gz"
+  },
+  {
+    "text": "Legends of Maui, A Demi-God of Polynesia",
+    "href": "pac/maui/maui.txt.gz",
+    "url": "https://sacred-texts.com/pac/maui/maui.txt.gz"
+  },
+  {
+    "text": "Mental Radio",
+    "href": "psi/mrad/mrad.txt.gz",
+    "url": "https://sacred-texts.com/psi/mrad/mrad.txt.gz"
+  },
+  {
+    "text": "Gypsy Folk Tales",
+    "href": "neu/roma/gft/gft.txt.gz",
+    "url": "https://sacred-texts.com/neu/roma/gft/gft.txt.gz"
+  },
+  {
+    "text": "The Hollow Land",
+    "href": "neu/morris/thol/thol.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/thol/thol.txt.gz"
+  },
+  {
+    "text": "The Roots of the Mountains",
+    "href": "neu/morris/rotm/rotm.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/rotm/rotm.txt.gz"
+  },
+  {
+    "text": "The House of the Wolfings",
+    "href": "neu/morris/thow/thow.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/thow/thow.txt.gz"
+  },
+  {
+    "text": "The Story of the Glittering Plain",
+    "href": "neu/morris/sglt/sglt.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/sglt/sglt.txt.gz"
+  },
+  {
+    "text": "Child Christopher and Goldilind the Fair",
+    "href": "neu/morris/chc/chc.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/chc/chc.txt.gz"
+  },
+  {
+    "text": "The Well at the World's End",
+    "href": "neu/morris/wwe/wwe.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/wwe/wwe.txt.gz"
+  },
+  {
+    "text": "The Water of the Wondrous Isles",
+    "href": "neu/morris/wwi/wwi.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/wwi/wwi.txt.gz"
+  },
+  {
+    "text": "The Sundering Flood",
+    "href": "neu/morris/sunf/sunf.txt.gz",
+    "url": "https://sacred-texts.com/neu/morris/sunf/sunf.txt.gz"
+  },
+  {
+    "text": "The Celtic Twilight",
+    "href": "neu/yeats/twi/twi.txt.gz",
+    "url": "https://sacred-texts.com/neu/yeats/twi/twi.txt.gz"
+  },
+  {
+    "text": "The Gods of Pegana",
+    "href": "neu/dun/gope/gope.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/gope/gope.txt.gz"
+  },
+  {
+    "text": "Time and the Gods",
+    "href": "neu/dun/tago/tago.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/tago/tago.txt.gz"
+  },
+  {
+    "text": "The Sword of Welleran and Other Stories",
+    "href": "neu/dun/swos/swos.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/swos/swos.txt.gz"
+  },
+  {
+    "text": "A Dreamer's Tales",
+    "href": "neu/dun/adta/adta.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/adta/adta.txt.gz"
+  },
+  {
+    "text": "Selections from the Writings of Lord Dunsany",
+    "href": "neu/dun/swld/swld.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/swld/swld.txt.gz"
+  },
+  {
+    "text": "The Book of Wonder",
+    "href": "neu/dun/tbow/tbow.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/tbow/tbow.txt.gz"
+  },
+  {
+    "text": "Fifty-one Tales",
+    "href": "neu/dun/fotd/fotd.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/fotd/fotd.txt.gz"
+  },
+  {
+    "text": "Tales of Wonder",
+    "href": "neu/dun/tawo/tawo.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/tawo/tawo.txt.gz"
+  },
+  {
+    "text": "Plays of Gods and Men",
+    "href": "neu/dun/pgam/pgam.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/pgam/pgam.txt.gz"
+  },
+  {
+    "text": "Don Rodriguez",
+    "href": "neu/dun/doro/doro.txt.gz",
+    "url": "https://sacred-texts.com/neu/dun/doro/doro.txt.gz"
+  },
+  {
+    "text": "The Blue Fairy Book",
+    "href": "neu/lfb/bl/blfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/bl/blfb.txt.gz"
+  },
+  {
+    "text": "The Brown Fairy Book",
+    "href": "neu/lfb/br/brfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/br/brfb.txt.gz"
+  },
+  {
+    "text": "The Crimson Fairy Book",
+    "href": "neu/lfb/cr/crfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/cr/crfb.txt.gz"
+  },
+  {
+    "text": "The Green Fairy Book",
+    "href": "neu/lfb/gn/gnfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/gn/gnfb.txt.gz"
+  },
+  {
+    "text": "The Grey Fairy Book",
+    "href": "neu/lfb/gy/gyfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/gy/gyfb.txt.gz"
+  },
+  {
+    "text": "The Lilac Fairy Book",
+    "href": "neu/lfb/li/lifb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/li/lifb.txt.gz"
+  },
+  {
+    "text": "The Olive Fairy Book",
+    "href": "neu/lfb/ol/olfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/ol/olfb.txt.gz"
+  },
+  {
+    "text": "The Orange Fairy Book",
+    "href": "neu/lfb/or/orfb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/or/orfb.txt.gz"
+  },
+  {
+    "text": "The Pink Fairy Book",
+    "href": "neu/lfb/pi/pifb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/pi/pifb.txt.gz"
+  },
+  {
+    "text": "The Red Fairy Book",
+    "href": "neu/lfb/re/refb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/re/refb.txt.gz"
+  },
+  {
+    "text": "The Violet Fairy Book",
+    "href": "neu/lfb/vi/vifb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/vi/vifb.txt.gz"
+  },
+  {
+    "text": "The Yellow Fairy Book",
+    "href": "neu/lfb/ye/yefb.txt.gz",
+    "url": "https://sacred-texts.com/neu/lfb/ye/yefb.txt.gz"
+  },
+  {
+    "text": "The Kama Sutra of Vatsyayana",
+    "href": "sex/kama/ks.txt.gz",
+    "url": "https://sacred-texts.com/sex/kama/ks.txt.gz"
+  },
+  {
+    "text": "Folk-lore of Shakespeare",
+    "href": "sks/flos/flos.txt.gz",
+    "url": "https://sacred-texts.com/sks/flos/flos.txt.gz"
+  },
+  {
+    "text": "Shamanism in Siberia",
+    "href": "sha/sis/sis.txt.gz",
+    "url": "https://sacred-texts.com/sha/sis/sis.txt.gz"
+  },
+  {
+    "text": "The Kojiki",
+    "href": "shi/kj/kj.txt.gz",
+    "url": "https://sacred-texts.com/shi/kj/kj.txt.gz"
+  },
+  {
+    "text": "Genji Monogatari",
+    "href": "shi/gen/gen.txt.gz",
+    "url": "https://sacred-texts.com/shi/gen/gen.txt.gz"
+  },
+  {
+    "text": "Bushido, the Soul of Japan",
+    "href": "shi/bsd/bsd.txt.gz",
+    "url": "https://sacred-texts.com/shi/bsd/bsd.txt.gz"
+  },
+  {
+    "text": "A Hundred Verses from Old Japan (The Hyakunin-isshu)",
+    "href": "shi/hvj/hvj.txt.gz",
+    "url": "https://sacred-texts.com/shi/hvj/hvj.txt.gz"
+  },
+  {
+    "text": "Ancient Tales and Folk-lore of Japan",
+    "href": "shi/atfj/atfj.txt.gz",
+    "url": "https://sacred-texts.com/shi/atfj/atfj.txt.gz"
+  },
+  {
+    "text": "The Migration of Symbols",
+    "href": "sym/mosy/mosy.txt.gz",
+    "url": "https://sacred-texts.com/sym/mosy/mosy.txt.gz"
+  },
+  {
+    "text": "The Book of Talismans",
+    "href": "sym/bot/bot.txt.gz",
+    "url": "https://sacred-texts.com/sym/bot/bot.txt.gz"
+  },
+  {
+    "text": "Proofs of a Conspiracy, by John Robison",
+    "href": "sro/pc/pc.txt.gz",
+    "url": "https://sacred-texts.com/sro/pc/pc.txt.gz"
+  },
+  {
+    "text": "Code of the Illuminati: Part III of Memoirs Illustrating the History of Jacobinism",
+    "href": "sro/mhj/mhj3.txt.gz",
+    "url": "https://sacred-texts.com/sro/mhj/mhj3.txt.gz"
+  },
+  {
+    "text": "The Comte de St. Germain",
+    "href": "sro/csg/csg.txt.gz",
+    "url": "https://sacred-texts.com/sro/csg/csg.txt.gz"
+  },
+  {
+    "text": "Masonry and Medieval Mysticism",
+    "href": "sro/mmm/mmm.txt.gz",
+    "url": "https://sacred-texts.com/sro/mmm/mmm.txt.gz"
+  },
+  {
+    "text": "Secret Societies of the Middle Ages",
+    "href": "sro/sma/sma.txt.gz",
+    "url": "https://sacred-texts.com/sro/sma/sma.txt.gz"
+  },
+  {
+    "text": "The History of the Knights Templar",
+    "href": "sro/hkt/hkt.txt.gz",
+    "url": "https://sacred-texts.com/sro/hkt/hkt.txt.gz"
+  },
+  {
+    "text": "The Real History of the Rosicrucians",
+    "href": "sro/rhr/rhr.txt.gz",
+    "url": "https://sacred-texts.com/sro/rhr/rhr.txt.gz"
+  },
+  {
+    "text": "With the Adepts",
+    "href": "sro/wta/wta.txt.gz",
+    "url": "https://sacred-texts.com/sro/wta/wta.txt.gz"
+  },
+  {
+    "text": "The Tao Teh King: A Short Study in Comparative Religion",
+    "href": "tao/mt/mt.txt.gz",
+    "url": "https://sacred-texts.com/tao/mt/mt.txt.gz"
+  },
+  {
+    "text": "Laotzu's Tao and Wu Wei",
+    "href": "tao/ltw/ltw.txt.gz",
+    "url": "https://sacred-texts.com/tao/ltw/ltw.txt.gz"
+  },
+  {
+    "text": "The Sayings of Lao-Tzu",
+    "href": "tao/salt/salt.txt.gz",
+    "url": "https://sacred-texts.com/tao/salt/salt.txt.gz"
+  },
+  {
+    "text": "The Art of War",
+    "href": "tao/aow/aow.txt.gz",
+    "url": "https://sacred-texts.com/tao/aow/aow.txt.gz"
+  },
+  {
+    "text": "Musings of a Chinese Mystic",
+    "href": "tao/mcm/mcm.txt.gz",
+    "url": "https://sacred-texts.com/tao/mcm/mcm.txt.gz"
+  },
+  {
+    "text": "Kung-Fu, or Tauist Medical Gymnastics",
+    "href": "tao/kfu/kfu.txt.gz",
+    "url": "https://sacred-texts.com/tao/kfu/kfu.txt.gz"
+  },
+  {
+    "text": "The Pictorial Key to the Tarot",
+    "href": "tarot/pkt/pkt.txt.gz",
+    "url": "https://sacred-texts.com/tarot/pkt/pkt.txt.gz"
+  },
+  {
+    "text": "Fortune Telling by Cards",
+    "href": "tarot/ftc/ftc.txt.gz",
+    "url": "https://sacred-texts.com/tarot/ftc/ftc.txt.gz"
+  },
+  {
+    "text": "The Wood Beyond the World",
+    "href": "ring/wbw/wbw.txt.gz",
+    "url": "https://sacred-texts.com/ring/wbw/wbw.txt.gz"
+  },
+  {
+    "text": "The Worm Ouroboros",
+    "href": "ring/two/two.txt.gz",
+    "url": "https://sacred-texts.com/ring/two/two.txt.gz"
+  },
+  {
+    "text": "The Flying Saucers Are Real",
+    "href": "ufo/fsar/fsar.txt.gz",
+    "url": "https://sacred-texts.com/ufo/fsar/fsar.txt.gz"
+  }
+]

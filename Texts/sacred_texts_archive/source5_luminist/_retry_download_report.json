@@ -1,0 +1,154 @@
+{
+  "source": "Luminist.org (retry)",
+  "files_downloaded": 6,
+  "total_files_with_html": 7,
+  "total_size_mb": 25.77,
+  "breakdown": {
+    "google_drive_success": 3,
+    "google_drive_failed": 128,
+    "wasabi_s3_success": 1,
+    "wasabi_s3_failed": 0,
+    "local_success": 1,
+    "adobe_dc_success": 0,
+    "adobe_dc_failed": 7,
+    "box_success": 0,
+    "box_failed": 2,
+    "total_discovered": 142
+  },
+  "download_dir": "/mnt/agents/output/sacred_texts_archive/source5_luminist/",
+  "files": [
+    {
+      "filename": "THE BOOK OF THE DEAD, OR GOING FORTH BY DAY (ALLEN, 1974).pdf",
+      "title": "THE BOOK OF THE DEAD, OR GOING FORTH BY DAY (ALLEN, 1974)",
+      "url": "https://s3.us-west-1.wasabisys.com/luminist/EB/A/Allen%20-%20The%20Book%20of%20the%20Dead.pdf",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/egypt/THE BOOK OF THE DEAD, OR GOING FORTH BY DAY (ALLEN, 1974).pdf",
+      "source": "wasabi_s3",
+      "size_mb": 22.6
+    },
+    {
+      "filename": "CORPUS HERMETICUM (MEAD, 1906).pdf",
+      "title": "CORPUS HERMETICUM (MEAD, 1906)",
+      "url": "https://drive.google.com/open?id=1LlZLMdDlmxFOA5D4TNtYgNAk4q42MR6e",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/hermetic/CORPUS HERMETICUM (MEAD, 1906).pdf",
+      "source": "google_drive",
+      "size_mb": 0.68
+    },
+    {
+      "filename": "BHAGAVAD-GITA (SIVANANDA, 1968).pdf",
+      "title": "BHAGAVAD-GITA (SIVANANDA, 1968)",
+      "url": "https://drive.google.com/open?id=1RhpDEcu2mjCgnyKepijquPot5Kuue0QM",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/india_hindu/BHAGAVAD-GITA (SIVANANDA, 1968).pdf",
+      "source": "google_drive",
+      "size_mb": 0.35
+    },
+    {
+      "filename": "LIFE ETERNAL AND ITS WORK (BERG, 1938).html",
+      "title": "LIFE ETERNAL AND ITS WORK (BERG, 1938)",
+      "url": "http://www.luminist.org/archives/life_eternal.htm",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/mystical/LIFE ETERNAL AND ITS WORK (BERG, 1938).html",
+      "source": "local",
+      "size_mb": 0.2
+    },
+    {
+      "filename": "LIBER 777 (CROWLEY, 1909).pdf",
+      "title": "LIBER 777 (CROWLEY, 1909)",
+      "url": "https://drive.google.com/open?id=0BxFf7XEiYdGxLTUyb3dqSl9EcWc",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/qabalah/LIBER 777 (CROWLEY, 1909).pdf",
+      "source": "google_drive",
+      "size_mb": 0.72
+    },
+    {
+      "filename": "SEPHER YETZIRAH (WESTCOTT, 1893).pdf",
+      "title": "SEPHER YETZIRAH (WESTCOTT, 1893).pdf",
+      "url": "unknown",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/qabalah/SEPHER YETZIRAH (WESTCOTT, 1893).pdf",
+      "source": "unknown",
+      "size_mb": 1.21
+    },
+    {
+      "filename": "BOOK OF THE LAW (CROWLEY, 1904).html",
+      "title": "BOOK OF THE LAW (CROWLEY, 1904).html",
+      "url": "unknown",
+      "local_path": "/mnt/agents/output/sacred_texts_archive/source5_luminist/thelema/BOOK OF THE LAW (CROWLEY, 1904).html",
+      "source": "unknown",
+      "size_mb": 0.01
+    }
+  ],
+  "errors": [
+    {
+      "url": "https://documentcloud.adobe.com/link/track?uri=urn%3Aaaid%3Ascds%3AUS%3Afc60ced4-f3e2-4df8-88ad-df00aa3aa7ac",
+      "title": "BHAGAVAD-GITA (TELANG, 1882)",
+      "error": "Adobe Document Cloud returns HTML viewer page, not PDF. Requires Adobe auth/viewer."
+    },
+    {
+      "url": "https://documentcloud.adobe.com/link/track?uri=urn%3Aaaid%3Ascds%3AUS%3A698848e5-fc74-46ba-bf34-a85356e0144d",
+      "title": "BHAGAVAD-GITA (EASWARAN, 1985)",
+      "error": "Adobe Document Cloud returns HTML viewer page, not PDF. Requires Adobe auth/viewer."
+    },
+    {
+      "url": "https://drive.google.com/open?id=0BxFf7XEiYdGxbWpRek5QTnFPZjQ",
+      "title": "THE SONG CELESTIAL (ARNOLD, 1893)",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1X6hmWxX84Nu3mP8piPAq26HyOoLWlZMS",
+      "title": "BHAGAVAD-GITA AS IT IS (PRABHUPADA, 1972)",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=13LybaT5-ZFA_bAHRbAhoSR2EcuQjPUeP",
+      "title": "LECTURES ON THE BHAGAVAD-GITA (ROW, 1897)",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1557W2C-DP1sZZ336xdXqstaFni73Cxqs",
+      "title": "STORIES OF THE RAMAYANA AND MAHABARATA (OMAN, 1900)",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1UyW81oXGoSk9dFf-ly0nMA9EWF7xVScZ",
+      "title": "HINDU LITERATURE (WILSON, 1900)",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://app.box.com/s/99gjv0aasl1ljzqai7zfj86qg0zz2r10",
+      "title": "THE RAMAYANA OF TULSI DAS (GROWSE, 1883)",
+      "error": "Box.com connection timed out. Requires Box authentication."
+    },
+    {
+      "url": "https://drive.google.com/open?id=16nAkdCW-gJVVTojQclBnk54kRCmDtsAS",
+      "title": "MAHABHARATA (ROY, 1896) VOL. 1",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1BQ_0nE6NMb4M01GOU33a0-LR-cnjIp3n",
+      "title": "VOL. 2",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1uDOpQWamM-QC3LHfRsfzoxlFMQ66jycv",
+      "title": "VOL. 3",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1djtG9hNLdfb2-zPN45hYYA0PH5CxgtOz",
+      "title": "VOL. 4",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1A4C5_8K-K0yMjNkKl8331-YvjpVSJ5Po",
+      "title": "VOL. 5",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1ThM_MkLuXIRyLoQO41fk1N3piuzHq8T1",
+      "title": "VOL. 6",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    },
+    {
+      "url": "https://drive.google.com/open?id=1Wd8i0BqbIuc7GqfwiPsWfEP6wGZKFpOg",
+      "title": "VOL. 7",
+      "error": "Google Drive blocked from shell/Python; accessible only via browser tool. drive.google.com connection times out."
+    }
+  ]
+}

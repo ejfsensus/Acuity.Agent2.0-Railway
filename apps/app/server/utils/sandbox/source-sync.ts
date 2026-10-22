@@ -118,7 +118,7 @@ async function syncFullRepository(
     cmd: 'sh',
     args: [
       '-c',
-      `find ${targetDir} -type f ! \\( -name "*.md" -o -name "*.mdx" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" \\) -delete`,
+      `find ${targetDir} -type f ! \\( -name "*.md" -o -name "*.mdx" -o -name "*.yml" -o -name "*.yaml" -o -name "*.json" -o -name "*.txt" -o -name "*.html" -o -name "*.htm" -o -name "*.usx" \\) -delete`,
     ],
     cwd: '/vercel/sandbox',
   })

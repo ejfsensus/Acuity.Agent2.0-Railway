@@ -1,0 +1,66 @@
+Sacred texts library
+Mounted for the agent at docs/sacred-texts/
+Cite the file path you read, plus the edition line at the top of that file.
+
+Search these extensions with grep: .txt .html .htm .usx .md .yml .yaml .json
+PDF, DOCX, EPUB, XLSX, ZIP, and PNG files in this tree are stored for reference.
+grep does not read them. Prefer the plain-text or USX copy of the same work.
+
+Collections
+-----------
+
+source1_ista/
+  Internet Sacred Text Archive (sacred-texts.com).
+  Downloaded from https://sacred-texts.com/download.htm
+  Each text file keeps the header it shipped with: title, translator, year,
+  and the line "at sacred-texts.com". Quote that header when you cite a passage.
+  The Mahabharata (Ganguli) is unpacked as hin/maha/maha01.txt through maha18.txt.
+
+source2_openbible/
+  OpenBible.info repositories, https://github.com/openbibleinfo/
+  American-Standard-Version-Bible/usx/ is the American Standard Version (1901),
+  one USX file per book. The 1901 ASV text is in the public domain.
+  The other repositories are passage parsers, book-name lists, and Bible
+  place geocoding. They are reference data, not scripture.
+
+source3_getbible/berean_bible/
+  Berean Standard Bible. The text file is bsb.txt.
+  The Berean Bible and Majority Bible texts were dedicated to the public domain
+  on 30 April 2023. Suggested credit, not required:
+  "The Holy Bible, Berean Standard Bible, BSB is produced in cooperation with
+  Bible Hub, Discovery Bible, OpenBible.com, and the Berean Bible Translation
+  Committee."
+  https://bereanbible.com
+
+source4_archive_org/
+  Sacred Books of the East, Volume 1, from the Internet Archive:
+  https://archive.org/details/sacredbooksofeas01unse
+  This copy is a PDF. It is not searchable with grep.
+  download_list.json lists the other volume URLs and is not itself the text.
+
+source5_luminist/
+  Files collected from Luminist.org. Cite the filename, which carries the
+  work, editor, and year. Several copies are PDF only.
+
+sacred_texts_archive_missing/
+  Later additions arranged by tradition (Zoroastrian, Sikh, Jain, Bahai,
+  Mandaean, Christian, Jewish). Cite the file path and any rights notice
+  stored beside the file, including sikhism/scripture/RIGHTS_NOTICE.txt.
+
+Not in this library
+-------------------
+
+These downloads were empty or failed their checksum. Do not treat them as present.
+
+- source1_ista/chr/bunyan/ — Pilgrim's Progress (empty archive)
+- source1_ista/chr/aquinas/summa/ — Summa (empty archive)
+- source1_ista/etc/fwe/ — empty archive
+- source1_ista/sro/mmm/ — empty archive
+- source1_ista/sro/hkt/ — empty archive
+- source1_ista/aor/darwin/origin/ — Origin of Species (empty archive)
+- source1_ista/pag/iwd/ — empty archive
+- source1_ista/bos/ibos/ — The Internet Book of Shadows zip failed its CRC
+- source5_luminist Song Celestial (Arnold) PDF and test_wget.pdf were empty
+
+The Allen Book of the Dead PDF under source5_luminist/egypt/ is a PDF, not a
+text grep can search.
