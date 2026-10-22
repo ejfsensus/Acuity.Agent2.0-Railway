@@ -6,33 +6,29 @@
 FROM oven/bun:1.3.14 AS builder
 WORKDIR /app
 
-ENV HUSKY=0 \
-    CI=1
-
-# Dependency manifests first for layer caching
-COPY package.json bun.lock ./
-COPY patches ./patches
-COPY apps/app/package.json ./apps/app/
-COPY packages/sdk/package.json ./packages/sdk/
-COPY packages/agent/package.json ./packages/agent/
-COPY packages/github/package.json ./packages/github/
-
-RUN bun install --frozen-lockfile
-
-COPY . .
-
 # Placeholders so the build does not require runtime secrets.
 # Migrations are deferred to boot (applyMigrationsDuringBuild: false), so the
 # database is never contacted during the image build.
 # NUXT_HUB_DB_DRIVER keeps the bundle on postgres-js: without it NuxtHub sees no
 # POSTGRES_URL here and bakes in an embedded PGlite client that would ignore the
 # real database at runtime while still reporting a healthy /api/health.
-ENV BETTER_AUTH_SECRET=build-time-placeholder-replaced-at-runtime \
+# These must be set before install: apps/app postinstall runs `nuxt prepare`.
+ENV HUSKY=0 \
+    CI=1 \
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
+    BETTER_AUTH_SECRET=build-time-placeholder-replaced-at-runtime \
     NITRO_PRESET=node-server \
     NUXT_HUB_DB_DRIVER=postgres-js \
     NODE_OPTIONS=--max-old-space-size=4096
 
-RUN bun run prepare \
+# Full source first. `bun install` runs the root prepare script
+# (`turbo run build --filter=./packages/*`), which needs turbo.json and the
+# package sources. Installing from manifests alone fails with
+# "Could not find turbo.json or turbo.jsonc".
+COPY . .
+
+RUN bun install --frozen-lockfile \
+ && bun run prepare \
  && cd apps/app \
  && bun run build
 
@@ -71,6 +67,7 @@ RUN apt-get update \
       less \
       bsdextrautils \
       procps \
+      util-linux \
  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/apps/app/.output ./.output
@@ -83,13 +80,17 @@ RUN mkdir -p /vercel/sandbox
 
 EXPOSE 3000
 
-# Non-root runtime; the sandbox root must be writable by this user.
+# The process starts as root so the entrypoint can chown the Railway volume,
+# then drops to nodeapp. The image USER stays root for that reason.
 RUN groupadd --system --gid 1001 nodejs \
  && useradd --system --uid 1001 --gid nodejs --home /app nodeapp \
  && chown -R nodeapp:nodejs /app /vercel/sandbox
-USER nodeapp
+
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
   CMD curl -fsS http://127.0.0.1:3000/api/health || exit 1
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["node", ".output/server/index.mjs"]
