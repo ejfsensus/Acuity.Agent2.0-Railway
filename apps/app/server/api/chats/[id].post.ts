@@ -4,7 +4,7 @@ import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
 import { createSavoir } from '@savoir/sdk'
 import { useLogger } from 'evlog'
-import { createSourceAgent, createAdminAgent, setAIGatewayMetadata } from '@savoir/agent'
+import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE } from '@savoir/agent'
 import { generateTitle } from '../../utils/chat/generate-title'
 import { getAgentConfig } from '../../utils/agent-config'
 import { KV_KEYS } from '../../utils/sandbox/types'
@@ -137,7 +137,16 @@ export default defineEventHandler(async (event) => {
       : null
 
     let usagePromise: PromiseLike<LanguageModelUsage> | undefined
+    let responseFailed = false
+    const onResponseError = (error: unknown) => {
+      responseFailed = true
+      requestLog.error(error instanceof Error ? error : new Error(String(error)))
+      return error instanceof Error && error.message === INVALID_RESPONSE_MESSAGE
+        ? INVALID_RESPONSE_MESSAGE
+        : 'The response could not be completed. Please try again.'
+    }
     const stream = createUIMessageStream({
+      onError: onResponseError,
       execute: async ({ writer }) => {
         const result = await agent.stream({
           messages: await convertToModelMessages(messages),
@@ -145,7 +154,7 @@ export default defineEventHandler(async (event) => {
           abortSignal: abortController.signal,
         })
         usagePromise = result.totalUsage
-        writer.merge(result.toUIMessageStream())
+        writer.merge(result.toUIMessageStream({ onError: onResponseError }))
 
         const title = await titleTask
         if (title) {
@@ -158,7 +167,7 @@ export default defineEventHandler(async (event) => {
         const usage = await Promise.resolve(usagePromise).catch(() => undefined)
         const usageMessageIndex = responseMessages.findLastIndex(message => message.role === 'assistant')
 
-        await db.insert(schema.messages).values(responseMessages.map((message: UIMessage, index: number) => ({
+        if (responseMessages.length) await db.insert(schema.messages).values(responseMessages.map((message: UIMessage, index: number) => ({
           id: message.id,
           chatId: chat.id,
           role: message.role as 'user' | 'assistant',
@@ -184,7 +193,7 @@ export default defineEventHandler(async (event) => {
         }
 
         requestLog.set({
-          outcome: 'success',
+          outcome: responseFailed ? 'error' : 'success',
           responseMessageCount: responseMessages.length,
           dbInsertMs: dbDurationMs,
           totalDurationMs,

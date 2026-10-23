@@ -1,6 +1,7 @@
 import { db, schema } from '@nuxthub/db'
 import { and, asc, eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { readableAssistantMessage } from '../../utils/chat/response-integrity'
 
 const paramsSchema = z.object({
   token: z.string().min(1, 'Missing share token'),
@@ -43,7 +44,7 @@ export default defineCachedEventHandler(
       id: chat.id,
       title: chat.title,
       createdAt: chat.createdAt,
-      messages: chat.messages,
+      messages: chat.messages.map(readableAssistantMessage),
       author: {
         name: user?.name || 'Unknown',
         image: user?.image || '',

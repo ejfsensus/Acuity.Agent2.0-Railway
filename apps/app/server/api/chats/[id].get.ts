@@ -1,6 +1,7 @@
 import { db, schema } from '@nuxthub/db'
 import { and, asc, eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { readableAssistantMessage } from '../../utils/chat/response-integrity'
 import type { GetChatResponse } from '#shared/types/chat'
 
 const paramsSchema = z.object({
@@ -32,5 +33,5 @@ export default defineEventHandler(async (event) => {
 
   requestLog.set({ messageCount: chat.messages.length })
 
-  return chat satisfies GetChatResponse
+  return { ...chat, messages: chat.messages.map(readableAssistantMessage) } satisfies GetChatResponse
 })
