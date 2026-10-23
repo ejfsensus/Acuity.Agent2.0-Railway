@@ -36,10 +36,34 @@ test('agent commands cannot follow a library symlink into the app container', as
   const link = join(process.env.SANDBOX_ROOT!, 'unsafe.txt')
   await symlink('/etc/passwd', link)
   try {
-    await assert.rejects(new localSandbox().runAgentCommand('cat unsafe.txt'), /symbolic link outside the sandbox/)
+    const result = await new localSandbox().runAgentCommand('cat unsafe.txt')
+    assert.notEqual(result.exitCode, 0)
+    assert.equal(await result.stdout(), '')
   } finally {
     await rm(link)
   }
+})
+
+test('virtual commands preserve quoted paths, pipelines and Unicode', async () => {
+  await writeFile(join(process.env.SANDBOX_ROOT!, 'record café.txt'), 'A prayer for wisdom: שלום\nSecond line\n')
+  const result = await new localSandbox().runAgentCommand('cat "record café.txt" | head -1')
+  assert.equal(result.exitCode, 0)
+  assert.equal(await result.stdout(), 'A prayer for wisdom: שלום\n')
+})
+
+test('quoted paths and shell utilities cannot read or overwrite host files', async () => {
+  const privateFile = join(root, 'private.txt')
+  await writeFile(privateFile, 'private fixture')
+  const sandbox = new localSandbox()
+  const read = await sandbox.runAgentCommand(`cat "${privateFile}"`)
+  assert.notEqual(read.exitCode, 0)
+  assert.equal(await read.stdout(), '')
+  const write = await sandbox.runAgentCommand(`echo changed | tee "${privateFile}"`)
+  assert.notEqual(write.exitCode, 0)
+  assert.equal(await readFile(privateFile, 'utf8'), 'private fixture')
+  const library = await sandbox.runAgentCommand('echo changed | tee "record café.txt"')
+  assert.notEqual(library.exitCode, 0)
+  assert.match(await readFile(join(process.env.SANDBOX_ROOT!, 'record café.txt'), 'utf8'), /A prayer/)
 })
 
 test('a targeted GitHub sync counts all text formats and preserves other sources', async () => {

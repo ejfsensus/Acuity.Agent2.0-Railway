@@ -201,10 +201,7 @@ export default defineNuxtConfig({
     },
     public: {
       siteUrl,
-      acuity: {
-        githubEnabled: process.env.NUXT_PUBLIC_GITHUB_LOGIN_ENABLED === 'true'
-          && Boolean(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET),
-      },
+      githubLoginEnabled: false,
       ai: {
         models: process.env.NUXT_PUBLIC_AI_MODELS || process.env.AI_MODELS || process.env.OPENAI_COMPATIBLE_MODELS || '',
         defaultModel: process.env.NUXT_PUBLIC_AI_DEFAULT_MODEL || process.env.AI_DEFAULT_MODEL || process.env.OPENAI_COMPATIBLE_DEFAULT_MODEL || '',

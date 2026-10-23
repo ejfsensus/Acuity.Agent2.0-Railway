@@ -104,8 +104,15 @@ export function getModelFallbackOptions(model: string): SharedV3ProviderOptions 
 export function buildProviderOptions(
   model: string,
   metadata?: { userId?: string, tags?: string[] },
+  finalAnswer = false,
 ): SharedV3ProviderOptions | undefined {
-  if (getAIProviderKind() !== 'gateway') return undefined
+  if (getAIProviderKind() !== 'gateway') {
+    const baseURL = readEnv('OPENAI_COMPATIBLE_BASE_URL', 'AI_BASE_URL') || ''
+    if (!finalAnswer || !/^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL)) return undefined
+    const name = readEnv('OPENAI_COMPATIBLE_NAME', 'AI_PROVIDER_NAME') || 'openai-compatible'
+    const namespace = name.split('.')[0]!.replace(/-([a-z])/g, (_match, letter: string) => letter.toUpperCase())
+    return { [namespace]: { reasoningEffort: 'none' } }
+  }
 
   const fallbacks = MODEL_FALLBACKS[model]
   const gateway: JSONObject = {}

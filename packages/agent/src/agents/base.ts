@@ -4,7 +4,7 @@ import { DEFAULT_MODEL, buildProviderOptions } from '../router/schema'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
-import { countConsecutiveToolSteps, shouldForceTextOnlyStep } from '../core/policy'
+import { countConsecutiveToolSteps, finalAnswerMessages, shouldForceTextOnlyStep } from '../core/policy'
 import { braveLlmContextTool, webSearchTool } from '../tools/web-search'
 import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
 import type { AgentCallOptions, AgentExecutionContext, CreateAgentOptions } from '../types'
@@ -20,6 +20,7 @@ export function createAgent({
   onFinish,
 }: CreateAgentOptions) {
   let maxSteps = 15
+  let currentModel = DEFAULT_MODEL
   const wrap = resolveModelWrapper()
 
   return new ToolLoopAgent({
@@ -39,6 +40,7 @@ export function createAgent({
         ?? agentConfig.defaultModel
         ?? DEFAULT_MODEL
       const effectiveModel = modelOverride ?? routedModel
+      currentModel = effectiveModel
 
       maxSteps = effectiveMaxSteps
       onRouted?.({ routerConfig, agentConfig, effectiveModel, effectiveMaxSteps })
@@ -74,10 +76,9 @@ export function createAgent({
       if (shouldForceTextOnlyStep({ stepNumber, maxSteps, steps: normalizedSteps })) {
         log.info({ event: 'agent.force_text_step', step: stepNumber + 1, maxSteps, toolStreak: countConsecutiveToolSteps(normalizedSteps) })
         return {
-          tools: {},
           toolChoice: 'none' as const,
-          activeTools: [],
-          ...(compactedMessages !== messages ? { messages: compactedMessages } : {}),
+          messages: finalAnswerMessages(compactedMessages),
+          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), true),
         }
       }
 

@@ -23,7 +23,7 @@ const loading = ref(false)
 const githubLoading = ref(false)
 const error = ref('')
 const { signIn } = useUserSession()
-const githubEnabled = computed(() => runtimeConfig.public.acuity?.githubEnabled === true)
+const githubEnabled = computed(() => String(runtimeConfig.public.githubLoginEnabled) === 'true')
 
 const oauthErrors: Record<string, string> = {
   access_denied: 'Access denied by GitHub.',

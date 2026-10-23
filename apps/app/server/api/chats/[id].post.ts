@@ -141,7 +141,7 @@ export default defineEventHandler(async (event) => {
       execute: async ({ writer }) => {
         const result = await agent.stream({
           messages: await convertToModelMessages(messages),
-          options: {},
+          options: { model },
           abortSignal: abortController.signal,
         })
         usagePromise = result.totalUsage

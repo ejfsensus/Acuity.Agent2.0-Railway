@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs'
-import { cp, mkdir, readFile, rm } from 'node:fs/promises'
+import { cp, mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { log } from 'evlog'
@@ -65,11 +65,20 @@ export async function installBundledLibrary(): Promise<void> {
     }
   }
 
-  await rm(target, { recursive: true, force: true })
   await mkdir(join(SANDBOX_ROOT, 'docs'), { recursive: true })
-  await cp(source, target, {
-    recursive: true,
-    filter: src => !src.endsWith('.DS_Store'),
-  })
+  const staged = await mkdtemp(join(SANDBOX_ROOT, '.library-mount-'))
+  try {
+    await cp(source, staged, {
+      recursive: true,
+      filter: src => !src.endsWith('.DS_Store') && src !== join(source, 'LIBRARY_STAMP'),
+    })
+    // A matching marker must mean the entire copy completed, including after
+    // an interrupted deployment. Never stamp a partially copied library.
+    await writeFile(join(staged, 'LIBRARY_STAMP'), `${stamp}\n`)
+    await rm(target, { recursive: true, force: true })
+    await rename(staged, target)
+  } finally {
+    await rm(staged, { recursive: true, force: true })
+  }
   log.info('sandbox', `Mounted sacred-text library at ${target} from ${source}`)
 }

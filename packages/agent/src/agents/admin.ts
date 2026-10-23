@@ -4,6 +4,7 @@ import { ADMIN_SYSTEM_PROMPT } from '../prompts/chat'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
+import { finalAnswerMessages, shouldForceTextOnlyStep } from '../core/policy'
 import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
 import type { AgentCallOptions, AgentExecutionContext } from '../types'
 
@@ -26,6 +27,7 @@ export function createAdminAgent({
   onFinish,
 }: AdminAgentOptions) {
   const wrap = resolveModelWrapper()
+  let currentModel = DEFAULT_MODEL
 
   return new ToolLoopAgent({
     model: wrap(DEFAULT_MODEL),
@@ -34,6 +36,7 @@ export function createAdminAgent({
       const modelOverride = (options as AgentCallOptions | undefined)?.model
       const customContext = (options as AgentCallOptions | undefined)?.context
       const effectiveModel = modelOverride ?? DEFAULT_MODEL
+      currentModel = effectiveModel
 
       const executionContext: AgentExecutionContext = {
         mode: 'admin',
@@ -52,10 +55,13 @@ export function createAdminAgent({
         experimental_context: executionContext,
       }
     },
-    prepareStep: ({ messages, steps }) => {
+    prepareStep: ({ stepNumber, messages, steps }) => {
       sanitizeToolCallInputs(messages)
       const normalizedSteps = (steps as StepResult<ToolSet>[] | undefined) ?? []
       const compactedMessages = compactContext({ messages, steps: normalizedSteps })
+      if (shouldForceTextOnlyStep({ stepNumber, maxSteps, steps: normalizedSteps })) {
+        return { toolChoice: 'none' as const, messages: finalAnswerMessages(compactedMessages), providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), true) }
+      }
       if (compactedMessages !== messages) {
         return { messages: compactedMessages }
       }

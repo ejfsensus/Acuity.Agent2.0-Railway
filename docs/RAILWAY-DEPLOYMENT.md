@@ -12,9 +12,9 @@ The app runs as one long-lived Node service with managed Postgres, a persistent 
 | Postgres service | `9828c827-ee88-42cf-a3bf-81c6259af9b7` |
 | Knowledge volume | `/vercel/sandbox`, writable by uid 1001; one replica |
 | Upload bucket | `acuity-uploads`, region `ams` |
-| Public origin | `https://acuity-agent-production.up.railway.app` |
+| Public origin | `https://agent.acuity.institute` |
 
-The historical `/vercel/sandbox` path is retained for compatibility with published SDK clients. Commands run locally in the Railway container with an allowlist and a scrubbed child environment; this is not a separate VM or an OS sandbox.
+The historical `/vercel/sandbox` path is retained for compatibility with published SDK clients. Agent commands run in the pinned `just-bash` virtual shell with a read-only library filesystem, no network, and no host-process commands. Trusted Git synchronization uses a separate native executor with a scrubbed child environment. This is not a separate VM.
 
 ## Build and startup
 
@@ -41,7 +41,7 @@ Sync runs in the app process. Progress is persisted in Postgres, but work does n
 | Function | Variables |
 | --- | --- |
 | Database | `POSTGRES_URL` referencing the attached Postgres service |
-| Authentication | `BETTER_AUTH_SECRET`, `NUXT_PUBLIC_SITE_URL`, `AUTHORIZED_USER_EMAILS` |
+| Authentication | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://agent.acuity.institute`, `NUXT_PUBLIC_SITE_URL=https://agent.acuity.institute`, `AUTHORIZED_USER_EMAILS` |
 | AI | `AI_PROVIDER=openai-compatible`, `OPENAI_COMPATIBLE_BASE_URL`, `OPENAI_COMPATIBLE_API_KEY`, `OPENAI_COMPATIBLE_MODELS`, `OPENAI_COMPATIBLE_DEFAULT_MODEL` |
 | Model picker | `NUXT_PUBLIC_AI_MODELS`, `NUXT_PUBLIC_AI_DEFAULT_MODEL`, `NUXT_PUBLIC_AI_PROVIDER_NAME` |
 | Uploads | `AWS_ENDPOINT_URL`, `AWS_REGION`, `AWS_BUCKET_NAME`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` |
@@ -53,6 +53,10 @@ Sync runs in the app process. Progress is persisted in Postgres, but work does n
 | Durable bot state | `REDIS_URL`; application KV already persists in Postgres without Redis |
 
 Email/password sign-in works without GitHub OAuth. An allowlisted email is an access rule, not a created account. Public signup is disabled. Optional bot and YouTube integrations stay unconfigured until their service credentials and external webhook subscriptions exist. Do not enable outbound bot replies as a deployment smoke test.
+
+GitHub sign-in uses `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and the runtime flag `NUXT_PUBLIC_GITHUB_LOGIN_ENABLED=true`. Its callback URL is `https://agent.acuity.institute/api/auth/callback/github`. Apply saved variable changes with a successful deployment; failed builds leave the previous container and its old origin settings running.
+
+DeepSeek final synthesis retains the tool schemas while sending `tool_choice=none`, adds an explicit final-answer instruction, and disables additional thinking for that step. This avoids ending a research loop with raw tool-call protocol text. The selected chat model is passed explicitly into the agent call.
 
 Attachments are stored in the private bucket and served through signed capability URLs at `/api/files/...`. These URLs allow a model provider to fetch an attachment without receiving the user's authentication cookie. Deleting an object revokes its link. Rotating the file signing secret (or the auth-secret fallback) invalidates old links.
 

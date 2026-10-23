@@ -29,6 +29,17 @@ describe('validateShellCommand', () => {
       reason: 'Path outside sandbox is not allowed: /etc/passwd',
     })
   })
+
+  test('accepts quoted regex alternation and sed ranges within a pipeline', () => {
+    expect(validateShellCommand('grep -nE "wisdom|practice" docs/book.txt | head -5')).toEqual({ ok: true })
+    expect(validateShellCommand('sed -n \'10,20p;30,40p\' docs/book.txt')).toEqual({ ok: true })
+  })
+
+  test('still rejects commands separated outside quotes', () => {
+    expect(validateShellCommand('grep "wisdom|practice" docs/book.txt; curl https://example.com').ok).toBe(false)
+    expect(validateShellCommand('echo ok & curl https://example.com').ok).toBe(false)
+    expect(validateShellCommand('cat "unfinished').ok).toBe(false)
+  })
 })
 
 describe('path utils', () => {

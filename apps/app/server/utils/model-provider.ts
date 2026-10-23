@@ -24,8 +24,8 @@ function getCompatibleProvider() {
   const apiKey = readEnv('OPENAI_COMPATIBLE_API_KEY', 'AI_API_KEY')
     ?? runtimeConfig.ai.openAICompatibleAPIKey
   const name = readEnv('OPENAI_COMPATIBLE_NAME', 'AI_PROVIDER_NAME')
-    ?? runtimeConfig.ai.openAICompatibleName
-    ?? 'openai-compatible'
+    || runtimeConfig.ai.openAICompatibleName
+    || 'openai-compatible'
 
   if (!baseURL) return undefined
 
@@ -64,7 +64,7 @@ export function createRuntimeModelWrapper(gatewayWrap: ModelWrapper): ModelWrapp
 
     const compatibleProvider = getCompatibleProvider()
     if (!compatibleProvider) {
-      return gatewayWrap(model)
+      throw new Error('OpenAI-compatible provider requires OPENAI_COMPATIBLE_BASE_URL')
     }
 
     return compatibleProvider(resolveCompatibleModel(model))

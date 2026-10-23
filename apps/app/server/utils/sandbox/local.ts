@@ -1,9 +1,11 @@
 import { spawn } from 'node:child_process'
-import { mkdir, readFile, readdir, realpath } from 'node:fs/promises'
+import { mkdir, readFile } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import { log } from 'evlog'
 import { createError } from 'h3'
-import { validateShellCommand } from '@savoir/sdk'
+import { ALLOWED_BASH_COMMANDS, validateShellCommand } from '@savoir/sdk'
+import { Bash, OverlayFs, decodeBytesToUtf8, getCommandNames, stdoutAsBytes } from 'just-bash'
+import type { CommandName } from 'just-bash'
 import type { CommandRunOptions, CommandRunResult, SandboxLike } from './types'
 import { withKnowledgeBaseLock } from './lock'
 
@@ -16,21 +18,6 @@ import { withKnowledgeBaseLock } from './lock'
  * Override with SANDBOX_ROOT only if you also update the SDK.
  */
 export const SANDBOX_ROOT = process.env.SANDBOX_ROOT || '/vercel/sandbox'
-
-async function assertSafeSandbox(): Promise<void> {
-  const root = await realpath(SANDBOX_ROOT)
-  async function inspect(directory: string): Promise<void> {
-    for (const entry of await readdir(directory, { withFileTypes: true })) {
-      if (directory === root && (entry.name === '.git' || entry.name === 'lost+found')) continue
-      const path = join(directory, entry.name)
-      if (entry.isSymbolicLink()) {
-        const target = await realpath(path).catch(() => '')
-        if (target !== root && !target.startsWith(`${root}/`)) throw new Error('Knowledge base contains a symbolic link outside the sandbox')
-      } else if (entry.isDirectory()) await inspect(path)
-    }
-  }
-  await inspect(root)
-}
 
 const DEFAULT_TIMEOUT_MS = Number(process.env.SANDBOX_COMMAND_TIMEOUT_MS || 60_000)
 const MAX_OUTPUT_BYTES = 2 * 1024 * 1024
@@ -165,9 +152,9 @@ export class LocalSandbox implements SandboxLike {
   }
 
   /**
-   * Untrusted path used by the agent. Re-applies the shell policy here as well as
-   * at the API boundary, because this executor now runs in the app's own
-   * container instead of a disposable microVM.
+   * Untrusted commands use a virtual shell with only the library mounted.
+   * The read-only filesystem and disabled network/process execution enforce
+   * the boundary even when a quoted path bypasses the SDK's lexical filter.
    */
   runAgentCommand(command: string): Promise<CommandRunResult> {
     const validation = validateShellCommand(command, { allowedBaseDirectory: SANDBOX_ROOT })
@@ -179,8 +166,16 @@ export class LocalSandbox implements SandboxLike {
       })
     }
     return withKnowledgeBaseLock(async () => {
-      await assertSafeSandbox()
-      return this.runCommand({ cmd: 'bash', args: ['-c', command], cwd: SANDBOX_ROOT })
+      await ensureSandboxRoot()
+      const shell = new Bash({
+        fs: new OverlayFs({ root: SANDBOX_ROOT, mountPoint: SANDBOX_ROOT, readOnly: true, allowSymlinks: false, maxFileReadSize: 32 * 1024 * 1024 }),
+        cwd: SANDBOX_ROOT,
+        env: { HOME: SANDBOX_ROOT, LANG: 'C.UTF-8' },
+        commands: getCommandNames().filter((name): name is CommandName => ALLOWED_BASH_COMMANDS.has(name)),
+        executionLimits: { maxExecutionTimeMs: DEFAULT_TIMEOUT_MS, maxOutputSize: MAX_OUTPUT_BYTES, maxCommandCount: 100, maxFileDescriptors: 64 },
+      })
+      const result = await shell.exec(command)
+      return { exitCode: result.exitCode, stdout: () => Promise.resolve(decodeBytesToUtf8(stdoutAsBytes(result))), stderr: () => Promise.resolve(result.stderr) }
     })
   }
 
