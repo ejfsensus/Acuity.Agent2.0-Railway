@@ -1,5 +1,7 @@
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
-import { DEFAULT_MODEL, getAIProviderKind, getConfiguredModels } from '@savoir/agent'
+import { wrapLanguageModel } from 'ai'
+import { DEFAULT_MODEL, getAIProviderKind, getConfiguredModels, toolProtocolGuard } from '@savoir/agent'
+import { transformDeepSeekRequest } from './deepseek-request'
 
 type ModelWrapper = (model: string) => unknown
 
@@ -37,6 +39,9 @@ function getCompatibleProvider() {
         name,
         baseURL,
         apiKey,
+        ...(/^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL) && {
+          transformRequestBody: transformDeepSeekRequest,
+        }),
       }),
     }
   }
@@ -67,6 +72,6 @@ export function createRuntimeModelWrapper(gatewayWrap: ModelWrapper): ModelWrapp
       throw new Error('OpenAI-compatible provider requires OPENAI_COMPATIBLE_BASE_URL')
     }
 
-    return compatibleProvider(resolveCompatibleModel(model))
+    return wrapLanguageModel({ model: compatibleProvider(resolveCompatibleModel(model)), middleware: toolProtocolGuard })
   }
 }
