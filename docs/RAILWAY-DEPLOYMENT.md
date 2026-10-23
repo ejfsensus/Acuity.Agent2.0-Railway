@@ -41,7 +41,7 @@ Sync runs in the app process. Progress is persisted in Postgres, but work does n
 | Function | Variables |
 | --- | --- |
 | Database | `POSTGRES_URL` referencing the attached Postgres service |
-| Authentication | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://agent.acuity.institute`, `NUXT_PUBLIC_SITE_URL=https://agent.acuity.institute`, `AUTHORIZED_USER_EMAILS` |
+| Authentication | Matching `BETTER_AUTH_SECRET` and `NUXT_BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://agent.acuity.institute`, `NUXT_PUBLIC_SITE_URL=https://agent.acuity.institute`, `AUTHORIZED_USER_EMAILS` |
 | AI | `AI_PROVIDER=openai-compatible`, `OPENAI_COMPATIBLE_BASE_URL`, `OPENAI_COMPATIBLE_API_KEY`, `OPENAI_COMPATIBLE_MODELS`, `OPENAI_COMPATIBLE_DEFAULT_MODEL` |
 | Model picker | `NUXT_PUBLIC_AI_MODELS`, `NUXT_PUBLIC_AI_DEFAULT_MODEL`, `NUXT_PUBLIC_AI_PROVIDER_NAME` |
 | Uploads | `AWS_ENDPOINT_URL`, `AWS_REGION`, `AWS_BUCKET_NAME`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` |
