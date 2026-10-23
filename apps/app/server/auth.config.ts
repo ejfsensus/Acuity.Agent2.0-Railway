@@ -26,17 +26,17 @@ export default defineServerAuth(({ db }) => {
     },
     socialProviders: githubClientId && githubClientSecret
       ? {
-          github: {
-            clientId: githubClientId,
-            clientSecret: githubClientSecret,
-            scope: ['user:email'],
-            mapProfileToUser: (profile: { name: string, login: string, avatar_url: string }) => ({
-              name: profile.name || profile.login,
-              image: profile.avatar_url,
-              username: profile.login,
-            }),
-          },
-        }
+        github: {
+          clientId: githubClientId,
+          clientSecret: githubClientSecret,
+          scope: ['user:email'],
+          mapProfileToUser: (profile: { name: string, login: string, avatar_url: string }) => ({
+            name: profile.name || profile.login,
+            image: profile.avatar_url,
+            username: profile.login,
+          }),
+        },
+      }
       : {},
     user: {
       additionalFields: {
@@ -58,7 +58,7 @@ export default defineServerAuth(({ db }) => {
           return null
         },
       }),
-    ],
+    ] as const,
     databaseHooks: {
       user: {
         create: {

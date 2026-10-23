@@ -4,9 +4,7 @@ import { blob } from '../../utils/blob'
 import { startSync } from '../../utils/sync-runner'
 import type { Source } from '../../workflows/sync-docs'
 import type { FileSourceEntry } from '../../workflows/sync-docs/types'
-import { KV_KEYS } from '../../utils/sandbox/types'
 import { getSnapshotRepoConfig } from '../../utils/sandbox/snapshot-config'
-import { appKvSet } from '../../utils/app-kv'
 
 const bodySchema = z
   .object({
@@ -16,7 +14,7 @@ const bodySchema = z
 
 /**
  * POST /api/sync
- * Sync all sources using Vercel Sandbox (admin only).
+ * Sync all sources to the Railway knowledge base (admin only).
  *
  * Body (optional):
  * - sourceFilter: string - Only sync a specific source
@@ -62,10 +60,6 @@ export default defineEventHandler(async (event) => {
         }
       }
 
-      // Clean up blob — content is now embedded in the workflow payload
-      if (blobs.length > 0) {
-        await blob.del(blobs.map(b => b.pathname))
-      }
 
       return {
         id: s.id,
@@ -115,7 +109,7 @@ export default defineEventHandler(async (event) => {
       message: 'Snapshot repository is not configured',
       data: {
         why: 'Sync needs a GitHub repository where the aggregated knowledge base snapshot can be written',
-        fix: 'Set NUXT_GITHUB_SNAPSHOT_REPO in Vercel or configure the snapshot repository in Admin > Sandbox',
+        fix: 'Set NUXT_GITHUB_SNAPSHOT_REPO in Railway or configure the snapshot repository in Admin > Sandbox',
       },
     })
   }
@@ -126,7 +120,7 @@ export default defineEventHandler(async (event) => {
       message: 'GitHub write token is not configured',
       data: {
         why: 'Sync must push the aggregated knowledge base into the snapshot repository',
-        fix: 'Install/configure the GitHub App for the snapshot repository or set NUXT_GITHUB_TOKEN in Vercel',
+        fix: 'Install/configure the GitHub App for the snapshot repository or set NUXT_GITHUB_TOKEN in Railway',
       },
     })
   }
@@ -147,8 +141,6 @@ export default defineEventHandler(async (event) => {
       data: { why: 'Only one sync can write to the knowledge base at a time', fix: 'Wait for the current sync to finish, then retry' },
     })
   }
-
-  await appKvSet(KV_KEYS.LAST_SOURCE_SYNC, Date.now())
 
   requestLog.set({ sourceCount: sources.length })
 

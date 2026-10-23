@@ -1,8 +1,13 @@
 import { spawn } from 'node:child_process'
-import { mkdir } from 'node:fs/promises'
-import { createError, log } from 'evlog'
-import { validateShellCommand } from '@savoir/sdk'
+import { mkdir, readFile } from 'node:fs/promises'
+import { resolve, join } from 'node:path'
+import { log } from 'evlog'
+import { createError } from 'h3'
+import { ALLOWED_BASH_COMMANDS, validateShellCommand } from '@savoir/sdk'
+import { Bash, OverlayFs, decodeBytesToUtf8, getCommandNames, stdoutAsBytes } from 'just-bash'
+import type { CommandName } from 'just-bash'
 import type { CommandRunOptions, CommandRunResult, SandboxLike } from './types'
+import { withKnowledgeBaseLock } from './lock'
 
 /**
  * Root of the knowledge base the agent is allowed to search.
@@ -36,7 +41,7 @@ function childEnv(): NodeJS.ProcessEnv {
 function resolveCwd(cwd?: string): string {
   if (!cwd) return SANDBOX_ROOT
   // Accept absolute paths that already point at the root, and root-relative ones.
-  const candidate = cwd.startsWith('/') ? cwd : `${SANDBOX_ROOT}/${cwd}`
+  const candidate = resolve(SANDBOX_ROOT, cwd)
   if (candidate !== SANDBOX_ROOT && !candidate.startsWith(`${SANDBOX_ROOT}/`)) {
     throw createError({
       statusCode: 400,
@@ -48,7 +53,8 @@ function resolveCwd(cwd?: string): string {
 }
 
 /** Runs a command and adapts node:child_process output to the async-getter shape callers expect. */
-function exec(cmd: string, args: string[], cwd: string, timeoutMs: number): Promise<CommandRunResult> {
+function exec(options: CommandRunOptions, cwd: string): Promise<CommandRunResult> {
+  const { cmd, args = [], timeoutMs = DEFAULT_TIMEOUT_MS, env } = options
   return new Promise((resolve) => {
     let stdout = ''
     let stderr = ''
@@ -58,7 +64,7 @@ function exec(cmd: string, args: string[], cwd: string, timeoutMs: number): Prom
 
     const child = spawn(cmd, args, {
       cwd,
-      env: childEnv(),
+      env: { ...childEnv(), ...env },
       shell: false,
       windowsHide: true,
     })
@@ -74,8 +80,8 @@ function exec(cmd: string, args: string[], cwd: string, timeoutMs: number): Prom
       clearTimeout(timer)
       resolve({
         exitCode,
-        stdout: async () => stdout,
-        stderr: async () => stderr,
+        stdout: () => Promise.resolve(stdout),
+        stderr: () => Promise.resolve(stderr),
       })
     }
 
@@ -130,6 +136,7 @@ export function ensureSandboxRoot(): Promise<void> {
  * sandboxes this way, and the knowledge base is a single read-only clone.
  */
 export class LocalSandbox implements SandboxLike {
+
   readonly sandboxId: string
   readonly status = 'running'
 
@@ -141,15 +148,15 @@ export class LocalSandbox implements SandboxLike {
   async runCommand(options: CommandRunOptions): Promise<CommandRunResult> {
     await ensureSandboxRoot()
     const cwd = resolveCwd(options.cwd)
-    return exec(options.cmd, options.args ?? [], cwd, options.timeoutMs ?? DEFAULT_TIMEOUT_MS)
+    return exec(options, cwd)
   }
 
   /**
-   * Untrusted path used by the agent. Re-applies the shell policy here as well as
-   * at the API boundary, because this executor now runs in the app's own
-   * container instead of a disposable microVM.
+   * Untrusted commands use a virtual shell with only the library mounted.
+   * The read-only filesystem and disabled network/process execution enforce
+   * the boundary even when a quoted path bypasses the SDK's lexical filter.
    */
-  async runAgentCommand(command: string): Promise<CommandRunResult> {
+  runAgentCommand(command: string): Promise<CommandRunResult> {
     const validation = validateShellCommand(command, { allowedBaseDirectory: SANDBOX_ROOT })
     if (!validation.ok) {
       throw createError({
@@ -158,7 +165,18 @@ export class LocalSandbox implements SandboxLike {
         data: { why: 'The command failed security validation', fix: `Use only allowed commands within ${SANDBOX_ROOT}` },
       })
     }
-    return this.runCommand({ cmd: 'bash', args: ['-c', command], cwd: SANDBOX_ROOT })
+    return withKnowledgeBaseLock(async () => {
+      await ensureSandboxRoot()
+      const shell = new Bash({
+        fs: new OverlayFs({ root: SANDBOX_ROOT, mountPoint: SANDBOX_ROOT, readOnly: true, allowSymlinks: false, maxFileReadSize: 32 * 1024 * 1024 }),
+        cwd: SANDBOX_ROOT,
+        env: { HOME: SANDBOX_ROOT, LANG: 'C.UTF-8' },
+        commands: getCommandNames().filter((name): name is CommandName => ALLOWED_BASH_COMMANDS.has(name)),
+        executionLimits: { maxExecutionTimeMs: DEFAULT_TIMEOUT_MS, maxOutputSize: MAX_OUTPUT_BYTES, maxCommandCount: 100, maxFileDescriptors: 64 },
+      })
+      const result = await shell.exec(command)
+      return { exitCode: result.exitCode, stdout: () => Promise.resolve(decodeBytesToUtf8(stdoutAsBytes(result))), stderr: () => Promise.resolve(result.stderr) }
+    })
   }
 
   /**
@@ -171,9 +189,12 @@ export class LocalSandbox implements SandboxLike {
       args: ['rev-parse', 'HEAD'],
       cwd: SANDBOX_ROOT,
     })
-    const sha = (await result.stdout()).trim()
-    const snapshotId = sha || `local-${Date.now()}`
+    const sha = result.exitCode === 0 ? (await result.stdout()).trim() : ''
+    const stamp = await readFile(join(SANDBOX_ROOT, 'docs/sacred-texts/LIBRARY_STAMP'), 'utf8').catch(() => '')
+    if (!sha && !stamp.trim()) throw new Error('Knowledge base contains no Git revision or bundled library')
+    const snapshotId = sha || `local-${stamp.trim()}`
     log.info('sandbox', `Local snapshot recorded: ${snapshotId}`)
     return { snapshotId }
   }
+
 }

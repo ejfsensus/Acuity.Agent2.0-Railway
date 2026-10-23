@@ -136,22 +136,22 @@ export default defineNuxtConfig({
     dir: process.env.NUXT_HUB_DIR || '.data',
     db: useExternalDb
       ? {
-          dialect: 'postgresql',
-          driver: 'postgres-js',
-          // Omitted on purpose when forced: NuxtHub inlines `connection.url` into
-          // the bundle, which would freeze a build-time value into the image and
-          // shadow the POSTGRES_URL that Railway injects at runtime. Leaving it
-          // unset makes the generated client read the env var on boot.
-          ...(forceExternalDb ? {} : { connection: { url: databaseUrl } }),
-          // The production database is not reachable at image-build time, so
-          // migrations are applied at boot by server/plugins/00-database-migrations.ts
-          applyMigrationsDuringBuild: false,
-        }
+        dialect: 'postgresql',
+        driver: 'postgres-js',
+        // Omitted on purpose when forced: NuxtHub inlines `connection.url` into
+        // the bundle, which would freeze a build-time value into the image and
+        // shadow the POSTGRES_URL that Railway injects at runtime. Leaving it
+        // unset makes the generated client read the env var on boot.
+        ...(forceExternalDb ? {} : { connection: { url: databaseUrl } }),
+        // The production database is not reachable at image-build time, so
+        // migrations are applied at boot by server/plugins/00-database-migrations.ts
+        applyMigrationsDuringBuild: false,
+      }
       : {
-          dialect: 'postgresql',
-          driver: 'pglite',
-          connection: { dataDir: pgliteDataDir },
-        },
+        dialect: 'postgresql',
+        driver: 'pglite',
+        connection: { dataDir: pgliteDataDir },
+      },
     kv: Boolean(process.env.REDIS_URL),
     // Object storage is served by server/utils/blob.ts against an S3-compatible
     // bucket (Railway Bucket) instead of Vercel Blob.
@@ -201,10 +201,7 @@ export default defineNuxtConfig({
     },
     public: {
       siteUrl,
-      acuity: {
-        githubEnabled: process.env.NUXT_PUBLIC_GITHUB_LOGIN_ENABLED === 'true'
-          && Boolean(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET),
-      },
+      githubLoginEnabled: false,
       ai: {
         models: process.env.NUXT_PUBLIC_AI_MODELS || process.env.AI_MODELS || process.env.OPENAI_COMPATIBLE_MODELS || '',
         defaultModel: process.env.NUXT_PUBLIC_AI_DEFAULT_MODEL || process.env.AI_DEFAULT_MODEL || process.env.OPENAI_COMPATIBLE_DEFAULT_MODEL || '',

@@ -41,12 +41,12 @@ export function getConfiguredModels(): string[] {
   const fallbackModels = gateway ? GATEWAY_MODELS : [COMPATIBLE_DEFAULT_MODEL]
   const maybeAllowed = (model?: string) => !gateway || !model || ALLOWED_GATEWAY_MODELS.has(model)
 
-  return Array.from(new Set([
+  const models = Array.from(new Set([
     ...configured.filter(maybeAllowed),
     defaultModel,
     routerModel,
-    ...fallbackModels,
   ].filter(maybeAllowed).filter(Boolean) as string[]))
+  return models.length ? models : fallbackModels
 }
 
 const RAW_DEFAULT_MODEL = readEnv('AI_DEFAULT_MODEL', 'OPENAI_COMPATIBLE_DEFAULT_MODEL', 'NUXT_PUBLIC_AI_DEFAULT_MODEL')
@@ -104,8 +104,15 @@ export function getModelFallbackOptions(model: string): SharedV3ProviderOptions 
 export function buildProviderOptions(
   model: string,
   metadata?: { userId?: string, tags?: string[] },
+  finalAnswer = false,
 ): SharedV3ProviderOptions | undefined {
-  if (getAIProviderKind() !== 'gateway') return undefined
+  if (getAIProviderKind() !== 'gateway') {
+    const baseURL = readEnv('OPENAI_COMPATIBLE_BASE_URL', 'AI_BASE_URL') || ''
+    if (!finalAnswer || !/^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL)) return undefined
+    const name = readEnv('OPENAI_COMPATIBLE_NAME', 'AI_PROVIDER_NAME') || 'openai-compatible'
+    const namespace = name.split('.')[0]!.replace(/-([a-z])/g, (_match, letter: string) => letter.toUpperCase())
+    return { [namespace]: { reasoningEffort: 'none' } }
+  }
 
   const fallbacks = MODEL_FALLBACKS[model]
   const gateway: JSONObject = {}

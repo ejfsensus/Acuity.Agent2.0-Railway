@@ -7,7 +7,7 @@ import { applyComplexity } from '../prompts/shared'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
-import { countConsecutiveToolSteps, shouldForceTextOnlyStep } from '../core/policy'
+import { countConsecutiveToolSteps, finalAnswerMessages, shouldForceTextOnlyStep } from '../core/policy'
 import { braveLlmContextTool, webSearchTool } from '../tools/web-search'
 import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
 import type { AgentConfigData, AgentCallOptions, AgentExecutionContext, RoutingResult } from '../types'
@@ -41,6 +41,7 @@ export function createSourceAgent({
 }: SourceAgentOptions) {
   const id = requestId ?? crypto.randomUUID().slice(0, 8)
   let maxSteps = 15
+  let currentModel = defaultModel
   const wrap = resolveModelWrapper()
 
   return new ToolLoopAgent({
@@ -57,6 +58,7 @@ export function createSourceAgent({
 
       const effectiveMaxSteps = Math.round(routerConfig.maxSteps * agentConfig.maxStepsMultiplier)
       const effectiveModel = modelOverride ?? agentConfig.defaultModel ?? defaultModel
+      currentModel = effectiveModel
 
       maxSteps = effectiveMaxSteps
       onRouted?.({ routerConfig, agentConfig, effectiveModel, effectiveMaxSteps })
@@ -92,10 +94,9 @@ export function createSourceAgent({
       if (shouldForceTextOnlyStep({ stepNumber, maxSteps, steps: normalizedSteps })) {
         log.info({ event: 'agent.force_text_step', step: stepNumber + 1, maxSteps, toolStreak: countConsecutiveToolSteps(normalizedSteps) })
         return {
-          tools: {},
           toolChoice: 'none' as const,
-          activeTools: [],
-          ...(compactedMessages !== stepMessages ? { messages: compactedMessages } : {}),
+          messages: finalAnswerMessages(compactedMessages),
+          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), true),
         }
       }
 

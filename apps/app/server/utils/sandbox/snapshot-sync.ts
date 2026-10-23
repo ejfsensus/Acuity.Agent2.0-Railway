@@ -1,14 +1,15 @@
-import { createError, log } from 'evlog'
+import { log } from 'evlog'
+import { createError } from 'h3'
+import { getSnapshotToken } from '../github-auth'
+import { appKvDel, appKvGet, appKvSet } from '../app-kv'
 import type { SnapshotMetadata } from './types'
 import { KV_KEYS } from './types'
 import { getLocalSandbox } from './context'
-import { SANDBOX_ROOT } from './local'
+import { SANDBOX_ROOT, ensureSandboxRoot } from './local'
 import { prepareKnowledgeBase } from './knowledge-base'
 import { getCurrentSnapshot, setCurrentSnapshot } from './snapshot'
 import { getSnapshotRepoConfig } from './snapshot-config'
-import { generateAuthRepoUrl } from './git'
-import { getSnapshotToken } from '../github-auth'
-import { appKvDel, appKvGet, appKvSet } from '../app-kv'
+import { generateRepoUrl, gitAuthEnv } from './git'
 import type { SnapshotSyncStatus } from '#shared/types/snapshot'
 
 const CACHE_TTL_MS = 60 * 1000
@@ -30,12 +31,14 @@ export interface KnowledgeSnapshot {
   sourceSandboxId: string
 }
 
-async function readRemoteHead(repoUrl: string, branch: string): Promise<string | null> {
+async function readRemoteHead(repoUrl: string, branch: string, token?: string): Promise<string | null> {
+  await ensureSandboxRoot()
   const sandbox = getLocalSandbox()
   const result = await sandbox.runCommand({
     cmd: 'git',
     args: ['ls-remote', repoUrl, `refs/heads/${branch}`],
     cwd: SANDBOX_ROOT,
+    env: gitAuthEnv(token),
   })
 
   if (result.exitCode !== 0) {
@@ -53,7 +56,7 @@ export async function getLatestSnapshot(): Promise<KnowledgeSnapshot | null> {
   if (!snapshotRepo) return null
 
   const token = await getSnapshotToken()
-  const head = await readRemoteHead(generateAuthRepoUrl(snapshotRepo, token), snapshotBranch || 'main')
+  const head = await readRemoteHead(generateRepoUrl(snapshotRepo), snapshotBranch || 'main', token)
   if (!head) return null
 
   return { id: head, createdAt: Date.now(), sourceSandboxId: 'local-knowledge-base' }
@@ -114,10 +117,9 @@ export async function syncToSnapshot(snapshotId?: string): Promise<SnapshotMetad
 
   if (!snapshotConfig.snapshotRepo) {
     throw createError({
-      status: 503,
+      statusCode: 503,
       message: 'No snapshot repository is configured',
-      why: 'The local knowledge base has nothing to sync from',
-      fix: 'Set the snapshot repository in Admin > Sandbox, then run a sync',
+      data: { why: 'The local knowledge base has nothing to sync from', fix: 'Set the snapshot repository in Admin > Sandbox, then run a sync' },
     })
   }
 
@@ -125,7 +127,8 @@ export async function syncToSnapshot(snapshotId?: string): Promise<SnapshotMetad
 
   const sandbox = getLocalSandbox()
   const { snapshotId: activeId } = await sandbox.snapshot()
-  const resolvedId = snapshotId || activeId
+  if (snapshotId && snapshotId !== activeId) throw new Error('Requested revision is not the checked out knowledge base revision')
+  const resolvedId = activeId
 
   const metadata: SnapshotMetadata = {
     snapshotId: resolvedId,

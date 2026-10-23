@@ -1,4 +1,4 @@
-import { convertToModelMessages, createUIMessageStream, createUIMessageStreamResponse, type UIMessage } from 'ai'
+import { convertToModelMessages, createUIMessageStream, createUIMessageStreamResponse, type LanguageModelUsage, type UIMessage } from 'ai'
 import { z } from 'zod'
 import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
@@ -136,13 +136,15 @@ export default defineEventHandler(async (event) => {
       })
       : null
 
+    let usagePromise: PromiseLike<LanguageModelUsage> | undefined
     const stream = createUIMessageStream({
       execute: async ({ writer }) => {
         const result = await agent.stream({
           messages: await convertToModelMessages(messages),
-          options: {},
+          options: { model },
           abortSignal: abortController.signal,
         })
+        usagePromise = result.totalUsage
         writer.merge(result.toUIMessageStream())
 
         const title = await titleTask
@@ -153,8 +155,10 @@ export default defineEventHandler(async (event) => {
       onFinish: async ({ messages: responseMessages }) => {
         const dbStartTime = Date.now()
         const totalDurationMs = Date.now() - requestStartTime
+        const usage = await Promise.resolve(usagePromise).catch(() => undefined)
+        const usageMessageIndex = responseMessages.findLastIndex(message => message.role === 'assistant')
 
-        await db.insert(schema.messages).values(responseMessages.map((message: UIMessage) => ({
+        await db.insert(schema.messages).values(responseMessages.map((message: UIMessage, index: number) => ({
           id: message.id,
           chatId: chat.id,
           role: message.role as 'user' | 'assistant',
@@ -162,6 +166,8 @@ export default defineEventHandler(async (event) => {
           ...(message.role === 'assistant' && {
             model: effectiveModel,
             durationMs: totalDurationMs,
+            inputTokens: index === usageMessageIndex ? usage?.inputTokens : undefined,
+            outputTokens: index === usageMessageIndex ? usage?.outputTokens : undefined,
           }),
         })))
         const dbDurationMs = Date.now() - dbStartTime

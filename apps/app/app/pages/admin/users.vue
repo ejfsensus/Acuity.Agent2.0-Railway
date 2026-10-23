@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { getPaginationRowModel, getSortedRowModel } from '@tanstack/vue-table'
+import { getPaginationRowModel } from '@tanstack/vue-table'
+import type { FilterFn, Table } from '@tanstack/vue-table'
 import type { TableColumn } from '@nuxt/ui'
 
 useSeoMeta({ title: 'Users - Admin' })
@@ -22,12 +23,16 @@ const toast = useToast()
 const { showError } = useErrorToast()
 const { user: currentUser } = useUserSession()
 
-const table = useTemplateRef('table')
+const table = useTemplateRef<{ tableApi: Table<AdminUserRow> }>('table')
 const savingUserId = ref<string | null>(null)
 const deletingUserId = ref<string | null>(null)
 const userToDelete = ref<AdminUserRow | null>(null)
 
 const globalFilter = ref('')
+const filterUsers: FilterFn<AdminUserRow> = (row, _columnId, value: string) => {
+  const query = value.toLowerCase()
+  return `${row.original.name ?? ''} ${row.original.email ?? ''}`.toLowerCase().includes(query)
+}
 const sorting = ref([{ id: 'createdAt', desc: true }])
 const pagination = ref({ pageIndex: 0, pageSize: 10 })
 
@@ -86,11 +91,11 @@ const totalUsers = computed(() => users.value?.length ?? 0)
 const adminCount = computed(() => users.value?.filter(u => u.role === 'admin').length ?? 0)
 const activeCount = computed(() => users.value?.filter(u => u.lastSeenAt !== null).length ?? 0)
 
-const filteredRowCount = computed(() =>
+const filteredRowCount = computed<number>(() =>
   table.value?.tableApi?.getFilteredRowModel().rows.length ?? 0,
 )
 
-const pageCount = computed(() =>
+const pageCount = computed<number>(() =>
   table.value?.tableApi?.getPageCount() ?? 0,
 )
 
@@ -250,8 +255,7 @@ async function changeRole(row: AdminUserRow, newRole: UserRole) {
         :data="users ?? []"
         :columns
         :loading="status === 'pending' && !users"
-        :global-filter-options="{ filterFn: 'custom' }"
-        :sorting-options="{ getSortedRowModel: getSortedRowModel() }"
+        :global-filter-options="{ globalFilterFn: filterUsers }"
         :pagination-options="{ getPaginationRowModel: getPaginationRowModel() }"
       >
         <template #name-cell="{ row }">

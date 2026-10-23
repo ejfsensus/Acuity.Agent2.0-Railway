@@ -1,3 +1,4 @@
+import { createHmac, timingSafeEqual } from 'node:crypto'
 import {
   DeleteObjectCommand,
   DeleteObjectsCommand,
@@ -87,7 +88,30 @@ function requireBucket(): string {
 }
 
 function normalize(pathname: string): string {
-  return pathname.replace(/^\/+/, '')
+  const key = pathname.replace(/^\/+/, '')
+  if (!key || key.split('/').some(part => part === '..' || part === '.')) throw new Error('Invalid object pathname')
+  return key
+}
+
+function blobToken(pathname: string): string {
+  const secret = env('BLOB_SIGNING_SECRET', 'NUXT_BETTER_AUTH_SECRET', 'BETTER_AUTH_SECRET')
+  if (!secret) throw new Error('File signing secret is not configured')
+  return createHmac('sha256', secret).update(normalize(pathname)).digest('hex')
+}
+
+export function validateBlobToken(pathname: string, token: string): boolean {
+  if (!pathname || pathname.split('/').some(part => part === '..' || part === '.')) return false
+  const expected = Buffer.from(blobToken(pathname))
+  const actual = Buffer.from(token)
+  return actual.length === expected.length && timingSafeEqual(actual, expected)
+}
+
+/** A capability URL lets model providers read an attachment without a user cookie. */
+function blobUrl(pathname: string): string {
+  const origin = env('NUXT_PUBLIC_SITE_URL', 'BETTER_AUTH_URL')
+    || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : '')
+  if (!origin) throw new Error('Public site URL is not configured')
+  return `${origin.replace(/\/$/, '')}/api/files/${normalize(pathname).split('/').map(encodeURIComponent).join('/')}?token=${blobToken(pathname)}`
 }
 
 /** Vercel Blob appends a random suffix unless explicitly disabled; callers rely on the returned pathname. */
@@ -110,36 +134,36 @@ function toBody(data: unknown): Uint8Array | string {
 }
 
 async function put(pathname: string, data: unknown, options: PutBlobOptions = {}): Promise<BlobDescriptor> {
-  const Bucket = requireBucket()
-  const Key = normalize(options.addRandomSuffix === false ? pathname : applyRandomSuffix(normalize(pathname)))
-  const ContentType = options.contentType || 'application/octet-stream'
+  const bucketName = requireBucket()
+  const key = normalize(options.addRandomSuffix === false ? pathname : applyRandomSuffix(normalize(pathname)))
+  const contentType = options.contentType || 'application/octet-stream'
 
   await s3().send(new PutObjectCommand({
-    Bucket,
-    Key,
+    Bucket: bucketName,
+    Key: key,
     Body: toBody(data),
-    ContentType,
+    ContentType: contentType,
   }))
 
   return {
-    url: Key,
-    pathname: Key,
-    contentType: ContentType,
-    contentDisposition: `attachment; filename="${Key.split('/').pop() || Key}"`,
+    url: blobUrl(key),
+    pathname: key,
+    contentType,
+    contentDisposition: `attachment; filename="${key.split('/').pop() || key}"`,
   }
 }
 
 async function get(pathname: string): Promise<Response | null> {
-  const Bucket = requireBucket()
-  const Key = normalize(pathname)
+  const bucketName = requireBucket()
+  const key = normalize(pathname)
 
   try {
-    const object = await s3().send(new GetObjectCommand({ Bucket, Key }))
+    const object = await s3().send(new GetObjectCommand({ Bucket: bucketName, Key: key }))
     const body = object.Body
     if (!body) return null
 
     const bytes = await body.transformToByteArray()
-    return new Response(bytes, {
+    return new Response(new Uint8Array(bytes), {
       status: 200,
       headers: {
         'content-type': object.ContentType || 'application/octet-stream',
@@ -153,14 +177,14 @@ async function get(pathname: string): Promise<Response | null> {
 }
 
 async function head(pathname: string): Promise<BlobListItem | null> {
-  const Bucket = requireBucket()
-  const Key = normalize(pathname)
+  const bucketName = requireBucket()
+  const key = normalize(pathname)
 
   try {
-    const meta = await s3().send(new HeadObjectCommand({ Bucket, Key }))
+    const meta = await s3().send(new HeadObjectCommand({ Bucket: bucketName, Key: key }))
     return {
-      url: Key,
-      pathname: Key,
+      url: key,
+      pathname: key,
       contentType: meta.ContentType || 'application/octet-stream',
       size: meta.ContentLength ?? 0,
       uploadedAt: (meta.LastModified ?? new Date()).toISOString(),
@@ -172,33 +196,33 @@ async function head(pathname: string): Promise<BlobListItem | null> {
 }
 
 async function del(pathname: string | string[]): Promise<void> {
-  const Bucket = requireBucket()
+  const bucketName = requireBucket()
   const keys = (Array.isArray(pathname) ? pathname : [pathname]).map(p => ({ Key: normalize(p) }))
   if (keys.length === 0) return
 
   if (keys.length === 1) {
-    await s3().send(new DeleteObjectCommand({ Bucket, Key: keys[0]!.Key }))
+    await s3().send(new DeleteObjectCommand({ Bucket: bucketName, Key: keys[0]!.Key }))
     return
   }
 
-  await s3().send(new DeleteObjectsCommand({ Bucket, Delete: { Objects: keys, Quiet: true } }))
+  await s3().send(new DeleteObjectsCommand({ Bucket: bucketName, Delete: { Objects: keys, Quiet: true } }))
 }
 
 async function list(options: ListBlobOptions = {}): Promise<{ blobs: BlobListItem[], cursor?: string }> {
-  const Bucket = requireBucket()
+  const bucketName = requireBucket()
 
   const response = await s3().send(new ListObjectsV2Command({
-    Bucket,
+    Bucket: bucketName,
     Prefix: options.prefix ? normalize(options.prefix) : undefined,
     MaxKeys: options.limit,
     ContinuationToken: options.cursor,
   }))
 
   const blobs: BlobListItem[] = (response.Contents ?? []).map((object) => {
-    const Key = object.Key ?? ''
+    const key = object.Key ?? ''
     return {
-      url: Key,
-      pathname: Key,
+      url: key,
+      pathname: key,
       contentType: 'application/octet-stream',
       size: object.Size ?? 0,
       uploadedAt: (object.LastModified ?? new Date()).toISOString(),

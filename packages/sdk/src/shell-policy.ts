@@ -147,6 +147,42 @@ function validatePaths(command: string, allowedBaseDirectory?: string): ShellVal
   return { ok: true }
 }
 
+/** Split shell operators only outside quotes, so grep patterns and sed ranges survive. */
+function splitShellSegments(command: string): string[] | undefined {
+  const segments: string[] = []
+  let quote: string | undefined
+  let escaped = false
+  let start = 0
+  for (let i = 0; i < command.length; i++) {
+    const char = command[i]!
+    if (escaped) {
+      escaped = false
+      continue
+    }
+    if (char === '\\' && quote !== '\'') {
+      escaped = true
+      continue
+    }
+    if (quote) {
+      if (char === quote) quote = undefined
+      continue
+    }
+    if (char === '\'' || char === '"') {
+      quote = char
+      continue
+    }
+    if ('|;&\n'.includes(char)) {
+      if (char === '&' && command[i + 1] !== '&') return undefined
+      segments.push(command.slice(start, i))
+      if ((char === '|' || char === '&') && command[i + 1] === char) i++
+      start = i + 1
+    }
+  }
+  if (quote || escaped) return undefined
+  segments.push(command.slice(start))
+  return segments
+}
+
 export function validateShellCommand(
   command: string,
   options?: ShellValidationOptions,
@@ -160,7 +196,8 @@ export function validateShellCommand(
     }
   }
 
-  const segments = command.split(/\s*(?:\|(?!\|)|\|\||&&|;)\s*/)
+  const segments = splitShellSegments(command)
+  if (!segments) return { ok: false, reason: 'Malformed or unsupported shell syntax' }
   for (const segment of segments) {
     const trimmed = segment.trim()
     if (!trimmed) continue

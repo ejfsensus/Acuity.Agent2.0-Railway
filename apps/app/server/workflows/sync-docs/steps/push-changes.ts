@@ -6,7 +6,7 @@
 
 import { log } from 'evlog'
 import type { SyncSourceResult } from '../types'
-import { generateAuthRepoUrl, generateCommitMessage, pushChanges as gitPushChanges } from '../../../utils/sandbox/git'
+import { generateRepoUrl, generateCommitMessage, pushChanges as gitPushChanges } from '../../../utils/sandbox/git'
 import { getLocalSandbox } from '../../../utils/sandbox/context'
 
 export interface PushChangesConfig {
@@ -29,12 +29,13 @@ export async function stepPushChanges(
   log.info('sync', `[push-changes] Pushing changes to ${config.snapshotRepo}#${config.snapshotBranch}`)
 
   const commitMessage = generateCommitMessage(results)
-  const repoUrl = generateAuthRepoUrl(config.snapshotRepo, config.githubToken)
+  const repoUrl = generateRepoUrl(config.snapshotRepo)
 
   const pushResult = await gitPushChanges(getLocalSandbox(), {
     branch: config.snapshotBranch,
     repoUrl,
     commitMessage,
+    githubToken: config.githubToken,
   })
 
   if (pushResult.success && pushResult.hasChanges) {

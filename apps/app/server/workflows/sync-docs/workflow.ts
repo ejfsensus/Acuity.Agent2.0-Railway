@@ -14,16 +14,20 @@
  */
 
 import { log } from 'evlog'
+import { withKnowledgeBaseLock } from '../../utils/sandbox/lock'
 import type { Source, SyncConfig, SyncResult, SyncSourceResult } from './types'
 import {
   stepCreateSandbox,
-  stepCleanupStale,
   stepSyncSource,
   stepPushChanges,
   stepTakeSnapshot,
 } from './steps'
 
-export async function syncDocumentation(
+export function syncDocumentation(config: SyncConfig, sources: Source[]): Promise<SyncResult> {
+  return withKnowledgeBaseLock(() => runSync(config, sources))
+}
+
+async function runSync(
   config: SyncConfig,
   sources: Source[],
 ): Promise<SyncResult> {
@@ -35,36 +39,23 @@ export async function syncDocumentation(
     throw new Error('No sources provided')
   }
 
-  // Filter out YouTube sources if API key is not configured
-  const filteredSources = sources.filter((s) => {
-    if (s.type === 'youtube' && !config.youtubeApiKey) {
-      log.warn('sync', `Skipping YouTube source "${s.label}" - NUXT_YOUTUBE_API_KEY not configured`)
-      return false
-    }
-    return true
-  })
-
-  if (filteredSources.length === 0) {
-    throw new Error('No sources to sync after filtering')
-  }
-
   // Step 1: Prepare the local knowledge base
   const { sandboxId } = await stepCreateSandbox(config)
 
-  // Step 2: Remove directories from deleted sources
-  await stepCleanupStale(sandboxId, filteredSources)
-
-  // Step 3: Sync each source
+  // Step 2: Sync each source
   const results: SyncSourceResult[] = []
-  for (const source of filteredSources) {
+  for (const source of sources) {
     results.push(await stepSyncSource(sandboxId, source, {
       githubToken: config.githubToken,
       youtubeApiKey: config.youtubeApiKey,
     }))
   }
 
+  const failed = results.filter(result => !result.success)
+  if (failed.length) throw new Error(failed.map(result => `${result.label}: ${result.error}`).join('; '))
+
   // Step 4: Push changes to git
-  await stepPushChanges(
+  const pushed = await stepPushChanges(
     sandboxId,
     {
       snapshotRepo: config.snapshotRepo,
@@ -73,6 +64,7 @@ export async function syncDocumentation(
     },
     results,
   )
+  if (!pushed.success) throw new Error(pushed.error || 'Knowledge base push failed')
 
   // Step 5: Record the revision that is now live
   const { snapshotId } = await stepTakeSnapshot(sandboxId)

@@ -23,7 +23,7 @@ const loading = ref(false)
 const githubLoading = ref(false)
 const error = ref('')
 const { signIn } = useUserSession()
-const githubEnabled = computed(() => runtimeConfig.public.acuity?.githubEnabled === true)
+const githubEnabled = computed(() => String(runtimeConfig.public.githubLoginEnabled) === 'true')
 
 const oauthErrors: Record<string, string> = {
   access_denied: 'Access denied by GitHub.',
@@ -123,13 +123,13 @@ function onGitHub() {
           </UFormField>
 
           <UButton
-          type="submit"
-          label="Sign in"
-          block
-          size="lg"
-          :loading
-          class="shadow-[0_0_28px_rgba(250,219,95,.16)]"
-        />
+            type="submit"
+            label="Sign in"
+            block
+            size="lg"
+            :loading
+            class="shadow-[0_0_28px_rgba(250,219,95,.16)]"
+          />
         </UForm>
 
         <UAlert

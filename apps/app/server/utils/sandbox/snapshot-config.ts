@@ -1,6 +1,6 @@
 import { createError } from 'evlog'
-import { KV_KEYS } from './types'
 import { appKvGet, appKvSet } from '../app-kv'
+import { KV_KEYS } from './types'
 
 export interface SnapshotRepoConfig {
   snapshotRepo: string

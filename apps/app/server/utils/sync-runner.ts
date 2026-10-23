@@ -39,6 +39,13 @@ export function isSyncRunning(): boolean {
   return inFlight !== null
 }
 
+export async function recoverInterruptedSync(): Promise<void> {
+  const status = await getSyncStatus()
+  if (status.state === 'running' && !inFlight) {
+    await appKvSet(KV_KEYS.SYNC_STATUS, { ...status, state: 'failed', finishedAt: Date.now(), error: 'Sync was interrupted by a service restart. Run sync again.' } satisfies SyncStatus)
+  }
+}
+
 /**
  * Starts a sync in the background and returns immediately.
  *
@@ -69,6 +76,7 @@ export function startSync(
 
     log.info('sync', `Starting sync (${scope}, ${sources.length} source(s))`)
     const result = await syncDocumentation(config, sources)
+    if (result.success) await appKvSet(KV_KEYS.LAST_SOURCE_SYNC, Date.now())
 
     await appKvSet(KV_KEYS.SYNC_STATUS, {
       state: result.success ? 'succeeded' : 'failed',

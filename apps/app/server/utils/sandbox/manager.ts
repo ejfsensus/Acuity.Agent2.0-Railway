@@ -1,11 +1,11 @@
-import { createError, log } from 'evlog'
-import type { ActiveSandbox, SandboxManagerConfig } from './types'
-import { LocalSandbox, SANDBOX_ROOT, ensureSandboxRoot } from './local'
+import { log } from 'evlog'
+import { createError } from 'h3'
+import type { ActiveSandbox, SandboxManagerConfig, SnapshotMetadata } from './types'
+import { LocalSandbox, SANDBOX_ROOT } from './local'
 import { getCurrentSnapshot, setCurrentSnapshot } from './snapshot'
 import { deleteSandboxSession, generateSessionId, getSandboxSession, setSandboxSession, touchSandboxSession } from './session'
 import { getSnapshotRepoConfig } from './snapshot-config'
-import { prepareKnowledgeBase } from './knowledge-base'
-import type { SnapshotMetadata } from './types'
+import { ensureKnowledgeBase } from './knowledge-base'
 
 const DEFAULT_SESSION_TTL_MS = 30 * 60 * 1000
 
@@ -16,8 +16,6 @@ const DEFAULT_SESSION_TTL_MS = 30 * 60 * 1000
  */
 const sharedSandbox = new LocalSandbox('local-knowledge-base')
 
-let preparing: Promise<void> | null = null
-
 async function getConfig(): Promise<SandboxManagerConfig> {
   const snapshotConfig = await getSnapshotRepoConfig()
   return {
@@ -26,17 +24,6 @@ async function getConfig(): Promise<SandboxManagerConfig> {
     snapshotBranch: snapshotConfig.snapshotBranch,
     sessionTtlMs: DEFAULT_SESSION_TTL_MS,
   }
-}
-
-/** Clones or refreshes the knowledge base, collapsing concurrent callers into one run. */
-async function ensureKnowledgeBase(): Promise<void> {
-  await ensureSandboxRoot()
-  if (!preparing) {
-    preparing = prepareKnowledgeBase().finally(() => {
-      preparing = null
-    })
-  }
-  return preparing
 }
 
 /**

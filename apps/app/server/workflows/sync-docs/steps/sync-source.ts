@@ -8,6 +8,7 @@ import { log } from 'evlog'
 import type { Source, SyncSourceResult } from '../types'
 import { syncFileSource, syncGitHubSource, syncYouTubeSource } from '../../../utils/sandbox/source-sync'
 import { getLocalSandbox } from '../../../utils/sandbox/context'
+import { getSnapshotToken } from '../../../utils/github-auth'
 
 export async function stepSyncSource(
   _sandboxId: string,
@@ -20,7 +21,7 @@ export async function stepSyncSource(
   let result: SyncSourceResult
 
   if (source.type === 'github') {
-    result = await syncGitHubSource(sandbox, source)
+    result = await syncGitHubSource(sandbox, source, await getSnapshotToken(source.repo) || config.githubToken)
   } else if (source.type === 'youtube') {
     if (!config.youtubeApiKey) {
       result = {

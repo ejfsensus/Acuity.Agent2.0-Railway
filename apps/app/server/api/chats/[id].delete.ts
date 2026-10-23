@@ -1,7 +1,7 @@
-import { blob } from '../../utils/blob'
 import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { blob } from '../../utils/blob'
 
 const paramsSchema = z.object({
   id: z.string().min(1, 'Missing chat ID'),
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const chatFolder = `${user.username}/${id}`
+  const chatFolder = `${user.username ?? user.id}/${id}/`
 
   try {
     const { blobs } = await blob.list({
