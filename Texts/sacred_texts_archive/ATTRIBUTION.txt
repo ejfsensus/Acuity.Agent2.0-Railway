@@ -64,3 +64,12 @@ These downloads were empty or failed their checksum. Do not treat them as presen
 
 The Allen Book of the Dead PDF under source5_luminist/egypt/ is a PDF, not a
 text grep can search.
+
+source6_ancient_wisdom_atlas/
+  Ancient Wisdom Atlas, https://github.com/ilaydabdogan/ancient-wisdom-atlas
+  Public-domain Markdown source texts (mostly Project Gutenberg and Internet
+  Archive editions), imported 2026-10-27. Works already present in this
+  archive were skipped. Each .md file starts with YAML front matter giving
+  title, translator, edition, source_url and rights; cite the file path plus
+  that edition line. Public-domain status is as recorded by the atlas (US).
+  The atlas's own notes are CC0 1.0. See MANIFEST.md in that folder.

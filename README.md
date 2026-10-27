@@ -86,6 +86,16 @@ Repository: [github.com/ejfsensus/Acuity.Agent2.0-Railway](https://github.com/ej
 
 Architecture is in [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md). Branding, tools, and bot adapters are in [docs/CUSTOMIZATION.md](./docs/CUSTOMIZATION.md).
 
+## Additional sources
+
+### Ancient Wisdom Atlas
+
+`Texts/sacred_texts_archive/source6_ancient_wisdom_atlas/` holds 281 public-domain Markdown source texts from [Ancient Wisdom Atlas](https://github.com/ilaydabdogan/ancient-wisdom-atlas) by ilaydabdogan. They were imported on 27 October 2026. They cover world mythology, folklore, ethnography and scripture, mostly in Project Gutenberg and Internet Archive editions.
+
+- **Licence:** the atlas's own notes are CC0 1.0. Each source text carries its own rights record, and only texts the atlas marks `public_domain` with full text allowed were included. Status is as the atlas records it, for the US.
+- **What was included:** only full source texts under the atlas's `texts/` folder. Works already in this archive in the same edition were skipped, and so were duplicates within the atlas, empty stubs, and the atlas's experiential framework summaries. Its extractions, patterns, data and site code were not copied.
+- **Citation:** each file keeps the atlas YAML front matter: title, translator, edition, source URL and rights. `MANIFEST.md` in that folder lists every file included and every file skipped, with the reason.
+
 ## Institute
 
 [acuity.institute](https://acuity.institute) · Beyond the Horizon of Knowledge · Est. 2026

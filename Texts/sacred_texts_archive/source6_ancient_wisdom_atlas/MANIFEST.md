@@ -1,0 +1,361 @@
+# Ancient Wisdom Atlas additions
+
+Source: https://github.com/ilaydabdogan/ancient-wisdom-atlas (main, imported 2026-10-27).
+Each file keeps the atlas YAML front matter (provenance, edition, translator, source URL, rights).
+Paths drop the atlas `texts/public-domain/` prefix.
+
+## Included (281)
+
+- aboriginal-australian/project-gutenberg/ethnological-studies-queensland-roth.md — Ethnological Studies among the North-West-Central Queensland Aborigines
+- african-akan/project-gutenberg/ashanti-rattray.md — Ashanti
+- african-bantu/project-gutenberg/ila-speaking-peoples-vol1-smith-dale.md — The Ila-Speaking Peoples of Northern Rhodesia, Vol. I
+- african-bantu/project-gutenberg/ila-speaking-peoples-vol2-smith-dale.md — The Ila-Speaking Peoples of Northern Rhodesia, Vol. II
+- african-bantu/project-gutenberg/life-south-african-tribe-junod-vol1.md — The Life of a South African Tribe, Vol. I (The Social Life)
+- african-bantu/project-gutenberg/life-south-african-tribe-junod-vol2.md — The Life of a South African Tribe, Vol. II (The Psychic Life)
+- afro-caribbean/project-gutenberg/jamaica-anansi-stories-beckwith.md — Jamaica Anansi Stories
+- ainu/project-gutenberg/aino-folk-tales-chamberlain.md — Aino Folk-Tales
+- akan/project-gutenberg/west-african-folk-tales-barker.md — West African Folk-Tales
+- amazonian/project-gutenberg/north-west-amazons-whiffen.md — The North-West Amazons: Notes of Some Months Spent Among Cannibal Tribes
+- andamanese/project-gutenberg/aboriginal-inhabitants-andaman-man.md — On the Aboriginal Inhabitants of the Andaman Islands
+- andamanese/project-gutenberg/andaman-islanders-radcliffe-brown.md — The Andaman Islanders: A Study in Social Anthropology
+- arctic-inuit/project-gutenberg/across-arctic-america-rasmussen.md — Across Arctic America: Narrative of the Fifth Thule Expedition
+- arctic-inuit/project-gutenberg/eskimo-about-bering-strait-nelson.md — The Eskimo about Bering Strait
+- arctic-inuit/project-gutenberg/eskimo-baffin-hudson-boas-part1.md — The Eskimo of Baffin Land and Hudson Bay, Part I
+- arctic-inuit/project-gutenberg/eskimo-baffin-hudson-boas-part2.md — The Eskimo of Baffin Land and Hudson Bay, Part II
+- arctic-inuit/project-gutenberg/ethnology-ungava-district-turner.md — Ethnology of the Ungava District, Hudson Bay Territory
+- arctic-inuit/project-gutenberg/people-of-polar-north-rasmussen.md — The People of the Polar North: A Record
+- arctic-inuit/project-gutenberg/the-labrador-eskimo-hawkes.md — The Labrador Eskimo
+- armenian/project-gutenberg/armenian-legends-and-poems-boyajian.md — Armenian Legends and Poems
+- arthurian/project-gutenberg/high-history-holy-graal-evans.md — The High History of the Holy Graal
+- australian-aboriginal/project-gutenberg/australian-legendary-tales-parker.md — Australian Legendary Tales: folk-lore of the Noongahburrahs as told to the Piccaninnies
+- australian-aboriginal/project-gutenberg/euahlayi-tribe-parker.md — The Euahlayi Tribe: A Study of Aboriginal Life in Australia
+- australian-aboriginal/project-gutenberg/more-australian-legendary-tales-parker.md — More Australian Legendary Tales
+- australian-aboriginal/project-gutenberg/native-tribes-central-australia-spencer-gillen.md — The Native Tribes of Central Australia
+- australian-aboriginal/project-gutenberg/northern-tribes-central-australia-spencer-gillen.md — The Northern Tribes of Central Australia
+- basque/project-gutenberg/basque-legends-webster.md — Basque Legends
+- biblical/project-gutenberg/daniel-kjv.md — The Bible, King James Version, Book 27: Daniel
+- biblical/project-gutenberg/ezekiel-kjv.md — The Bible, King James Version, Book 26: Ezekiel
+- biblical/project-gutenberg/isaiah-kjv.md — The Bible, King James Version, Book 23: Isaiah
+- biblical/project-gutenberg/job-kjv.md — The Bible, King James Version, Book 18: Job
+- biblical/project-gutenberg/psalms-kjv.md — The Bible, King James Version, Book 19: Psalms
+- biblical/project-gutenberg/revelation-kjv.md — The Bible, King James Version, Book 66: Revelation
+- biblical/project-gutenberg/sirach-ecclesiasticus-douay.md — The Bible, Douay-Rheims, Book 26: Ecclesiasticus
+- biblical/project-gutenberg/wisdom-of-solomon-douay.md — The Bible, Douay-Rheims, Book 25: Wisdom
+- biblical/world-english-bible-classic/deuteronomy.md — Deuteronomy
+- biblical/world-english-bible-classic/exodus.md — Exodus
+- biblical/world-english-bible-classic/genesis.md — Genesis
+- biblical/world-english-bible-classic/leviticus.md — Leviticus
+- biblical/world-english-bible-classic/numbers.md — Numbers
+- buddhist/internet-archive/buddhism-in-translations-warren.md — Buddhism in Translations (Harvard Oriental Series, Vol. 3)
+- buddhist/internet-archive/buddhist-suttas-rhys-davids-sbe11.md — Buddhist Suttas (Sacred Books of the East, Vol. 11)
+- buddhist/internet-archive/jataka-cowell-vol6.md — The Jataka; or, Stories of the Buddha's Former Births, Vol. VI
+- buddhist/project-gutenberg/buddhist-birth-stories-volume-1-rhys-davids.md — Buddhist birth stories; or, Jataka tales, Volume 1 (selection (partial text))
+- buddhist/project-gutenberg/buddhist-mahayana-texts-sbe49.md — Buddhist Mahayana Texts (Sacred Books of the East, Vol. 49)
+- buddhist/project-gutenberg/diamond-sutra-gemmell.md — The Diamond Sutra (Chin-Kang-Ching) or Prajna-Paramita
+- buddhist/project-gutenberg/giant-crab-old-india-tales-rouse.md — The Giant Crab, and Other Tales from Old India (selection (partial text))
+- buddhist/project-gutenberg/mahavamsa-geiger.md — The Mahavamsa, or The Great Chronicle of Ceylon
+- buddhist/project-gutenberg/more-jataka-tales-babbitt.md — More Jataka Tales (selection (partial text))
+- buddhist/project-gutenberg/questions-of-king-milinda-part1.md — The Questions of King Milinda, Part I (Sacred Books of the East, Vol. 35)
+- buddhist/project-gutenberg/questions-of-king-milinda-part2.md — The Questions of King Milinda, Part II (Sacred Books of the East, Vol. 36)
+- buddhist/project-gutenberg/saddharma-pundarika-kern.md — The Saddharma-Pundarika, or The Lotus of the True Law (Sacred Books of the East, Vol. 21)
+- buddhist/project-gutenberg/vinaya-texts-part1.md — Vinaya Texts, Part I: The Patimokkha, The Mahavagga I-IV (Sacred Books of the East, Vol. 13)
+- buddhist/project-gutenberg/vinaya-texts-part2.md — Vinaya Texts, Part II: The Mahavagga V-X, The Kullavagga I-III (Sacred Books of the East, Vol. 17)
+- buddhist/project-gutenberg/vinaya-texts-part3.md — Vinaya Texts, Part III: The Kullavagga IV-XII (Sacred Books of the East, Vol. 20)
+- burmese/internet-archive/soul-of-a-people-fielding-hall.md — The Soul of a People
+- caucasian/project-gutenberg/caucasian-folk-tales-dirr.md — Caucasian Folk-Tales
+- celtic-irish/project-gutenberg/heroic-romances-of-ireland-leahy.md — Heroic Romances of Ireland
+- celtic-irish/project-gutenberg/tain-bo-cualnge-dunn.md — The Ancient Irish Epic Tale Tain Bo Cualnge
+- celtic-irish/project-gutenberg/voyage-of-bran-meyer.md — The Voyage of Bran, Son of Febal, to the Land of the Living
+- celtic/internet-archive/popular-tales-west-highlands-v1-campbell.md — Popular Tales of the West Highlands, Volume 1
+- celtic/internet-archive/popular-tales-west-highlands-v2-campbell.md — Popular Tales of the West Highlands, Volume 2
+- celtic/project-gutenberg/more-celtic-fairy-tales-jacobs.md — More Celtic Fairy Tales
+- celtic/project-gutenberg/mythology-british-islands-squire.md — The Mythology of the British Islands
+- celtic/project-gutenberg/myths-legends-celtic-race-rolleston.md — Myths & Legends of the Celtic Race
+- chaco-amerindian/project-gutenberg/unknown-people-unknown-land-grubb.md — An Unknown People in an Unknown Land: An Account of the Life and Customs of the Lengua Indians of the Paraguayan Chaco
+- christian/project-gutenberg/didache-greek-hitchcock-brown.md — Διδαχή των Δώδεκα αποστόλων = Teaching of the Twelve Apostles
+- comparative/project-gutenberg/golden-bough-volume-1-frazer.md — The Golden Bough: A Study in Comparative Religion (Vol. 1 of 2) (selection (partial text))
+- comparative/project-gutenberg/golden-bough-volume-2-frazer.md — The Golden Bough: A Study in Comparative Religion (Vol. 2 of 2) (selection (partial text))
+- confucian/internet-archive/four-books-confucian-legge.md — The Four Books: Confucian Analects, The Great Learning, The Doctrine of the Mean, and The Works of Mencius
+- confucian/project-gutenberg/analects-chinese-confucius.md — 論語
+- confucian/project-gutenberg/i-ching-legge.md — The Yi King (I Ching) (Sacred Books of the East, Vol. 16)
+- confucian/project-gutenberg/li-ki-part1-legge.md — The Li Ki, Books I-X (The Sacred Books of China: The Texts of Confucianism, Part III; Sacred Books of the East, Vol. 27)
+- confucian/project-gutenberg/li-ki-part2-legge.md — The Li Ki, Books XI-XLVI (The Sacred Books of China: The Texts of Confucianism, Part IV; Sacred Books of the East, Vol. 28)
+- confucian/project-gutenberg/sayings-of-confucius-giles.md — The Sayings of Confucius (selection (partial text))
+- confucian/project-gutenberg/shu-king-shih-king-legge.md — The Sacred Books of China: The Texts of Confucianism, Part I - The Shu King, the Religious Portions of the Shih King, the Hsiao King (Sacred Books of the East, Vol. 3)
+- egyptian/project-gutenberg/book-of-the-dead-budge.md — The Book of the Dead
+- egyptian/project-gutenberg/egyptian-heaven-and-hell-v1-am-tuat.md — The Egyptian Heaven and Hell, Volume I: The Book of the Am-Tuat
+- egyptian/project-gutenberg/egyptian-ideas-of-the-future-life-budge.md — Egyptian Ideas of the Future Life
+- egyptian/project-gutenberg/egyptian-tales-petrie-first.md — Egyptian Tales, Translated from the Papyri: First Series, IVth to XIIth Dynasty
+- egyptian/project-gutenberg/egyptian-tales-petrie-second.md — Egyptian Tales, Translated from the Papyri: Second Series, XVIIIth to XIXth Dynasty
+- egyptian/project-gutenberg/gods-of-the-egyptians-budge-vol1.md — The Gods of the Egyptians; or, Studies in Egyptian Mythology, Volume I
+- egyptian/project-gutenberg/gods-of-the-egyptians-budge-vol2.md — The Gods of the Egyptians; or, Studies in Egyptian Mythology, Volume II
+- egyptian/project-gutenberg/legends-of-the-gods-budge.md — Legends of the Gods: The Egyptian Texts, edited with Translations
+- egyptian/project-gutenberg/literature-of-ancient-egyptians-budge.md — The Literature of the Ancient Egyptians
+- egyptian/project-gutenberg/religions-of-ancient-egypt-babylonia-sayce.md — The Religions of Ancient Egypt and Babylonia
+- ekoi/project-gutenberg/in-the-shadow-of-the-bush-talbot.md — In the Shadow of the Bush
+- estonian/project-gutenberg/hero-of-esthonia-kirby.md — The Hero of Esthonia and Other Studies in the Romantic Literature of That Country
+- ethiopian-christian/project-gutenberg/kebra-nagast-budge.md — The Queen of Sheba and Her Only Son Menyelek (Kebra Nagast)
+- fijian/project-gutenberg/tales-from-old-fiji-fison.md — Tales from Old Fiji
+- filipino/project-gutenberg/philippine-folk-tales-cole.md — Philippine Folk Tales
+- finnic/internet-archive/finno-ugric-siberian-mythology-holmberg.md — Finno-Ugric, Siberian Mythology
+- finnic/internet-archive/pre-and-proto-historic-finns-v1-abercromby.md — The Pre- and Proto-historic Finns, Volume 1
+- finnic/internet-archive/pre-and-proto-historic-finns-v2-abercromby.md — The Pre- and Proto-historic Finns, Volume 2 - The Magic Songs
+- ganda/project-gutenberg/the-baganda-roscoe.md — The Baganda: An Account of Their Native Customs and Beliefs
+- georgian/internet-archive/man-in-the-panthers-skin-wardrop.md — The Man in the Panther's Skin
+- germanic/internet-archive/teutonic-mythology-v1-grimm-stallybrass.md — Teutonic Mythology, Volume 1
+- germanic/internet-archive/teutonic-mythology-v2-grimm-stallybrass.md — Teutonic Mythology, Volume 2
+- germanic/internet-archive/teutonic-mythology-v3-grimm-stallybrass.md — Teutonic Mythology, Volume 3
+- germanic/internet-archive/teutonic-mythology-v4-grimm-stallybrass.md — Teutonic Mythology, Volume 4
+- germanic/project-gutenberg/beowulf-gummere.md — Beowulf: An Anglo-Saxon Epic Poem
+- germanic/project-gutenberg/grimm-household-tales-hunt.md — Household Tales by Brothers Grimm
+- germanic/project-gutenberg/nibelungenlied-needler.md — The Nibelungenlied
+- gnostic/project-gutenberg/pistis-sophia-horner.md — Pistis Sophia
+- greek-roman/project-gutenberg/myths-legends-ancient-greece-rome-berens.md — Myths and Legends of Ancient Greece and Rome
+- greek/project-gutenberg/aesops-fables-vernon-jones.md — Aesop's Fables; a new translation
+- greek/project-gutenberg/apollodorus-library-frazer-vol1.md — The Library, Volume I (Apollodorus), with an English Translation by James George Frazer
+- greek/project-gutenberg/argonautica-seaton.md — The Argonautica
+- greek/project-gutenberg/bacchae-euripides-murray.md — The Bacchae of Euripides
+- greek/project-gutenberg/extant-odes-of-pindar-myers.md — The Extant Odes of Pindar
+- greek/project-gutenberg/hesiod-homeric-hymns-homerica.md — Hesiod, the Homeric Hymns, and Homerica
+- greek/project-gutenberg/homeric-hymns-lang.md — The Homeric Hymns
+- greek/project-gutenberg/house-of-atreus-aeschylus-morshead.md — The House of Atreus; Being the Agamemnon, the Libation Bearers, and the Furies
+- greek/project-gutenberg/iliad-pope.md — The Iliad
+- greek/project-gutenberg/modern-greek-folklore-lawson.md — Modern Greek Folklore and Ancient Greek Religion: A Study in Survivals
+- greek/project-gutenberg/pausanias-description-of-greece-frazer-vol1.md — Pausanias's Description of Greece, Volume I, Translated with a Commentary by J. G. Frazer
+- greek/project-gutenberg/phaedrus-jowett.md — Phaedrus
+- greek/project-gutenberg/plutarch-morals-shilleto.md — Plutarch's Morals
+- greek/project-gutenberg/prometheus-bound-seven-against-thebes-aeschylus-buckley.md — Aeschylus' Prometheus Bound and the Seven Against Thebes
+- greek/project-gutenberg/republic-jowett.md — The Republic
+- greek/project-gutenberg/symposium-jowett.md — Symposium
+- guiana-amerindian/project-gutenberg/among-indians-guiana-im-thurn.md — Among the Indians of Guiana: Being Sketches Chiefly Anthropologic from the Interior of British Guiana
+- guiana-amerindian/project-gutenberg/animism-folklore-guiana-indians-roth.md — An Inquiry into the Animism and Folk-Lore of the Guiana Indians
+- guiana-amerindian/project-gutenberg/legends-myths-british-guiana-brett.md — Legends and Myths of the Aboriginal Indians of British Guiana
+- guiana-amerindian/project-gutenberg/the-central-caribs-farabee.md — The Central Caribs
+- hausa/project-gutenberg/hausa-superstitions-and-customs-tremearne.md — Hausa Superstitions and Customs: An Introduction to the Folk-Lore and the Folk
+- hindu/internet-archive/laws-of-manu-buhler-sbe25.md — The Laws of Manu (Sacred Books of the East, Vol. 25)
+- hindu/internet-archive/markandeya-purana-pargiter.md — The Markandeya Purana
+- hindu/project-gutenberg/hymns-of-the-rigveda-griffith.md — The Hymns of the Rigveda, Complete 2 Volumes
+- hindu/project-gutenberg/ramayana-valmiki-griffith.md — The Rámáyan of Válmíki, translated into English verse
+- hindu/project-gutenberg/sankhya-karika-davies.md — Hindu Philosophy: The Sankhya Karika of Iswara Krishna
+- hindu/project-gutenberg/song-celestial-bhagavad-gita-arnold.md — The Song Celestial; Or, Bhagavad-Gîtâ (from the Mahâbhârata)
+- hindu/project-gutenberg/upanishads-paramananda.md — The Upanishads
+- hindu/project-gutenberg/vishnu-sahasranamam-sanskrit-itrans.md — Sri Vishnu Sahasranaamam
+- inca/project-gutenberg/rites-laws-yncas-molina-markham.md — Narratives of the Rites and Laws of the Yncas
+- inca/project-gutenberg/royal-commentaries-yncas-garcilaso-markham-vol2.md — First Part of the Royal Commentaries of the Yncas, Vol. II
+- inuit/project-gutenberg/central-eskimo-boas.md — The Central Eskimo
+- inuit/project-gutenberg/eskimo-folk-tales-rasmussen-worster.md — Eskimo Folk-Tales
+- inuit/project-gutenberg/tales-and-traditions-of-the-eskimo-rink.md — Tales and Traditions of the Eskimo
+- islamic/project-gutenberg/koran-sale.md — The Koran (Al-Qur'an)
+- islamicate-folklore/project-gutenberg/arabian-nights-lang.md — The Arabian Nights Entertainments
+- japanese/project-gutenberg/japanese-fairy-tales-ozaki.md — Japanese Fairy Tales
+- japanese/project-gutenberg/kwaidan-hearn.md — Kwaidan: Stories and Studies of Strange Things
+- jewish-pseudepigrapha/project-gutenberg/book-of-jubilees-charles.md — The Book of Jubilees, or, The Little Genesis
+- khoekhoe/project-gutenberg/reynard-the-fox-in-south-africa-bleek.md — Reynard the Fox in South Africa; or, Hottentot Fables and Tales
+- khoisan-south-african/project-gutenberg/south-african-folk-tales-honey.md — South-African Folk-Tales
+- kikuyu/project-gutenberg/with-a-prehistoric-people-akikuyu-routledge.md — With a Prehistoric People: The Akikuyu of British East Africa
+- kimbundu/project-gutenberg/folk-tales-of-angola-chatelain.md — Folk-Tales of Angola: Fifty Tales, with Ki-mbundu Text, Literal English Translation, Introduction, and Notes
+- korean/internet-archive/corea-the-hermit-nation-griffis.md — Corea, the Hermit Nation
+- korean/internet-archive/korean-folk-tales-im-bang-yi-ryuk-gale.md — Korean Folk Tales - Imps, Ghosts and Fairies
+- korean/internet-archive/korean-tales-allen.md — Korean Tales
+- malagasy/project-gutenberg/great-african-island-madagascar-sibree.md — The Great African Island: Chapters on Madagascar
+- malagasy/project-gutenberg/madagascar-before-conquest-sibree.md — Madagascar Before the Conquest: The Island, the Country, and the People
+- malay/internet-archive/malay-magic-skeat.md — Malay Magic
+- malay/internet-archive/pagan-races-malay-peninsula-v1-skeat-blagden.md — Pagan Races of the Malay Peninsula, Volume 1
+- malay/internet-archive/pagan-races-malay-peninsula-v2-skeat-blagden.md — Pagan Races of the Malay Peninsula, Volume 2
+- mangaian/project-gutenberg/myths-and-songs-south-pacific-gill.md — Myths and Songs from the South Pacific
+- maori/project-gutenberg/ancient-history-of-the-maori-v3-white.md — The Ancient History of the Maori, His Mythology and Traditions, Volume 3
+- maori/project-gutenberg/polynesian-mythology-grey.md — Polynesian Mythology and Ancient Traditional History of the New Zealand Race
+- maya/project-gutenberg/maya-chronicles-brinton.md — The Maya Chronicles
+- melanesian/internet-archive/history-of-melanesian-society-v1-rivers.md — The History of Melanesian Society, Volume 1
+- melanesian/internet-archive/history-of-melanesian-society-v2-rivers.md — The History of Melanesian Society, Volume 2
+- melanesian/project-gutenberg/melanesians-british-new-guinea-seligman.md — The Melanesians of British New Guinea
+- melanesian/project-gutenberg/the-melanesians-codrington.md — The Melanesians: Studies in Their Anthropology and Folk-Lore (selection (partial text))
+- mesoamerican/project-gutenberg/popol-vuh-spence.md — The Popol Vuh
+- mesopotamian/project-gutenberg/assyrian-and-babylonian-literature-harper.md — Assyrian and Babylonian Literature: Selected Translations
+- mesopotamian/project-gutenberg/cuneiform-parallels-rogers.md — Cuneiform Parallels to the Old Testament
+- mesopotamian/project-gutenberg/epic-of-gilgamish-thompson.md — The Epic of Gilgamish
+- mesopotamian/project-gutenberg/old-babylonian-gilgamesh-jastrow-clay.md — An Old Babylonian Version of the Gilgamesh Epic
+- mesopotamian/project-gutenberg/religion-of-babylonia-and-assyria-jastrow.md — The Religion of Babylonia and Assyria
+- micronesian/project-gutenberg/caroline-islands-christian.md — The Caroline Islands: Travel in the Sea of the Little Lands
+- micronesian/project-gutenberg/island-of-stone-money-furness.md — The Island of Stone Money: Uap of the Carolines
+- mongol/internet-archive/the-mongols-a-history-curtin.md — The Mongols - A History
+- mongol/project-gutenberg/gessar-khan-zeitlin.md — Gessar Khan
+- mongol/project-gutenberg/sagas-from-the-far-east-busk.md — Sagas from the Far East
+- nahua/project-gutenberg/rig-veda-americanus-brinton.md — Rig Veda Americanus: Sacred Songs of the Ancient Mexicans
+- native-american-great-lakes/project-gutenberg/ceremonial-bundles-menomini-skinner.md — Social Life and Ceremonial Bundles of the Menomini Indians
+- native-american-great-lakes/project-gutenberg/chippewa-music-1-densmore.md — Chippewa Music
+- native-american-great-lakes/project-gutenberg/chippewa-music-2-densmore.md — Chippewa Music II
+- native-american-great-lakes/project-gutenberg/fox-texts-jones.md — Fox Texts
+- native-american-great-lakes/project-gutenberg/winnebago-medicine-dance-radin.md — The Ritual and Significance of the Winnebago Medicine Dance
+- native-american-northeast-woodlands/project-gutenberg/eastern-cree-northern-saulteaux-skinner.md — Notes on the Eastern Cree and Northern Saulteaux
+- native-american-northeast-woodlands/project-gutenberg/seneca-fiction-legends-myths-curtin-hewitt.md — Seneca Fiction, Legends, and Myths
+- native-american-northeast-woodlands/project-gutenberg/timiskaming-algonquin-speck.md — Myths and Folk-lore of the Timiskaming Algonquin and Timagami Ojibwa
+- native-american-northwest-coast/project-gutenberg/chinook-texts-boas.md — Chinook Texts
+- native-american-northwest-coast/project-gutenberg/ethnology-kwakiutl-1-boas-hunt.md — Ethnology of the Kwakiutl, Part 1
+- native-american-northwest-coast/project-gutenberg/ethnology-kwakiutl-2-boas-hunt.md — Ethnology of the Kwakiutl, Part 2
+- native-american-northwest-coast/project-gutenberg/haida-texts-myths-swanton.md — Haida Texts and Myths: Skidegate Dialect
+- native-american-northwest-coast/project-gutenberg/mythology-bella-coola-boas.md — The Mythology of the Bella Coola Indians
+- native-american-northwest-coast/project-gutenberg/tlingit-myths-texts-swanton.md — Tlingit Myths and Texts
+- native-american-northwest-coast/project-gutenberg/tsimshian-mythology-boas-tate.md — Tsimshian Mythology
+- native-american-northwest-coast/project-gutenberg/tsimshian-texts-boas.md — Tsimshian Texts
+- native-american-plains/project-gutenberg/blackfoot-lodge-tales-grinnell.md — Blackfoot Lodge Tales
+- native-american-plains/project-gutenberg/gros-ventre-myths-tales-kroeber.md — Gros Ventre Myths and Tales
+- native-american-plains/project-gutenberg/mythology-blackfoot-wissler-duvall.md — Mythology of the Blackfoot Indians
+- native-american-plains/project-gutenberg/myths-traditions-crow-lowie.md — Myths and Traditions of the Crow Indians
+- native-american-plains/project-gutenberg/pawnee-mythology-dorsey.md — The Pawnee - Mythology (Part I)
+- native-american-plains/project-gutenberg/teton-sioux-music-densmore.md — Teton Sioux Music
+- native-american-plains/project-gutenberg/the-assiniboine-lowie.md — The Assiniboine
+- native-american-plains/project-gutenberg/the-omaha-tribe-fletcher-laflesche.md — The Omaha Tribe
+- native-american-plains/project-gutenberg/traditions-arikara-dorsey.md — Traditions of the Arikara
+- native-american-plains/project-gutenberg/traditions-of-the-arapaho-dorsey-kroeber.md — Traditions of the Arapaho
+- native-american-plains/project-gutenberg/traditions-of-the-caddo-dorsey.md — Traditions of the Caddo
+- native-american-plains/project-gutenberg/traditions-skidi-pawnee-dorsey.md — Traditions of the Skidi Pawnee
+- native-american-plateau/project-gutenberg/myths-of-the-modocs-curtin.md — Myths of the Modocs
+- native-american-plateau/project-gutenberg/traditions-thompson-river-teit.md — Traditions of the Thompson River Indians of British Columbia
+- native-american-plateau/project-gutenberg/wishram-texts-sapir.md — Wishram Texts
+- native-american-southeast/project-gutenberg/myths-of-cherokee-mooney.md — Myths of the Cherokee
+- native-american-southwest/project-gutenberg/aw-aw-tam-indian-nights-lloyd.md — Aw-Aw-Tam Indian Nights: Being the Myths and Legends of the Pimas of Arizona
+- native-american-southwest/project-gutenberg/jicarilla-apache-texts-goddard.md — Jicarilla Apache Texts
+- native-american-southwest/project-gutenberg/mountain-chant-matthews.md — The Mountain Chant: A Navajo Ceremony
+- native-american-southwest/project-gutenberg/myths-tales-san-carlos-apache-goddard.md — Myths and Tales from the San Carlos Apache
+- native-american-southwest/project-gutenberg/pima-indians-russell.md — The Pima Indians
+- native-american-southwest/project-gutenberg/the-sia-stevenson.md — The Sia
+- native-american-southwest/project-gutenberg/tusayan-migration-traditions-fewkes.md — Tusayan Migration Traditions
+- native-american-southwest/project-gutenberg/zuni-indians-stevenson.md — The Zuñi Indians: Their Mythology, Esoteric Fraternities, and Ceremonies
+- navajo/project-gutenberg/navaho-legends-matthews.md — Navaho Legends
+- norse/internet-archive/corpus-poeticum-boreale-v1-vigfusson-powell.md — Corpus Poeticum Boreale, Volume 1
+- norse/project-gutenberg/burnt-njal-dasent.md — The Story of Burnt Njal: From the Icelandic of the Njals Saga
+- norse/project-gutenberg/grettir-the-strong-hight.md — The Saga of Grettir the Strong: Grettir's Saga
+- norse/project-gutenberg/heimskringla-laing.md — Heimskringla; Or, The Chronicle of the Kings of Norway
+- norse/project-gutenberg/laxdaela-saga-press.md — Laxdaela Saga
+- norse/project-gutenberg/myths-of-the-norsemen-guerber.md — Myths of the Norsemen: From the Eddas and Sagas
+- norse/project-gutenberg/volsunga-saga-morris-magnusson.md — The Story of the Volsungs (Volsunga Saga); with Excerpts from the Poetic Edda
+- norse/project-gutenberg/younger-edda-anderson.md — The Younger Edda; Also called Snorre's Edda, or The Prose Edda
+- oceanic/project-gutenberg/oceanic-mythology-dixon.md — Oceanic Mythology
+- persian/project-gutenberg/gulistan-sadi-ross.md — The Persian Literature, Volume 2, The Gulistan
+- persian/project-gutenberg/persian-literature-volume-1.md — Persian Literature, Volume 1
+- persian/project-gutenberg/shahnama-warner-vol1.md — The Shahnama of Firdausi, Vol. I
+- persian/project-gutenberg/shahnama-warner-vol2.md — The Shahnama of Firdausi, Vol. II
+- roman/project-gutenberg/aeneid-latin-vergil.md — Aeneidos
+- roman/project-gutenberg/aeneid-mackail.md — The Aeneid of Virgil
+- roman/project-gutenberg/fasti-latin-ovid-keightley.md — Fasti
+- roman/project-gutenberg/georgics-virgil-rhoades.md — The Georgics
+- roman/project-gutenberg/golden-ass-apuleius-adlington.md — The Golden Asse
+- roman/project-gutenberg/metamorphoses-books-1-7-riley.md — The Metamorphoses of Ovid, Books I-VII (selection (partial text))
+- roman/project-gutenberg/metamorphoses-books-8-15-riley.md — The Metamorphoses of Ovid, Books VIII-XV (selection (partial text))
+- roman/project-gutenberg/mysteries-of-mithra-cumont.md — The Mysteries of Mithra
+- roman/project-gutenberg/on-the-nature-of-things-lucretius-leonard.md — On the Nature of Things
+- romanian/project-gutenberg/roumanian-fairy-tales-kremnitz.md — Roumanian Fairy Tales
+- samoan/project-gutenberg/samoa-a-hundred-years-ago-turner.md — Samoa, A Hundred Years Ago And Long Before
+- san/project-gutenberg/specimens-of-bushman-folklore-bleek-lloyd.md — Specimens of Bushman Folklore
+- shan/project-gutenberg/shans-at-home-milne.md — Shans at Home, With Two Chapters on Shan History and Literature
+- shinto/project-gutenberg/nihongi-volume-1-aston.md — Nihongi: Chronicles of Japan from the Earliest Times to A.D. 697, Volume 1
+- shinto/project-gutenberg/nihongi-volume-2-aston.md — Nihongi: Chronicles of Japan from the Earliest Times to A.D. 697, Volume 2
+- siberian/internet-archive/aboriginal-siberia-czaplicka.md — Aboriginal Siberia - A Study in Social Anthropology
+- siberian/project-gutenberg/chukchee-mythology-bogoras.md — Chukchee Mythology
+- siberian/project-gutenberg/koryak-texts-bogoras.md — Koryak Texts
+- siberian/project-gutenberg/tales-of-yukaghir-lamut-bogoras.md — Tales of Yukaghir, Lamut, and Russianized Natives of Eastern Siberia
+- sikh/project-gutenberg/sikh-religion-macauliffe-vol1.md — The Sikh Religion: Its Gurus, Sacred Writings and Authors, Vol. 1
+- slavic/project-gutenberg/epic-songs-of-russia-hapgood.md — The Epic Songs of Russia
+- slavic/project-gutenberg/fairy-tales-slav-peasants-chodzko.md — Fairy Tales of the Slav Peasants and Herdsmen
+- slavic/project-gutenberg/myths-folk-tales-russians-slavs-magyars-curtin.md — Myths and Folk-tales of the Russians, Western Slavs, and Magyars
+- slavic/project-gutenberg/russian-fairy-tales-ralston.md — Russian Fairy Tales: A Choice Collection of Muscovite Folk-lore
+- sufi/project-gutenberg/bird-parliament-attar-fitzgerald.md — Bird Parliament
+- sufi/project-gutenberg/confessions-al-ghazzali-field.md — The Confessions of Al Ghazzali
+- sufi/project-gutenberg/mystics-and-saints-of-islam-field.md — Mystics and Saints of Islam
+- sufi/project-gutenberg/mystics-of-islam-nicholson.md — The Mystics of Islam
+- sufi/project-gutenberg/persian-mystics-jami-davis.md — The Persian Mystics: Jámí (selection (partial text))
+- sufi/project-gutenberg/persian-mystics-rumi-davis.md — The Persian Mystics: Jalálu'd-dín Rúmí (selection (partial text))
+- sufi/project-gutenberg/poems-from-divan-of-hafiz-bell.md — Poems from the Divan of Hafiz (selection (partial text))
+- sufi/project-gutenberg/sufism-of-rubaiyat-hazeldine.md — The Sufism of the Rubáiyát, or, the Secret of the Great Paradox
+- sufi/project-gutenberg/sufistic-quatrains-omar-khayyam.md — The Sufistic Quatrains of Omar Khayyam (selection (partial text))
+- taoist/internet-archive/chuang-tzu-giles.md — Chuang Tzŭ: Mystic, Moralist, and Social Reformer
+- taoist/internet-archive/texts-of-taoism-part1-legge-sbe39.md — The Sacred Books of China: The Texts of Taoism, Part I (Sacred Books of the East, Vol. 39)
+- taoist/internet-archive/texts-of-taoism-part2-legge-sbe40.md — The Sacred Books of China: The Texts of Taoism, Part II (Sacred Books of the East, Vol. 40)
+- taoist/project-gutenberg/daodejing-chinese-laozi.md — 道德經
+- temne/project-gutenberg/cunnie-rabbit-cronise-ward.md — Cunnie Rabbit, Mr. Spider and the Other Beef: West African Folk Tales
+- tibetan/internet-archive/antiquities-of-indian-tibet-francke-v1.md — Antiquities of Indian Tibet, Part 1
+- tibetan/internet-archive/buddhism-of-tibet-lamaism-waddell.md — The Buddhism of Tibet, or Lamaism
+- tibetan/internet-archive/tibetan-book-of-the-dead-evans-wentz.md — The Tibetan Book of the Dead
+- tongan/project-gutenberg/tongan-myths-and-tales-gifford.md — Tongan Myths and Tales
+- vietnamese/internet-archive/stories-legends-annam-chivas-baron.md — Stories and Legends of Annam
+- xhosa/project-gutenberg/kaffir-folk-lore-theal.md — Kaffir Folk-Lore: A Selection from the Traditional Tales Current among the People Living on the Eastern Border of the Cape Colony
+- yoruba/project-gutenberg/yoruba-speaking-peoples-ellis.md — The Yoruba-Speaking Peoples of the Slave Coast of West Africa: Their Religion, Manners, Customs, Laws, Language, Etc.
+- zoroastrian/project-gutenberg/pahlavi-texts-part-1-bundahis.md — Pahlavi Texts, Part I: The Bundahis, Bahman Yast, and Shayast la-Shayast
+- zoroastrian/project-gutenberg/zend-avesta-part-1-vendidad.md — The Zend-Avesta, Part I: The Vendidad
+- zoroastrian/project-gutenberg/zend-avesta-part-2-yasts.md — The Zend-Avesta, Part II: The Sirozahs, Yasts, and Nyayis
+- zoroastrian/project-gutenberg/zend-avesta-part-3-yasna-gathas.md — The Zend-Avesta, Part III: The Yasna, Visparad, Afrinagan, Gahs, and Miscellaneous Fragments
+- zulu/project-gutenberg/nursery-tales-traditions-histories-zulus-callaway.md — Nursery Tales, Traditions, and Histories of the Zulus, in Their Own Words
+- zuni/project-gutenberg/zuni-folk-tales-cushing.md — Zuni Folk Tales
+
+## Not included (69)
+
+- public-domain/jain/internet-archive/jaina-sutras-part2-jacobi-sbe45.md — Jaina Sutras, Part II: The Uttaradhyayana Sutra and the Sutrakritanga (Sacred Books of the East, Vol. 45): duplicate of sacred_texts_archive_missing/jainism/canonical_and_classical/uttaradhyayana_sutra/uttaradhyayana_sutra_sbe_vol45.txt (68% overlap)
+- public-domain/fjort/project-gutenberg/folklore-of-the-fjort-dennett.md — Notes on the Folklore of the Fjort (French Congo): duplicate of source1_ista/afr/fjort/fjo.txt (74% overlap)
+- public-domain/bavili/project-gutenberg/back-of-the-black-mans-mind-dennett.md — At the Back of the Black Man's Mind; or, Notes on the Kingly Office in West Africa: duplicate of source1_ista/afr/mind/mind.txt (84% overlap)
+- public-domain/mesopotamian/project-gutenberg/babylonian-legends-of-creation.md — The Babylonian Legends of the Creation: duplicate of source1_ista/ane/blc/blc.txt (93% overlap)
+- public-domain/georgian/project-gutenberg/georgian-folk-tales-wardrop.md — Georgian Folk Tales: duplicate of source1_ista/asia/geft/geft.txt (96% overlap)
+- public-domain/buryat-mongol/project-gutenberg/journey-in-southern-siberia-curtin.md — A Journey in Southern Siberia, the Mongols, Their Religion and Their Myths: duplicate of source1_ista/asia/jss/jss.txt (96% overlap)
+- public-domain/jewish-pseudepigrapha/project-gutenberg/book-of-enoch-charles.md — The Book of Enoch: duplicate of source1_ista/bib/boe/boe.txt (92% overlap)
+- public-domain/christian-apocrypha/project-gutenberg/suppressed-gospels-epistles-wake.md — The suppressed Gospels and Epistles of the original New Testament of Jesus the Christ, Complete: duplicate of source1_ista/bib/lbob/lbob.txt (88% overlap)
+- public-domain/buddhist/internet-archive/jataka-cowell-vol1.md — The Jataka; or, Stories of the Buddha's Former Births, Vol. I: duplicate of source1_ista/bud/j1/j1.txt (83% overlap)
+- public-domain/buddhist/internet-archive/jataka-cowell-vol3.md — The Jataka; or, Stories of the Buddha's Former Births, Vol. III: duplicate of source1_ista/bud/j3/j3.txt (60% overlap)
+- public-domain/buddhist/project-gutenberg/jataka-tales-babbitt.md — Jataka tales: duplicate of source1_ista/bud/jt/jt.txt (98% overlap)
+- public-domain/buddhist/project-gutenberg/sutta-nipata-fausboll.md — The Sutta-Nipata (Sacred Books of the East, Vol. 10, Part II): duplicate of source1_ista/bud/sbe10/sbe10.txt (71% overlap)
+- public-domain/buddhist/project-gutenberg/dhammapada-max-muller.md — Dhammapada, a Collection of Verses: duplicate of source1_ista/bud/sbe10/sbe10.txt (92% overlap)
+- public-domain/buddhist/project-gutenberg/dhammapada-muller.md — Dhammapada, a Collection of Verses; Being One of the Canonical Books of the Buddhists: duplicate of source1_ista/bud/sbe10/sbe10.txt (92% overlap)
+- public-domain/greek/project-gutenberg/odyssey-butler.md — The Odyssey: duplicate of source1_ista/cla/homer/ody/ody.txt (89% overlap)
+- public-domain/egyptian/internet-archive/development-of-religion-thought-ancient-egypt-breasted.md — Development of Religion and Thought in Ancient Egypt: duplicate of source1_ista/egy/rtae/rtae.txt (76% overlap)
+- public-domain/gnostic/project-gutenberg/fragments-of-a-faith-forgotten-mead.md — Fragments of a Faith Forgotten: duplicate of source1_ista/gno/fff/fff.txt (81% overlap)
+- public-domain/hermetic/project-gutenberg/thrice-greatest-hermes-vol1-mead.md — Thrice-Greatest Hermes, Vol. I: Prolegomena: duplicate of source1_ista/gno/th1/th1.txt (76% overlap)
+- public-domain/hermetic/project-gutenberg/thrice-greatest-hermes-vol2-mead.md — Thrice-Greatest Hermes, Vol. II: Sermons (Corpus Hermeticum): duplicate of source1_ista/gno/th2/th2.txt (80% overlap)
+- public-domain/hindu/project-gutenberg/maha-bharata-dutt.md — Maha-bharata: duplicate of source1_ista/hin/dutt/dutt.txt (93% overlap)
+- public-domain/hindu/project-gutenberg/mahabharata-dutt.md — Maha-bharata: duplicate of source1_ista/hin/dutt/dutt.txt (93% overlap)
+- public-domain/hindu/project-gutenberg/mahabharata-ganguli-vol1.md — The Mahabharata of Krishna-Dwaipayana Vyasa, Volume 1: duplicate of source1_ista/hin/maha/maha03.txt (100% overlap)
+- public-domain/hindu/project-gutenberg/mahabharata-ganguli-vol2.md — The Mahabharata of Krishna-Dwaipayana Vyasa, Volume 2: Books 4, 5, 6 and 7: duplicate of source1_ista/hin/maha/maha07.txt (99% overlap)
+- public-domain/hindu/project-gutenberg/mahabharata-ganguli-vol3.md — The Mahabharata of Krishna-Dwaipayana Vyasa, Volume 3: Books 8, 9, 10, 11 and 12: duplicate of source1_ista/hin/maha/maha12.txt (99% overlap)
+- public-domain/hindu/project-gutenberg/mahabharata-ganguli-vol4.md — The Mahabharata of Krishna-Dwaipayana Vyasa, Volume 4: Books 13, 14, 15, 16, 17 and 18: duplicate of source1_ista/hin/maha/maha13.txt (99% overlap)
+- public-domain/hindu/project-gutenberg/upanishads-part-1-muller.md — The Upanishads, Part I (Sacred Books of the East, Vol. 1): duplicate of source1_ista/hin/sbe01/sbe01.txt (70% overlap)
+- public-domain/hindu/project-gutenberg/upanishads-part-2-muller.md — The Upanishads, Part II (Sacred Books of the East, Vol. 15): duplicate of source1_ista/hin/sbe15/sbe15.txt (67% overlap)
+- public-domain/hindu/internet-archive/vedic-hymns-part1-muller-sbe32.md — Vedic Hymns, Part I (Sacred Books of the East, Vol. 32): duplicate of source1_ista/hin/sbe32/sbe32.txt (55% overlap)
+- public-domain/hindu/internet-archive/vedic-hymns-part2-oldenberg-sbe46.md — Vedic Hymns, Part II (Sacred Books of the East, Vol. 46): duplicate of source1_ista/hin/sbe46/sbe46.txt (50% overlap)
+- public-domain/hindu/internet-archive/thirty-minor-upanishads-aiyar.md — Thirty Minor Upanishads: duplicate of source1_ista/hin/tmu/tmu.txt (82% overlap)
+- public-domain/hindu/project-gutenberg/yoga-sutras-patanjali-johnston.md — The Yoga Sutras of Patanjali: The Book of the Spiritual Man: duplicate of source1_ista/hin/ysp/ysp.txt (99% overlap)
+- public-domain/sufi/project-gutenberg/masnavi-whinfield.md — Masnavi i Ma'navi: Teachings of Rumi: duplicate of source1_ista/isl/masnavi/msn.txt (68% overlap)
+- public-domain/sufi/project-gutenberg/mesnevi-book-1-redhouse.md — The Mesnevi: duplicate of source1_ista/isl/mes/mes.txt (84% overlap)
+- public-domain/islamic/project-gutenberg/koran-rodwell.md — The Koran (Al-Qur'an): duplicate of source1_ista/isl/qr/qr.txt (97% overlap)
+- public-domain/jain/project-gutenberg/jaina-sutras-part-1-jacobi.md — Jaina Sutras, Part I: The Akaranga Sutra and the Kalpa Sutra (Sacred Books of the East, Vol. 22): duplicate of source1_ista/jai/sbe22/sbe22.txt (71% overlap)
+- public-domain/native-american-california/project-gutenberg/creation-myths-primitive-america-curtin.md — Creation Myths of Primitive America: duplicate of source1_ista/nam/ca/cma/cma.txt (89% overlap)
+- public-domain/native-american-california/project-gutenberg/yana-texts-sapir.md — Yana Texts: duplicate of source1_ista/nam/ca/yat/yat.txt (87% overlap)
+- public-domain/hopi/project-gutenberg/traditions-of-the-hopi-voth.md — The Traditions of the Hopi: duplicate of source1_ista/nam/hopi/toth/toth.txt (84% overlap)
+- public-domain/nahua-maya-inca/project-gutenberg/myths-of-mexico-peru-spence.md — The Myths of Mexico & Peru: duplicate of source1_ista/nam/mmp/mmp.txt (86% overlap)
+- public-domain/celtic/project-gutenberg/celtic-fairy-tales-jacobs.md — Celtic Fairy Tales: duplicate of source1_ista/neu/celt/cft/cft.txt (95% overlap)
+- public-domain/celtic/internet-archive/cuchulain-of-muirthemne-gregory.md — Cuchulain of Muirthemne: duplicate of source1_ista/neu/celt/cuch/lgc.txt (92% overlap)
+- public-domain/celtic-irish/project-gutenberg/gods-and-fighting-men-gregory.md — Gods and Fighting Men: duplicate of source1_ista/neu/celt/gafm/gafm.txt (95% overlap)
+- public-domain/celtic/project-gutenberg/gods-and-fighting-men-gregory.md — Gods and Fighting Men: duplicate of source1_ista/neu/celt/gafm/gafm.txt (95% overlap)
+- public-domain/celtic-welsh/project-gutenberg/mabinogion-guest.md — The Mabinogion: duplicate of source1_ista/neu/celt/mab/mab.txt (96% overlap)
+- public-domain/celtic/project-gutenberg/mabinogion-guest.md — The Mabinogion: duplicate of source1_ista/neu/celt/mab/mab.txt (98% overlap)
+- public-domain/finnish-karelian/project-gutenberg/kalevala-crawford.md — Kalevala: The Epic Poem of Finland: duplicate of source1_ista/neu/kveng/kv.txt (91% overlap)
+- public-domain/norse/project-gutenberg/poetic-edda-bellows.md — The Poetic Edda: duplicate of source1_ista/neu/poe/poe.txt (82% overlap)
+- public-domain/slavic/project-gutenberg/sixty-folk-tales-slavonic-wratislaw.md — Sixty Folk-Tales from Exclusively Slavonic Sources: duplicate of source1_ista/neu/sfs/sfs.txt (96% overlap)
+- public-domain/hawaiian/project-gutenberg/hawaiian-folk-tales-thrum.md — Hawaiian Folk Tales: A Collection of Native Legends: duplicate of source1_ista/pac/hft/hft.txt (93% overlap)
+- public-domain/confucian/project-gutenberg/analects-legge.md — The Analects of Confucius: duplicate within atlas
+- public-domain/indigenous-australian/project-gutenberg/australian-legendary-tales-parker.md — Australian Legendary Tales: folk-lore of the Noongahburrahs as told to the Piccaninnies: duplicate within atlas
+- public-domain/daoist/project-gutenberg/chuang-tzu-giles.md — Chuang Tzu: Mystic, Moralist, and Social Reformer: duplicate within atlas
+- public-domain/daoist/project-gutenberg/tao-teh-king-legge.md — The Tao Teh King, or the Tao and its Characteristics: duplicate within atlas
+- public-domain/hindu/project-gutenberg/ramayana-griffith.md — The Ramayan of Valmiki: duplicate within atlas
+- public-domain/hindu/project-gutenberg/song-celestial-bhagavad-gita.md — The Song Celestial; Or, Bhagavad-Gita: duplicate within atlas
+- public-domain/inca/project-gutenberg/rites-and-laws-of-the-yncas-markham.md — Narratives of the Rites and Laws of the Yncas: duplicate within atlas
+- public-domain/hindu/project-gutenberg/vishnupuranam-dutt.md — A Prose English Translation of Vishnupuranam: empty stub
+- experiential/nde/iands-phenomenology.md — IANDS Phenomenological Consensus Description: framework_summary note (not a source text)
+- experiential/nde/moody-phenomenology.md — Core NDE Phenomenology — Moody's Fifteen Elements: framework_summary note (not a source text)
+- experiential/nde/van-lommel-elements.md — NDE Element Categories — Van Lommel's Prospective Study: framework_summary note (not a source text)
+- experiential/nde/greyson-scale.md — Greyson NDE Scale — Sixteen Standardized Features: framework_summary note (not a source text)
+- experiential/psychedelic/grof-bpm.md — Grof Basic Perinatal Matrices — BPM I to IV: framework_summary note (not a source text)
+- experiential/psychedelic/strassman-dmt.md — Strassman DMT Experience Categories: framework_summary note (not a source text)
+- experiential/psychedelic/asc-dimensions.md — Altered States of Consciousness — 5D-ASC Dimensions: framework_summary note (not a source text)
+- experiential/psychedelic/meq30-dimensions.md — Mystical Experience Questionnaire — MEQ30 Dimensions: framework_summary note (not a source text)
+- experiential/contemplative/bardo-thodol.md — Bardo Thodol — The Three Bardos: framework_summary note (not a source text)
+- experiential/contemplative/interior-castle.md — Interior Castle — The Seven Mansions: framework_summary note (not a source text)
+- experiential/contemplative/yoga-sutras.md — Patanjali Yoga Sutras — Eight Limbs and Samadhi Stages: framework_summary note (not a source text)
+- experiential/contemplative/underhill-mystical-way.md — Underhill — The Five Stages of the Mystical Way: framework_summary note (not a source text)
