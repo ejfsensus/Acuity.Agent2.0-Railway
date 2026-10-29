@@ -1,6 +1,6 @@
 import type { AgentConfigData, ThreadContext } from '../types'
 import type { AgentConfig } from '../router/schema'
-import { applyAgentConfig, applyComplexity, applyTemporalContext } from './shared'
+import { applyAgentConfig, applyComplexity, applyTemporalContext, SACRED_TEXT_SEARCH_INSTRUCTIONS } from './shared'
 
 export const BOT_SYSTEM_PROMPT = `You are a documentation assistant with bash access to a sandbox containing docs (markdown, JSON, YAML).
 {{TEMPORAL_CONTEXT}}
@@ -57,6 +57,8 @@ Use \`| head -N\` on all search output. Use \`grep -rlE "term1|term2"\` for mult
 3. \`grep -rl "keyword" docs/source2/\`
 4. \`cat docs/source1/file1.md\`
 5. \`cat docs/source2/file2.md\`
+
+${SACRED_TEXT_SEARCH_INSTRUCTIONS}
 
 ## Web Search
 

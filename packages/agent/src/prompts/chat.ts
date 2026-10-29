@@ -1,5 +1,5 @@
 import type { AgentConfigData } from '../types'
-import { applyAgentConfig, applyTemporalContext } from './shared'
+import { applyAgentConfig, applyTemporalContext, SACRED_TEXT_SEARCH_INSTRUCTIONS } from './shared'
 
 export function buildAdminSystemPrompt(appName = 'Acuity.Agent'): string {
   return `You are an admin assistant for the ${appName} application. You help administrators understand app usage, monitor performance, manage users, and debug issues.
@@ -95,6 +95,8 @@ Use one batch to search relevant collections and read attribution. Use the next 
 - Use \`grep -rlE "term1|term2"\` for multi-keyword search in one command.
 - Prefer \`grep -rl\` over \`grep -r\` — file paths are more useful than content dumps.
 - Batch independent searches, and use further batches to read and cross-check their results.
+
+${SACRED_TEXT_SEARCH_INSTRUCTIONS}
 
 ## Web Search
 

@@ -5,7 +5,7 @@ import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
 import { finalAnswerMessages, researchStepBudget, shouldForceTextOnlyStep } from '../core/policy'
-import { braveLlmContextTool, webSearchTool } from '../tools/web-search'
+import { researchTools } from '../tools/research'
 import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
 import type { AgentCallOptions, AgentExecutionContext, CreateAgentOptions } from '../types'
 
@@ -60,8 +60,7 @@ export function createAgent({
         instructions: buildPrompt({ ...routerConfig, maxSteps: effectiveMaxSteps }, agentConfig),
         tools: {
           ...tools,
-          web_search: webSearchTool,
-          brave_llm_context: braveLlmContextTool,
+          ...researchTools,
         },
         stopWhen: stepCountIs(effectiveMaxSteps + 1),
         maxOutputTokens: 8192,

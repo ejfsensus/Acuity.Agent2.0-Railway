@@ -4,7 +4,7 @@ import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
 import { createSavoir } from '@savoir/sdk'
 import { useLogger } from 'evlog'
-import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, braveLlmContextTool, webSearchTool } from '@savoir/agent'
+import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, researchTools } from '@savoir/agent'
 import { completeResponseStream } from '../../utils/chat/complete-response'
 import { generateTitle } from '../../utils/chat/generate-title'
 import { getAgentConfig } from '../../utils/agent-config'
@@ -172,7 +172,7 @@ export default defineEventHandler(async (event) => {
             const final = await generateFinalAnswer({
               model: effectiveModel,
               messages: [...modelMessages, ...researchMessages],
-              tools: (isAdminChat ? adminTools : { ...savoir.tools, web_search: webSearchTool, brave_llm_context: braveLlmContextTool }) as ToolSet,
+              tools: (isAdminChat ? adminTools : { ...savoir.tools, ...researchTools }) as ToolSet,
               system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(await getAgentConfig()),
               abortSignal: abortController.signal,
             })

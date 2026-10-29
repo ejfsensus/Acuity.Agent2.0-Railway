@@ -6,6 +6,8 @@ export { generateFinalAnswer } from './core/final-answer'
 
 // Tools
 export { braveLlmContextTool, braveWebSearchTool, webSearchTool } from './tools/web-search'
+export { sacredTextMcpTool, sacredTextInputSchema } from './tools/sacred-text'
+export { researchTools } from './tools/research'
 
 // Agents
 export { createSourceAgent } from './agents/source'

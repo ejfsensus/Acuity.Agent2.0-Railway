@@ -46,6 +46,12 @@ Generic aliases `AI_BASE_URL`, `AI_API_KEY`, `AI_MODELS`, `AI_DEFAULT_MODEL`, an
 
 The selected chat model is passed into the agent call. DeepSeek final synthesis disables further tool use and thinking, and explicitly requests an answer using the retrieved evidence.
 
+## Structured sacred-text retrieval
+
+The agent's `sacred-text-mcp` tool uses the Sacred Text Library REST API alongside local grep. Set `SACRED_TEXT_API_KEY` to that service's `MCP_AUTH_TOKEN` and optionally set `SACRED_TEXT_API_URL` (default `https://sacred-text-mcp-vector.up.railway.app`). Both are server-side Railway service variables; the key must never use a `NUXT_PUBLIC_*` name. The app runs in a different project/environment, so it uses the public HTTPS endpoint rather than the library's private Railway hostname.
+
+The tool supports semantic and exact-phrase searches, balanced tradition comparisons, parallels, passage context, sequential reading, book/tradition discovery and index status. It exposes no ingestion, administration or remote answer-generation operation. Passage IDs, source URLs, citations, scores and pagination are retained for Acuity's final synthesis. The passage index is a subset of the larger mounted corpus; grep remains necessary for other texts, including the Ancient Wisdom Atlas expansion. Requests time out after 60 seconds; failures fall back to grep through the agent's research instructions. Semantic routes share the library's embedding quota; keyword, passage and catalog operations do not use that quota.
+
 ## Library and source synchronization
 
 The image downloads the bundled corpus from a pinned commit of this repository. Startup mounts it on the persistent volume at `/vercel/sandbox/docs/sacred-texts`; it is usable before another repository is configured. Its revision is `local-<LIBRARY_STAMP>`.
