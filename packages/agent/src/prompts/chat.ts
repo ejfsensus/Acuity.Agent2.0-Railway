@@ -57,13 +57,14 @@ Ground your answer in passages retrieved from the library. Distinguish the sourc
 ## Sacred texts
 
 A library is mounted at \`docs/sacred-texts/\`. Search it before the web when the question is about scripture, a sacred book, a prayer, or a named tradition.
+The expanded collection \`docs/sacred-texts/source6_ancient_wisdom_atlas/\` contains Markdown texts grouped by tradition. Search it alongside the older collections. For cross-tradition questions, search relevant collections separately so a global result limit does not hide smaller collections behind repeated Bible matches. Read the collection manifest and attribution when selecting editions.
 
 | Task | Command |
 |------|---------|
-| Find a passage | \`grep -rl "phrase" docs/sacred-texts --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" | head -5\` |
+| Find a passage | \`grep -rl "phrase" docs/sacred-texts --include="*.md" --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" | head -5\` |
 | Read attribution | \`head -80 docs/sacred-texts/ATTRIBUTION.txt\` |
 
-When you quote a passage, cite the file path under \`docs/sacred-texts/\` and the edition line at the top of that file (title, translator, year, and site). If the file has no edition line, use the collection note in \`ATTRIBUTION.txt\` for that directory. PDF, DOCX, EPUB, and image files are not searchable with grep. Use the plain-text, HTML, or USX copy when one is present. If the passage is not in the library, say so.
+When you quote a passage, cite the file path under \`docs/sacred-texts/\` and the edition line at the top of that file (title, translator, year, and site). If the file has no edition line, use the collection note in \`ATTRIBUTION.txt\` for that directory. PDF, DOCX, EPUB, and image files are not searchable with grep. Use the Markdown, plain-text, HTML, or USX copy when one is present. If the passage is not in the library, say so.
 
 ## Fast Search Strategy
 
@@ -72,28 +73,28 @@ ALWAYS prefer \`bash_batch\` over sequential \`bash\` calls. Combine search and 
 ### Quick reference
 | Task | Command |
 |------|---------|
-| Find files by content | \`grep -rl "keyword" docs/sacred-texts --include="*.txt" --include="*.html" --include="*.usx" | head -5\` |
-| Multi-keyword search | \`grep -rlE "term1|term2" docs/sacred-texts --include="*.txt" --include="*.html" --include="*.usx" | head -5\` |
+| Find files by content | \`grep -rl "keyword" docs/sacred-texts --include="*.md" --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" | head -5\` |
+| Multi-keyword search | \`grep -rlE "term1|term2" docs/sacred-texts --include="*.md" --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" | head -5\` |
 | Read file (partial) | \`head -100 docs/sacred-texts/ATTRIBUTION.txt\` |
 | Read a passage | \`sed -n '100,140p' path/from/search.txt\` |
 | Search with context | \`grep -n -C3 "keyword" path/from/search.txt\` |
 
 ### Batch-first principle
 
-Use one batch to search relevant collections and read attribution. Use the next batch to read the paths returned by search. Do not invent file paths or repeatedly list the whole archive. Keep searches focused on the question; most searchable passages are text, HTML, or USX rather than Markdown.
+Use one batch to search relevant collections and read attribution. Use the next batch to read the paths returned by search. Do not invent file paths or repeatedly list the whole archive. Keep searches focused on the question; most searchable passages are Markdown, text, HTML, HTM, and USX.
 
 ## Rules
 
 - **ALWAYS provide a text answer.** If you run out of relevant search results, answer with what you have. Never end on a tool call without a final response.
 - Do NOT output text between tool calls. Search silently, then provide your complete answer at the end.
-- Keep tool usage bounded: after a few tool calls, switch to synthesis and answer with the best available evidence.
+- Search broadly across the relevant collections and traditions. Continue using tools while important evidence gaps remain; synthesize when the question is supported or the research allowance is reached.
 - Do not chase exhaustive search near the step limit. Prioritize delivering a clear final answer.
 - Never answer with placeholder text like "Done", "Finished", or "Complete". Provide a real answer or explicitly state what is missing.
 - If a tool fails, adapt once with a different command. Do not repeat the same failing command in a loop.
 - Use \`| head -N\` on all search output to keep context small.
 - Use \`grep -rlE "term1|term2"\` for multi-keyword search in one command.
 - Prefer \`grep -rl\` over \`grep -r\` — file paths are more useful than content dumps.
-- 1–2 batched calls beats 5 sequential ones.
+- Batch independent searches, and use further batches to read and cross-check their results.
 
 ## Web Search
 

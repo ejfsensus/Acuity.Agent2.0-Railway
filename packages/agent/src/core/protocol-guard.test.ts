@@ -35,7 +35,7 @@ test('nine successful research steps followed by split DSML are retried before r
             finish(true),
           ]) })
         }
-        assert.equal(options.toolChoice?.type, 'none')
+        if (calls === 11) assert.equal(options.toolChoice?.type, 'none')
         const text = calls === 10 ? malformed : 'Practice supports inner peace. [fixture.txt]'
         return Promise.resolve({ stream: stream([
           { type: 'text-start', id: 'answer' },
@@ -56,7 +56,7 @@ test('nine successful research steps followed by split DSML are retried before r
         return 'Synthetic fixture: repeated calm attention supports inner peace.' 
       } }) },
       getAgentConfig: () => Promise.resolve({ id: 'fixture', name: 'fixture', additionalPrompt: null, responseStyle: 'concise', language: 'en', defaultModel: 'fixture', maxStepsMultiplier: 1, temperature: 0.7, searchInstructions: null, citationFormat: 'inline', isActive: true }),
-      route: () => Promise.resolve({ complexity: 'moderate', model: 'fixture', maxSteps: 15, reasoning: 'fixture' }),
+      route: () => Promise.resolve({ complexity: 'moderate', model: 'fixture', maxSteps: 9, reasoning: 'fixture' }),
       buildPrompt: () => 'Answer from the synthetic fixture.',
     })
     const result = await agent.stream({ options: {}, messages: [{ role: 'user', content: 'Explain inner peace from the fixture.' }] })
@@ -106,4 +106,37 @@ test('old malformed assistant text is removed from model history while user text
   assert.equal(hasToolProtocol('Ordinary discussion of peace.'), false)
   assert.equal(hasToolProtocol('<｜DSML｜tool_calls>'), true)
   assert.equal(hasToolProtocol('<|DSML|invoke name="lookup">'), true)
+})
+
+test('reasoning-only generation is retried with tools disabled and a fresh answer allowance', async () => {
+  let calls = 0
+  const model = wrapLanguageModel({ middleware: toolProtocolGuard, model: new MockLanguageModelV3({ doGenerate: options => {
+    calls++
+    if (calls === 2) {
+      assert.equal(options.toolChoice?.type, 'none')
+      assert.equal(options.maxOutputTokens, 8192)
+    }
+    return Promise.resolve({
+      content: calls === 1 ? [{ type: 'reasoning', text: 'Considering the evidence.' }] : [{ type: 'text', text: 'A grounded answer.' }],
+      finishReason: { unified: calls === 1 ? 'length' : 'stop', raw: calls === 1 ? 'length' : 'stop' }, usage, warnings: [],
+    })
+  } }) })
+  const result = await model.doGenerate({ prompt: [] })
+  assert.equal(calls, 2)
+  assert.deepEqual(result.content, [{ type: 'text', text: 'A grounded answer.' }])
+  assert.equal(result.usage.outputTokens.total, 2)
+})
+
+test('an empty stream is retried before the UI receives it', async () => {
+  let calls = 0
+  const model = wrapLanguageModel({ middleware: toolProtocolGuard, model: new MockLanguageModelV3({ doStream: options => {
+    calls++
+    if (calls === 2) assert.equal(options.toolChoice?.type, 'none')
+    return Promise.resolve({ stream: stream(calls === 1 ? [finish()] : [{ type: 'text-start', id: 'answer' }, { type: 'text-delta', id: 'answer', delta: 'Recovered answer.' }, { type: 'text-end', id: 'answer' }, finish(),]) })
+  } }) })
+  const result = await model.doStream({ prompt: [] })
+  const chunks: LanguageModelV3StreamPart[] = []
+  for await (const chunk of result.stream) chunks.push(chunk)
+  assert.equal(calls, 2)
+  assert.ok(chunks.some(chunk => chunk.type === 'text-delta' && chunk.delta === 'Recovered answer.'))
 })

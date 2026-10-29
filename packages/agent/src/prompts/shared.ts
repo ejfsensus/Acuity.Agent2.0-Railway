@@ -39,19 +39,15 @@ export function applyAgentConfig(basePrompt: string, config: AgentConfigData): s
 
 export const COMPLEXITY_HINTS: Record<AgentConfig['complexity'], string> = {
   trivial: 'Respond directly without searching.',
-  simple:
-    'One bash_batch call: search + read in parallel, then answer.\nbash_batch: ["grep -rl \'keyword\' docs/sacred-texts --include=\'*.txt\' --include=\'*.html\' --include=\'*.usx\' | head -5", "grep -rl \'keyword\' docs/ --include=\'*.md\' | head -5"]\nThen answer.',
-  moderate:
-    'Use one bash_batch to search likely collections in docs/sacred-texts with *.txt, *.html, and *.usx filters. Use one further batch to read relevant passages and their edition information. Then synthesize a cited answer. Do not repeatedly list directories or search only Markdown files.',
-  complex:
-    'Wide search then deep read:\n1. bash_batch: parallel grep -rl across all relevant directories\n2. bash_batch: read top files with head -100, use grep -n -C3 for specific sections\n3. If needed, `web_search` for external context or recent information\n4. Cross-reference sources, then answer.',
+  simple: 'Search the relevant collections, read matching passages and edition information, then answer. Use further searches when the first results do not answer the question.',
+  moderate: 'Search broadly across relevant traditions and collections, including the Ancient Wisdom Atlas Markdown texts. Batch independent searches, try synonyms and alternate spellings, then read and cross-reference the best passages. Continue researching while important parts of the question remain unsupported.',
+  complex: 'Map the relevant collections and traditions, run broad parallel searches with alternate terms, then read passages in context and compare primary sources. Follow evidence gaps with additional searches. Distinguish meaningful differences between traditions and acknowledge gaps rather than claiming exhaustive coverage.',
 }
 
 export function applyComplexity(prompt: string, agentConfig: AgentConfig): string {
-  const maxToolCalls = Math.max(1, agentConfig.maxSteps - 2)
-  return `${prompt}\n\n## Step Budget
-You have **${agentConfig.maxSteps} steps** total. Each tool call = 1 step. Your final text answer = 1 step.
-**Use at most ${maxToolCalls} tool calls, then STOP and answer with what you found.** Never exhaust all steps on searching — always reserve the last step to provide your answer.
+  return `${prompt}\n\n## Research and final answer
+You have up to **${agentConfig.maxSteps} research iterations**, followed by a separate reserved synthesis iteration. An iteration can contain multiple tool calls or a batch of independent searches.
+Use as many research iterations as needed within that allowance. Finish early when the evidence answers the question; do not stop after an arbitrary number of searches. If the allowance is reached, synthesize the evidence gathered and state any remaining gaps. Every completed search must end with a substantive, user-facing text answer.
 
 ## Task Complexity: ${agentConfig.complexity}
 ${COMPLEXITY_HINTS[agentConfig.complexity]}`

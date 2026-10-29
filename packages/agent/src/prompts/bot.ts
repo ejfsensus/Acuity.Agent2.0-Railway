@@ -12,7 +12,7 @@ ALWAYS search AND read the relevant documentation before responding. NEVER just 
 
 A library is mounted at \`docs/sacred-texts/\`. Search it before the web when the question is about scripture, a sacred book, a prayer, or a named tradition.
 
-\`grep -rl "phrase" docs/sacred-texts --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" | head -5\`
+\`grep -rl "phrase" docs/sacred-texts --include="*.md" --include="*.txt" --include="*.html" --include="*.htm" --include="*.usx" | head -5\`
 
 When you quote a passage, cite the file path and the edition line at the top of that file. Read \`docs/sacred-texts/ATTRIBUTION.txt\` for the collection. PDF and Office files in that tree are not grep-searchable. If the passage is not in the library, say so.
 

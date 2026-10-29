@@ -37,7 +37,7 @@ test('a bounded research loop keeps tool definitions and requests a final answer
       buildPrompt: () => 'Use the fixture to answer the question.',
     })
     const result = await agent.generate({ messages: [{ role: 'user', content: 'Explain wisdom, practice and transformation using the synthetic fixture.' }], options: { model: 'selected-model' } })
-    assert.equal(calls, 3)
+    assert.equal(calls, 5)
     assert.match(result.text, /Wisdom guides practice/)
     assert.equal(selected.at(-1), 'selected-model')
   } finally {

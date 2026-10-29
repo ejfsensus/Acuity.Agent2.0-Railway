@@ -18,11 +18,11 @@ function cleanPrompt(prompt: LanguageModelV3CallOptions['prompt']) {
   })
 }
 
-function retryParams(params: LanguageModelV3CallOptions, attempt: number): LanguageModelV3CallOptions {
-  const final = params.toolChoice?.type === 'none' || attempt === 2
+function retryParams(params: LanguageModelV3CallOptions, attempt: number, empty = false): LanguageModelV3CallOptions {
+  const final = empty || params.toolChoice?.type === 'none' || attempt === 2
   return {
     ...params,
-    ...(final && { toolChoice: { type: 'none' } }),
+    ...(final && { toolChoice: { type: 'none' }, maxOutputTokens: 8192 }),
     prompt: [
       ...params.prompt,
       {
@@ -60,13 +60,15 @@ export const toolProtocolGuard: LanguageModelV3Middleware = {
   transformParams: ({ params }) => Promise.resolve({ ...params, prompt: cleanPrompt(params.prompt) }),
   wrapGenerate: async ({ params, model }) => {
     let rejectedUsage: LanguageModelV3Usage | undefined
+    let empty = false
     for (let attempt = 0; attempt < 3; attempt++) {
       params.abortSignal?.throwIfAborted()
-      const options = attempt ? retryParams(params, attempt) : params
+      const options = attempt ? retryParams(params, attempt, empty) : params
       const result = await model.doGenerate(options)
       const text = result.content.filter(part => part.type === 'text').map(part => part.text).join('')
       const forbiddenCall = options.toolChoice?.type === 'none' && result.content.some(part => part.type === 'tool-call')
-      if (!hasToolProtocol(text) && !forbiddenCall) return { ...result, usage: totalUsage(result.usage, rejectedUsage) }
+      empty = !text.trim() && !result.content.some(part => part.type === 'tool-call')
+      if (!hasToolProtocol(text) && !forbiddenCall && !empty) return { ...result, usage: totalUsage(result.usage, rejectedUsage) }
       rejectedUsage = totalUsage(result.usage, rejectedUsage)
       log.warn({ event: 'ai.invalid_tool_protocol', model: model.modelId, attempt: attempt + 1 })
     }
@@ -74,9 +76,10 @@ export const toolProtocolGuard: LanguageModelV3Middleware = {
   },
   wrapStream: async ({ params, model }) => {
     let rejectedUsage: LanguageModelV3Usage | undefined
+    let empty = false
     for (let attempt = 0; attempt < 3; attempt++) {
       params.abortSignal?.throwIfAborted()
-      const options = attempt ? retryParams(params, attempt) : params
+      const options = attempt ? retryParams(params, attempt, empty) : params
       const result = await model.doStream(options)
       const reader = result.stream.getReader()
       const chunks: LanguageModelV3StreamPart[] = []
@@ -98,7 +101,8 @@ export const toolProtocolGuard: LanguageModelV3Middleware = {
         reader.releaseLock()
       }
       const forbiddenCall = options.toolChoice?.type === 'none' && chunks.some(part => part.type === 'tool-call' || part.type === 'tool-input-start')
-      if (!hasToolProtocol(text) && !forbiddenCall) {
+      empty = !text.trim() && !chunks.some(part => part.type === 'tool-call')
+      if (!hasToolProtocol(text) && !forbiddenCall && !empty) {
         const previousUsage = rejectedUsage
         return {
           ...result,

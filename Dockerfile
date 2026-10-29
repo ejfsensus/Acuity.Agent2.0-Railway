@@ -3,7 +3,7 @@
 # Download the full records library on Railway rather than uploading it with
 # every CLI deployment. Pin the commit so builds use a reproducible library.
 FROM node:20-bookworm-slim AS library
-ARG LIBRARY_REVISION=57630aed3acc90a90cf0d71d4e8ce47396b058f4
+ARG LIBRARY_REVISION=126c69580f375a5379853e648798cbc81ac2576f
 ADD https://codeload.github.com/ejfsensus/Acuity.Agent2.0-Railway/tar.gz/${LIBRARY_REVISION} /tmp/library.tar.gz
 RUN mkdir -p /library \
  && tar -xzf /tmp/library.tar.gz -C /library --strip-components=2 --wildcards '*/Texts/sacred_texts_archive/*' \

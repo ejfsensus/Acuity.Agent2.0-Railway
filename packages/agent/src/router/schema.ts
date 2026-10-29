@@ -67,8 +67,8 @@ export const agentConfigSchema = z.object({
   complexity: z.enum(['trivial', 'simple', 'moderate', 'complex'])
     .describe('trivial=greeting, simple=single lookup, moderate=multi-search, complex=deep analysis'),
 
-  maxSteps: z.number().min(1).max(30)
-    .describe('Agent iterations: 4 trivial, 8 simple, 15 moderate, 25 complex'),
+  maxSteps: z.number().int().min(1).max(120)
+    .describe('Research iterations: 4 trivial, 12 simple, 40 moderate, 80 complex; final synthesis has a separate reserved iteration'),
 
   model: z.string()
     .describe(`Model id to use. Prefer one of: ${getConfiguredModels().join(', ')}`),
@@ -82,7 +82,7 @@ export type AgentConfig = z.infer<typeof agentConfigSchema>
 export function getDefaultConfig(): AgentConfig {
   return {
     complexity: 'moderate',
-    maxSteps: 15,
+    maxSteps: 40,
     model: DEFAULT_MODEL,
     reasoning: 'Default fallback configuration',
   }

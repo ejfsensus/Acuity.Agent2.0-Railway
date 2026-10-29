@@ -26,6 +26,10 @@ Startup applies the SQL migration journal, initializes the knowledge library, re
 
 The Docker library stage downloads `Texts/sacred_texts_archive` from this repository at the pinned `LIBRARY_REVISION` commit. The large archive is excluded from CLI uploads and Docker context; Railway downloads it during the build. Update that Docker build argument when publishing a new bundled library revision. The repository must remain readable by Railway's builder.
 
+The expanded library is pinned to `126c6958`, including the 281 Ancient Wisdom Atlas texts. Its changed `LIBRARY_STAMP` refreshes the mounted corpus on startup. These texts use Markdown, so search filters must include `*.md` alongside text, HTML, HTM and USX.
+
+Research defaults to 12 iterations for a simple question, 40 for a moderate question and 80 for a complex question. The configured multiplier applies up to a safety ceiling of 120 research iterations. Each iteration can contain several tool calls; a final synthesis iteration is reserved separately with tools disabled and an 8192-token output allowance. Empty or reasoning-only provider completions are retried. If research still ends without answer text after its last tool result, chat runs a separate synthesis using the original question and completed research messages. This answer is streamed and persisted with the tool results. A persistent model-service failure produces an explicit failure message instead of silently ending on tools. Client cancellation stops recovery.
+
 Startup copies the library to `docs/sacred-texts` on the volume, using `LIBRARY_STAMP` to skip unchanged copies. It is available even before a remote repository is configured. Its snapshot identifier begins with `local-`.
 
 In Admin → Sandbox, select an existing GitHub repository and branch. Public repositories support unauthenticated pulls. Private repositories need a GitHub App installed on that repository or `NUXT_GITHUB_TOKEN`. Saving the configuration starts a pull; **Sync now** explicitly fetches the latest revision. The snapshot ID is the actual checked-out commit SHA, not a Vercel snapshot image ID.

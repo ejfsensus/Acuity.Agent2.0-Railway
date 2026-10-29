@@ -50,7 +50,8 @@ export function createAdminAgent({
         model: wrap(effectiveModel),
         instructions: systemPrompt,
         tools,
-        stopWhen: stepCountIs(maxSteps),
+        stopWhen: stepCountIs(maxSteps + 1),
+        maxOutputTokens: 8192,
         providerOptions: buildProviderOptions(effectiveModel, resolveGatewayMetadata()),
         experimental_context: executionContext,
       }

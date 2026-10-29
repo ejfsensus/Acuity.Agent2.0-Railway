@@ -7,7 +7,7 @@ import { applyComplexity } from '../prompts/shared'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
-import { countConsecutiveToolSteps, finalAnswerMessages, shouldForceTextOnlyStep } from '../core/policy'
+import { finalAnswerMessages, researchStepBudget, shouldForceTextOnlyStep } from '../core/policy'
 import { braveLlmContextTool, webSearchTool } from '../tools/web-search'
 import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
 import type { AgentConfigData, AgentCallOptions, AgentExecutionContext, RoutingResult } from '../types'
@@ -56,7 +56,7 @@ export function createSourceAgent({
         getAgentConfig(),
       ])
 
-      const effectiveMaxSteps = Math.round(routerConfig.maxSteps * agentConfig.maxStepsMultiplier)
+      const effectiveMaxSteps = researchStepBudget(routerConfig.maxSteps, agentConfig.maxStepsMultiplier)
       const effectiveModel = modelOverride ?? agentConfig.defaultModel ?? defaultModel
       currentModel = effectiveModel
 
@@ -75,13 +75,14 @@ export function createSourceAgent({
       return {
         ...settings,
         model: wrap(effectiveModel),
-        instructions: applyComplexity(buildChatSystemPrompt(agentConfig), routerConfig),
+        instructions: applyComplexity(buildChatSystemPrompt(agentConfig), { ...routerConfig, maxSteps: effectiveMaxSteps }),
         tools: {
           ...tools,
           web_search: webSearchTool,
           brave_llm_context: braveLlmContextTool,
         },
-        stopWhen: stepCountIs(effectiveMaxSteps),
+        stopWhen: stepCountIs(effectiveMaxSteps + 1),
+        maxOutputTokens: 8192,
         providerOptions: buildProviderOptions(effectiveModel, resolveGatewayMetadata()),
         experimental_context: executionContext,
       }
@@ -92,7 +93,7 @@ export function createSourceAgent({
       const compactedMessages = compactContext({ messages: stepMessages, steps: normalizedSteps })
 
       if (shouldForceTextOnlyStep({ stepNumber, maxSteps, steps: normalizedSteps })) {
-        log.info({ event: 'agent.force_text_step', step: stepNumber + 1, maxSteps, toolStreak: countConsecutiveToolSteps(normalizedSteps) })
+        log.info({ event: 'agent.force_text_step', step: stepNumber + 1, maxSteps })
         return {
           toolChoice: 'none' as const,
           messages: finalAnswerMessages(compactedMessages),

@@ -1,10 +1,11 @@
-import { convertToModelMessages, createUIMessageStream, createUIMessageStreamResponse, type LanguageModelUsage, type UIMessage } from 'ai'
+import { convertToModelMessages, createUIMessageStream, createUIMessageStreamResponse, type LanguageModelUsage, type ModelMessage, type StepResult, type ToolSet, type UIMessage } from 'ai'
 import { z } from 'zod'
 import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
 import { createSavoir } from '@savoir/sdk'
 import { useLogger } from 'evlog'
-import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE } from '@savoir/agent'
+import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, braveLlmContextTool, webSearchTool } from '@savoir/agent'
+import { completeResponseStream } from '../../utils/chat/complete-response'
 import { generateTitle } from '../../utils/chat/generate-title'
 import { getAgentConfig } from '../../utils/agent-config'
 import { KV_KEYS } from '../../utils/sandbox/types'
@@ -97,13 +98,19 @@ export default defineEventHandler(async (event) => {
       sessionId: existingSessionId || undefined,
     })
 
+    let researchMessages: ModelMessage[] = []
+    const onStepFinish = (step: StepResult<ToolSet>) => {
+      researchMessages = step.response.messages
+    }
     const agent = isAdminChat
       ? createAdminAgent({
         tools: adminTools,
+        onStepFinish,
       })
       : createSourceAgent({
         tools: savoir.tools,
         getAgentConfig,
+        onStepFinish,
         messages,
         defaultModel: model,
         requestId,
@@ -137,6 +144,7 @@ export default defineEventHandler(async (event) => {
       : null
 
     let usagePromise: PromiseLike<LanguageModelUsage> | undefined
+    let recoveryUsage: LanguageModelUsage | undefined
     let responseFailed = false
     const onResponseError = (error: unknown) => {
       responseFailed = true
@@ -148,13 +156,31 @@ export default defineEventHandler(async (event) => {
     const stream = createUIMessageStream({
       onError: onResponseError,
       execute: async ({ writer }) => {
+        const modelMessages = await convertToModelMessages(messages)
         const result = await agent.stream({
-          messages: await convertToModelMessages(messages),
+          messages: modelMessages,
           options: { model },
           abortSignal: abortController.signal,
         })
         usagePromise = result.totalUsage
-        writer.merge(result.toUIMessageStream({ onError: onResponseError }))
+        writer.merge(completeResponseStream({
+          stream: result.toUIMessageStream({ onError: onResponseError }),
+          abortSignal: abortController.signal,
+          onError: onResponseError,
+          recover: async () => {
+            requestLog.set({ synthesisRecovery: true, completedResearchMessages: researchMessages.length })
+            const final = await generateFinalAnswer({
+              model: effectiveModel,
+              messages: [...modelMessages, ...researchMessages],
+              tools: (isAdminChat ? adminTools : { ...savoir.tools, web_search: webSearchTool, brave_llm_context: braveLlmContextTool }) as ToolSet,
+              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(await getAgentConfig()),
+              abortSignal: abortController.signal,
+            })
+            recoveryUsage = final.totalUsage
+            if (final.text.trim()) responseFailed = false
+            return final.text
+          },
+        }))
 
         const title = await titleTask
         if (title) {
@@ -175,8 +201,8 @@ export default defineEventHandler(async (event) => {
           ...(message.role === 'assistant' && {
             model: effectiveModel,
             durationMs: totalDurationMs,
-            inputTokens: index === usageMessageIndex ? usage?.inputTokens : undefined,
-            outputTokens: index === usageMessageIndex ? usage?.outputTokens : undefined,
+            inputTokens: index === usageMessageIndex ? (usage?.inputTokens ?? 0) + (recoveryUsage?.inputTokens ?? 0) : undefined,
+            outputTokens: index === usageMessageIndex ? (usage?.outputTokens ?? 0) + (recoveryUsage?.outputTokens ?? 0) : undefined,
           }),
         })))
         const dbDurationMs = Date.now() - dbStartTime
