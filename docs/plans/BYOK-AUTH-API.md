@@ -95,3 +95,7 @@ Release gates: two users on the same provider URL but different keys must never 
 See [EXTERNAL-API.md](../EXTERNAL-API.md) and `examples/external-api.py`. Today, authenticated JSON sandbox retrieval can already support independently billed AI running in an external client. Hosted-agent research uses Acuity's configured model until the BYOK plan is implemented. The prepared fixes forward bearer/x-api-key identity to internal tools and keep one-command batch responses consistent.
 
 There is no dedicated OpenAI-compatible inference endpoint, app-level MCP server, durable task queue, callback/webhook result API, or per-user disposable VM today. A later `POST /api/v1/agent/runs` with an explicit versioned JSON/SSE contract could wrap the current two-request chat protocol. Durable/background work needs a job store, worker, idempotency keys, cancellation and owner-scoped status/results; it must not be advertised as already available.
+
+## Amendment (2026-10-30): service accounts
+
+Emails listed in `AGENT_SERVICE_ACCOUNT_EMAILS` (e.g. Acuity.Search's Sacred Texts relay) are exempt from the "every non-admin must bring their own key" rule and keep using the operator's model configuration. They remain plain members (never admins) and are exempt from the daily question limit.
