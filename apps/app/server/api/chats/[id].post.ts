@@ -11,7 +11,9 @@ import { generateTitle } from '../../utils/chat/generate-title'
 import { getAgentConfig } from '../../utils/agent-config'
 import { KV_KEYS } from '../../utils/sandbox/types'
 import { adminTools } from '../../utils/chat/admin-tools'
-import { checkRateLimit, incrementRateLimit } from '../../utils/rate-limit'
+import { checkRateLimit, incrementRateLimit, isRateLimited, isServiceAccount } from '../../utils/rate-limit'
+import { buildSourcesChunk, labelCitedSources, sourcesFromToolResults, type ToolResultLike } from '../../utils/chat/collect-sources'
+import { libraryAttributions } from '../../utils/attribution'
 import { appKvGet, appKvSet } from '../../utils/app-kv'
 
 defineRouteMeta({
@@ -67,8 +69,15 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 403, statusMessage: 'Admin access required', data: { why: 'This chat is in admin mode and requires the admin role', fix: 'Contact an administrator to be granted access' } })
     }
 
+    const serviceAccount = isServiceAccount(user.email)
+    if (serviceAccount) {
+      // Acuity.Search relays questions for its own users; it names them with an opaque id.
+      const onBehalfOf = getHeader(event, 'x-acuity-on-behalf-of')?.slice(0, 120)
+      requestLog.set({ serviceAccount: true, ...(onBehalfOf && { onBehalfOf }) })
+    }
+
     let rateLimitInfo: { allowed: boolean, remaining: number, limit: number } | undefined
-    if (user.role !== 'admin') {
+    if (isRateLimited(user)) {
       rateLimitInfo = await checkRateLimit(user.id)
       if (!rateLimitInfo.allowed) {
         throw createError({ statusCode: 429, statusMessage: 'Rate limit exceeded', data: { why: `You have reached the daily limit of ${rateLimitInfo.limit} messages`, fix: 'Wait until tomorrow or contact an administrator' } })
@@ -87,7 +96,9 @@ export default defineEventHandler(async (event) => {
 
     let effectiveModel = model
 
-    const existingSessionId = await appKvGet<string>(KV_KEYS.ACTIVE_SANDBOX_SESSION)
+    // One sandbox session per chat: concurrent chats must not share a shell or its working state.
+    const sandboxKey = KV_KEYS.chatSandboxSession(chat.id)
+    const existingSessionId = await appKvGet<string>(sandboxKey)
     if (existingSessionId) {
       requestLog.set({ sandboxSessionId: existingSessionId })
     }
@@ -99,8 +110,12 @@ export default defineEventHandler(async (event) => {
     })
 
     let researchMessages: ModelMessage[] = []
+    const toolResults: ToolResultLike[] = []
     const onStepFinish = (step: StepResult<ToolSet>) => {
       researchMessages = step.response.messages
+      for (const result of step.toolResults ?? []) {
+        toolResults.push({ toolName: result.toolName, output: (result as { output?: unknown }).output })
+      }
     }
     const agent = isAdminChat
       ? createAdminAgent({
@@ -163,6 +178,24 @@ export default defineEventHandler(async (event) => {
           abortSignal: abortController.signal,
         })
         usagePromise = result.totalUsage
+        let answerText = ''
+        // Emits the structured sources (acuity.agent-sources.v1) just before `finish`, so they are
+        // persisted with the assistant message and visible to API callers in the stream and in GET.
+        const withSources = new TransformStream<any, any>({
+          transform(chunk, controller) {
+            if (chunk?.type === 'text-delta' && typeof chunk.delta === 'string') answerText += chunk.delta
+            if (chunk?.type === 'finish' && !isAdminChat) {
+              try {
+                const sources = labelCitedSources(sourcesFromToolResults(toolResults, libraryAttributions()), answerText)
+                if (sources.length) controller.enqueue(buildSourcesChunk(sources))
+                requestLog.set({ sourcesCollected: sources.length, sourcesCited: sources.filter(source => source.cited).length })
+              } catch (error) {
+                requestLog.set({ sourcesError: error instanceof Error ? error.message : String(error) })
+              }
+            }
+            controller.enqueue(chunk)
+          },
+        })
         writer.merge(completeResponseStream({
           stream: result.toUIMessageStream({ onError: onResponseError }),
           abortSignal: abortController.signal,
@@ -180,7 +213,7 @@ export default defineEventHandler(async (event) => {
             if (final.text.trim()) responseFailed = false
             return final.text
           },
-        }))
+        }).pipeThrough(withSources))
 
         const title = await titleTask
         if (title) {
@@ -210,11 +243,11 @@ export default defineEventHandler(async (event) => {
         if (!isAdminChat) {
           const currentSessionId = savoir.getSessionId()
           if (currentSessionId) {
-            await appKvSet(KV_KEYS.ACTIVE_SANDBOX_SESSION, currentSessionId)
+            await appKvSet(sandboxKey, currentSessionId, { ttl: 60 * 60 })
           }
         }
 
-        if (user.role !== 'admin') {
+        if (isRateLimited(user)) {
           await incrementRateLimit(user.id)
         }
 

@@ -1,7 +1,7 @@
 import type { UIMessage } from 'ai'
 import { db, schema } from '@nuxthub/db'
 import { z } from 'zod'
-import { checkRateLimit, incrementRateLimit } from '../utils/rate-limit'
+import { checkRateLimit, isRateLimited } from '../utils/rate-limit'
 import type { CreateChatBody, CreateChatResponse } from '#shared/types/chat'
 
 const bodySchema = z.object({
@@ -23,7 +23,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, statusMessage: 'Admin access required', data: { why: 'Admin chat mode requires the admin role', fix: 'Contact an administrator to be granted access' } })
   }
 
-  if (user.role !== 'admin') {
+  // Pre-check only: the question is counted once, when POST /api/chats/:id runs it.
+  if (isRateLimited(user)) {
     const rateLimit = await checkRateLimit(user.id)
     if (!rateLimit.allowed) {
       throw createError({ statusCode: 429, statusMessage: 'Rate limit exceeded', data: { why: `You have reached the daily limit of ${rateLimit.limit} messages`, fix: 'Wait until tomorrow or contact an administrator' } })
@@ -47,10 +48,6 @@ export default defineEventHandler(async (event) => {
     role: 'user',
     parts: message.parts
   })
-
-  if (user.role !== 'admin') {
-    await incrementRateLimit(user.id)
-  }
 
   return chat satisfies CreateChatResponse
 })
