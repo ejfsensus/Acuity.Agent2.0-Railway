@@ -20,7 +20,9 @@ GitHub login is optional and separate from repository synchronization:
 
 | Variable | Purpose |
 | --- | --- |
-| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | GitHub user authentication credentials. |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | GitHub user authentication credentials (kept as a fallback during unified login). |
+| `ACUITY_OIDC_ISSUER`, `ACUITY_OIDC_CLIENT_ID`, `ACUITY_OIDC_CLIENT_SECRET` | Unified login through the Acuity identity provider (`https://auth.acuity.institute/api/auth`). Register the "agent" application in the IdP admin; redirect URI `<BETTER_AUTH_URL>/api/auth/callback/acuity`. New identities need `email_verified` and must pass `AUTHORIZED_USER_EMAILS` (unless public sign-up). Existing accounts link by verified email. |
+| `AUTH_LOCAL_LOGIN_ENABLED` | Email/password sign-in fallback. Default on; `false` hides the form and blocks `/api/auth/sign-in/email` only while the Acuity IdP is configured. |
 | `NUXT_PUBLIC_GITHUB_LOGIN_ENABLED=true` | Runtime flag displaying GitHub sign-in. |
 
 Configure the GitHub callback as `https://agent.acuity.institute/api/auth/callback/github`. The GitHub App installation ID/private key used for source access does not replace the login client credentials.

@@ -1,3 +1,7 @@
-import { isPublicSignupEnabled } from '../utils/access-policy'
+import { isAcuityLoginConfigured, isLocalLoginEnabled, isPublicSignupEnabled } from '../utils/access-policy'
 
-export default defineEventHandler(() => ({ publicSignupEnabled: isPublicSignupEnabled() }))
+export default defineEventHandler(() => ({
+  publicSignupEnabled: isPublicSignupEnabled(),
+  acuityLoginEnabled: isAcuityLoginConfigured(),
+  localLoginEnabled: isLocalLoginEnabled(),
+}))

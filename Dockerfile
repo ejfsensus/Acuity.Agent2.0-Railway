@@ -2,7 +2,7 @@
 
 # Download the full records library on Railway rather than uploading it with
 # every CLI deployment. Pin the commit so builds use a reproducible library.
-FROM node:20-bookworm-slim AS library
+FROM node:22-bookworm-slim AS library
 ARG LIBRARY_REVISION=126c69580f375a5379853e648798cbc81ac2576f
 ADD https://codeload.github.com/ejfsensus/Acuity.Agent2.0-Railway/tar.gz/${LIBRARY_REVISION} /tmp/library.tar.gz
 RUN mkdir -p /library \
@@ -15,7 +15,7 @@ RUN mkdir -p /library \
 # ---------------------------------------------------------------------------
 FROM oven/bun:1.3.14 AS bun
 
-FROM node:20-bookworm-slim AS builder
+FROM node:22-bookworm-slim AS builder
 COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
 RUN ln -s /usr/local/bin/bun /usr/local/bin/bunx
 WORKDIR /app
@@ -47,7 +47,7 @@ RUN cd apps/app && bun run build
 # ---------------------------------------------------------------------------
 # Runtime — long-lived Node service
 # ---------------------------------------------------------------------------
-FROM node:20-bookworm-slim AS runtime
+FROM node:22-bookworm-slim AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production \

@@ -1,9 +1,9 @@
-import { admin } from 'better-auth/plugins'
+import { admin, genericOAuth } from 'better-auth/plugins'
 import { apiKey } from '@better-auth/api-key'
 import { schema } from '@nuxthub/db'
 import { count, eq } from 'drizzle-orm'
 import { defineServerAuth } from '@onmax/nuxt-better-auth/config'
-import { isPublicSignupEnabled } from './utils/access-policy'
+import { acuityOidcSignupError, isAcuityLoginConfigured, isPublicSignupEnabled } from './utils/access-policy'
 
 export default defineServerAuth(({ db }) => {
   const githubClientId = process.env.GITHUB_CLIENT_ID || ''
@@ -13,6 +13,32 @@ export default defineServerAuth(({ db }) => {
     || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '')
     || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '')
     || (process.env.VERCEL ? 'https://acuity-agent.vercel.app' : '')
+
+  // Unified login: auth.acuity.institute as a generic OIDC provider ("acuity").
+  // Callback (better-auth 1.7): <BETTER_AUTH_URL>/api/auth/callback/acuity
+  const acuityIssuer = (process.env.ACUITY_OIDC_ISSUER || '').trim().replace(/\/+$/, '')
+  const acuityPlugins = isAcuityLoginConfigured()
+    ? [
+      genericOAuth({
+        config: [
+          {
+            providerId: 'acuity',
+            discoveryUrl: `${acuityIssuer}/.well-known/openid-configuration`,
+            clientId: process.env.ACUITY_OIDC_CLIENT_ID!.trim(),
+            clientSecret: process.env.ACUITY_OIDC_CLIENT_SECRET!.trim(),
+            scopes: ['openid', 'profile', 'email'],
+            pkce: true,
+            mapProfileToUser: (profile: Record<string, unknown>) => ({
+              email: String(profile.email || '').toLowerCase(),
+              emailVerified: profile.email_verified === true,
+              name: String(profile.name || profile.email || ''),
+              image: typeof profile.picture === 'string' ? profile.picture : undefined,
+            }),
+          }
+        ],
+      })
+    ]
+    : []
 
   return {
     baseURL,
@@ -44,9 +70,25 @@ export default defineServerAuth(({ db }) => {
       additionalFields: {
         username: { type: 'string' as const, required: false },
       },
+      // New identities from the Acuity IdP must be verified and approved.
+      validateUserInfo: (data: { user: Record<string, unknown>, source: { action: string, method: string, oauth?: { providerId: string } } }) => {
+        const { user, source } = data
+        if (source.action !== 'create-user' || source.oauth?.providerId !== 'acuity') return
+        const reason = acuityOidcSignupError(user)
+        return reason ? { error: 'sign_up_not_allowed', errorDescription: reason } : undefined
+      },
+    },
+    // Existing accounts link to their Acuity identity on first sign-in. Linking
+    // requires the IdP to assert email_verified (acuity is not a trusted provider).
+    account: {
+      accountLinking: {
+        enabled: true,
+        allowDifferentEmails: false,
+      },
     },
     plugins: [
       admin(),
+      ...acuityPlugins,
       apiKey({
         enableSessionForAPIKeys: true,
         rateLimit: {

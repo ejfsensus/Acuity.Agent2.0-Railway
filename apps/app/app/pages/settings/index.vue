@@ -8,7 +8,8 @@ useSeoMeta({ title: 'Settings' })
 const toast = useToast()
 const overlay = useOverlay()
 const { showError } = useErrorToast()
-const { client, user, session, signOut, fetchSession } = useUserSession()
+const client = useAuthClient()
+const { user, session, signOut, fetchSession } = useUserSession()
 
 const nameInput = ref(user.value?.name ?? '')
 const isSavingProfile = ref(false)
@@ -69,7 +70,10 @@ async function linkGithub() {
 async function unlinkGithub() {
   isUnlinking.value = true
   try {
-    await client!.unlinkAccount({ providerId: 'github' })
+    // better-auth 1.7 unlinks by the Better Auth account row id.
+    const github = accounts.value?.data?.find((a: any) => a.providerId === 'github')
+    if (!github) return
+    await client!.unlinkAccount({ accountId: github.id })
     await refreshAccounts()
     toast.add({ title: 'GitHub account unlinked', icon: 'i-lucide-check' })
   } catch (e) {

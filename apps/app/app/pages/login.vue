@@ -21,8 +21,9 @@ useSeoMeta({
 const route = useRoute()
 const loading = ref(false)
 const githubLoading = ref(false)
+const acuityLoading = ref(false)
 const error = ref('')
-const { signIn, signUp } = useUserSession()
+const authClient = useAuthClient()
 const githubEnabled = computed(() => String(runtimeConfig.public.githubLoginEnabled) === 'true')
 const { data: accessPolicy } = await useFetch('/api/access-policy')
 const isSigningUp = ref(false)
@@ -56,10 +57,10 @@ async function onSubmit() {
   error.value = ''
   try {
     if (signupMode.value) {
-      await signUp.email({ name: state.name.trim(), email: state.email, password: state.password })
+      await authClient!.signUp.email({ name: state.name.trim(), email: state.email, password: state.password })
       await navigateTo('/settings', { replace: true })
     } else {
-      await signIn.email({ email: state.email, password: state.password })
+      await authClient!.signIn.email({ email: state.email, password: state.password })
       await navigateTo('/', { replace: true })
     }
   } catch (e: any) {
@@ -69,9 +70,17 @@ async function onSubmit() {
   }
 }
 
+function onAcuity() {
+  acuityLoading.value = true
+  authClient!.signIn.social({ provider: 'acuity' as any, callbackURL: '/' }).catch((e: any) => {
+    error.value = e?.message || 'Could not reach Acuity sign-in. Please try again.'
+    acuityLoading.value = false
+  })
+}
+
 function onGitHub() {
   githubLoading.value = true
-  signIn.social({ provider: 'github', callbackURL: '/' })
+  authClient!.signIn.social({ provider: 'github', callbackURL: '/' })
 }
 </script>
 
@@ -96,6 +105,18 @@ function onGitHub() {
           </p>
         </div>
 
+        <template v-if="accessPolicy?.acuityLoginEnabled && !signupMode">
+          <UButton
+            label="Continue with Acuity"
+            icon="i-lucide-orbit"
+            block
+            size="lg"
+            :loading="acuityLoading"
+            class="mb-3"
+            @click="onAcuity"
+          />
+        </template>
+
         <template v-if="githubEnabled && !signupMode">
           <UButton
             label="Continue with GitHub"
@@ -108,8 +129,9 @@ function onGitHub() {
             @click="onGitHub"
           />
 
-          <USeparator label="or" class="my-6" />
+          <USeparator v-if="accessPolicy?.localLoginEnabled !== false" label="or" class="my-6" />
         </template>
+        <USeparator v-else-if="accessPolicy?.acuityLoginEnabled && accessPolicy?.localLoginEnabled !== false && !signupMode" label="or" class="my-6" />
 
         <UAlert
           v-if="error"
@@ -122,7 +144,7 @@ function onGitHub() {
           @close="error = ''"
         />
 
-        <UForm :schema :state class="space-y-4" @submit="onSubmit">
+        <UForm v-if="accessPolicy?.localLoginEnabled !== false || signupMode" :schema :state class="space-y-4" @submit="onSubmit">
           <UFormField v-if="signupMode" label="Name" name="name">
             <UInput v-model="state.name" autocomplete="name" placeholder="Your name" size="lg" class="w-full" />
           </UFormField>

@@ -113,17 +113,17 @@ async function deleteSource(source: SerializedSource) {
       total: sources.value.total - 1,
       github: {
         ...sources.value.github,
-        sources: sources.value.github.sources.filter(s => s.id !== source.id),
+        sources: sources.value.github.sources.filter((s: { id: string }) => s.id !== source.id),
         count: source.type === 'github' ? sources.value.github.count - 1 : sources.value.github.count,
       },
       youtube: {
         ...sources.value.youtube,
-        sources: sources.value.youtube.sources.filter(s => s.id !== source.id),
+        sources: sources.value.youtube.sources.filter((s: { id: string }) => s.id !== source.id),
         count: source.type === 'youtube' ? sources.value.youtube.count - 1 : sources.value.youtube.count,
       },
       file: {
         ...sources.value.file,
-        sources: sources.value.file.sources.filter(s => s.id !== source.id),
+        sources: sources.value.file.sources.filter((s: { id: string }) => s.id !== source.id),
         count: source.type === 'file' ? sources.value.file.count - 1 : sources.value.file.count,
       },
     }
