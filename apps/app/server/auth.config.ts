@@ -28,6 +28,7 @@ export default defineServerAuth(({ db }) => {
             clientSecret: process.env.ACUITY_OIDC_CLIENT_SECRET!.trim(),
             scopes: ['openid', 'profile', 'email'],
             pkce: true,
+            authentication: process.env.OIDC_TOKEN_AUTH?.trim() === 'post' ? 'post' : 'basic',
             mapProfileToUser: (profile: Record<string, unknown>) => ({
               email: String(profile.email || '').toLowerCase(),
               emailVerified: profile.email_verified === true,
