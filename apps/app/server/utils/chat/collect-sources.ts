@@ -94,6 +94,11 @@ function titleFromPath(path: string): string {
   return file.replace(/\.(txt|md|html?|usx|ya?ml|json)$/i, '').replace(/[_-]+/g, ' ').trim() || path
 }
 
+/** Library housekeeping files (attribution, readme, manifests) are not sources. */
+export function isHousekeepingFile(path: string): boolean {
+  return /(^|\/)(ATTRIBUTION|README|MANIFEST|LIBRARY_STAMP|download_links|download_list)(\.[a-z]+)?$/i.test(path)
+}
+
 function corpusSource(path: string, text: string, attributions: CollectionAttribution[], lines?: [number, number]): AgentSource {
   const attribution = attributionFor(path, attributions)
   const ref = lines ? `corpus:${path}:L${lines[0]}-${lines[1]}` : `corpus:${path}`
@@ -211,7 +216,7 @@ export function sourcesFromToolResults(results: ToolResultLike[], attributions: 
         ? sourcesFromBash(result.output, attributions)
         : []
     for (const source of found) {
-      if (!source.text.trim()) continue
+      if (!source.text.trim() || (source.path && isHousekeepingFile(source.path))) continue
       if (!byRef.has(source.ref)) byRef.set(source.ref, source)
       if (byRef.size >= MAX_SOURCES) break
     }

@@ -74,3 +74,8 @@ test('buildSourcesChunk uses the v1 schema', () => {
   assert.equal(chunk.data.schema, AGENT_SOURCES_SCHEMA)
   assert.equal(publicUrlFor('docs/sacred-texts/source2_openbible/x'), undefined)
 })
+
+test('housekeeping files are not sources', () => {
+  const out = sourcesFromToolResults([{ toolName: 'bash', output: { commands: [{ command: 'cat docs/sacred-texts/ATTRIBUTION.txt', stdout: 'x' }] } }])
+  assert.equal(out.length, 0)
+})
