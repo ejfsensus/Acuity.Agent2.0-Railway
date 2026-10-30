@@ -1,6 +1,9 @@
+import { isPublicSignupEnabled } from '../utils/access-policy'
+
 export default defineEventHandler((event) => {
   const path = getRequestURL(event).pathname
   if (!path.startsWith('/api/auth/sign-up')) return
+  if (isPublicSignupEnabled()) return
 
   throw createError({
     statusCode: 403,

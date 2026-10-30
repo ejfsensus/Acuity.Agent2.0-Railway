@@ -3,6 +3,7 @@ import { apiKey } from '@better-auth/api-key'
 import { schema } from '@nuxthub/db'
 import { count, eq } from 'drizzle-orm'
 import { defineServerAuth } from '@onmax/nuxt-better-auth/config'
+import { isPublicSignupEnabled } from './utils/access-policy'
 
 export default defineServerAuth(({ db }) => {
   const githubClientId = process.env.GITHUB_CLIENT_ID || ''
@@ -18,6 +19,7 @@ export default defineServerAuth(({ db }) => {
     secret: process.env.NUXT_BETTER_AUTH_SECRET || process.env.BETTER_AUTH_SECRET || (process.env.VERCEL ? 'acuity-agent-build-time-auth-secret' : 'local-dev-secret-for-acuity-agent'),
     emailAndPassword: {
       enabled: true,
+      disableSignUp: !isPublicSignupEnabled(),
     },
     advanced: {
       database: {
@@ -65,7 +67,7 @@ export default defineServerAuth(({ db }) => {
           after: async (user: { id: string }) => {
             try {
               const result = await db.select({ total: count() }).from(schema.user)
-              if (result[0]!.total === 1) {
+              if (!isPublicSignupEnabled() && result[0]!.total === 1) {
                 await db.update(schema.user).set({ role: 'admin' }).where(eq(schema.user.id, user.id))
               }
             } catch (error) {

@@ -1,21 +1,9 @@
 import type { H3Event } from 'h3'
-
-const DEFAULT_ALLOWED_EMAILS = ['developments@sensusinvista.ltd']
-
-function getAllowedEmails(): string[] {
-  const configured = process.env.AUTHORIZED_USER_EMAILS || process.env.NUXT_AUTHORIZED_USER_EMAILS
-  return (configured || DEFAULT_ALLOWED_EMAILS.join(','))
-    .split(',')
-    .map(email => email.trim().toLowerCase())
-    .filter(Boolean)
-}
+import { isEmailAllowed } from './access-policy'
 
 export async function requireAuthorizedUser(event: H3Event) {
   const { user } = await requireUserSession(event)
-  const allowedEmails = getAllowedEmails()
-  const email = user.email?.toLowerCase()
-
-  if (!email || !allowedEmails.includes(email)) {
+  if (!isEmailAllowed(user.email)) {
     throw createError({
       statusCode: 403,
       message: 'Access restricted',

@@ -6,6 +6,7 @@ import { createSavoir } from '@savoir/sdk'
 import { useLogger } from 'evlog'
 import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, researchTools } from '@savoir/agent'
 import { completeResponseStream } from '../../utils/chat/complete-response'
+import { forwardAuthHeaders } from '../../utils/chat/forward-auth'
 import { generateTitle } from '../../utils/chat/generate-title'
 import { getAgentConfig } from '../../utils/agent-config'
 import { KV_KEYS } from '../../utils/sandbox/types'
@@ -91,10 +92,9 @@ export default defineEventHandler(async (event) => {
       requestLog.set({ sandboxSessionId: existingSessionId })
     }
 
-    const cookie = getHeader(event, 'cookie')
     const savoir = createSavoir({
       apiUrl: getRequestURL(event).origin,
-      headers: cookie ? { cookie } : undefined,
+      headers: forwardAuthHeaders(getHeaders(event)),
       sessionId: existingSessionId || undefined,
     })
 

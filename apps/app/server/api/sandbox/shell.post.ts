@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
     validateCommand(cmd)
   }
 
-  const isBatch = commands.length > 1
+  const isBatch = Boolean(body.commands)
   requestLog.set({ commandCount: commands.length, isBatch })
 
   const sandboxStart = Date.now()

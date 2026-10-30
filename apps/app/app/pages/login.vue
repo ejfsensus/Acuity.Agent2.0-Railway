@@ -22,8 +22,11 @@ const route = useRoute()
 const loading = ref(false)
 const githubLoading = ref(false)
 const error = ref('')
-const { signIn } = useUserSession()
+const { signIn, signUp } = useUserSession()
 const githubEnabled = computed(() => String(runtimeConfig.public.githubLoginEnabled) === 'true')
+const { data: accessPolicy } = await useFetch('/api/access-policy')
+const isSigningUp = ref(false)
+const signupMode = computed(() => Boolean(accessPolicy.value?.publicSignupEnabled) && isSigningUp.value)
 
 const oauthErrors: Record<string, string> = {
   access_denied: 'Access denied by GitHub.',
@@ -38,21 +41,27 @@ onMounted(() => {
   }
 })
 
-const state = reactive({ email: '', password: '' })
+const state = reactive({ name: '', email: '', password: '' })
 
 const signInSchema = z.object({
   email: z.email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-const schema = signInSchema
+const signUpSchema = signInSchema.extend({ name: z.string().trim().min(1, 'Name is required').max(100) })
+const schema = computed(() => signupMode.value ? signUpSchema : signInSchema)
 
 async function onSubmit() {
   loading.value = true
   error.value = ''
   try {
-    await signIn.email({ email: state.email, password: state.password })
-    await navigateTo('/', { replace: true })
+    if (signupMode.value) {
+      await signUp.email({ name: state.name.trim(), email: state.email, password: state.password })
+      await navigateTo('/settings', { replace: true })
+    } else {
+      await signIn.email({ email: state.email, password: state.password })
+      await navigateTo('/', { replace: true })
+    }
   } catch (e: any) {
     error.value = e?.data?.message || e?.message || 'Something went wrong. Please try again.'
   } finally {
@@ -80,14 +89,14 @@ function onGitHub() {
             {{ appConfig.app.tagline }}
           </p>
           <h1 class="font-display text-3xl font-semibold text-highlighted">
-            Welcome back
+            {{ signupMode ? 'Create your account' : 'Welcome back' }}
           </h1>
           <p class="mt-1.5 text-sm text-muted">
-            Sign in to {{ appConfig.app.name }}.
+            {{ signupMode ? 'Create an account, then configure your AI provider in Settings.' : `Sign in to ${appConfig.app.name}.` }}
           </p>
         </div>
 
-        <template v-if="githubEnabled">
+        <template v-if="githubEnabled && !signupMode">
           <UButton
             label="Continue with GitHub"
             icon="i-simple-icons-github"
@@ -114,6 +123,9 @@ function onGitHub() {
         />
 
         <UForm :schema :state class="space-y-4" @submit="onSubmit">
+          <UFormField v-if="signupMode" label="Name" name="name">
+            <UInput v-model="state.name" autocomplete="name" placeholder="Your name" size="lg" class="w-full" />
+          </UFormField>
           <UFormField label="Email" name="email">
             <UInput v-model="state.email" type="email" placeholder="you@example.com" size="lg" class="w-full" />
           </UFormField>
@@ -124,13 +136,24 @@ function onGitHub() {
 
           <UButton
             type="submit"
-            label="Sign in"
+            :label="signupMode ? 'Create account' : 'Sign in'"
             block
             size="lg"
             :loading
             class="shadow-[0_0_28px_rgba(250,219,95,.16)]"
           />
         </UForm>
+
+        <UButton
+          v-if="accessPolicy?.publicSignupEnabled"
+          :label="signupMode ? 'Already have an account? Sign in' : 'Create an account'"
+          variant="link"
+          color="neutral"
+          block
+          class="mt-4"
+          :disabled="loading"
+          @click="isSigningUp = !isSigningUp; error = ''"
+        />
 
         <UAlert
           class="mt-8"

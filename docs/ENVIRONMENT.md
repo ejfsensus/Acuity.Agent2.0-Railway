@@ -10,10 +10,11 @@ Production runs on Railway. See [Railway deployment](RAILWAY-DEPLOYMENT.md) for 
 | `NUXT_BETTER_AUTH_SECRET` | Set to the same secret in production. Nuxt uses this runtime variable to replace the image's build placeholder. |
 | `BETTER_AUTH_URL` | Canonical origin: `https://agent.acuity.institute` in production. |
 | `NUXT_PUBLIC_SITE_URL` | The same canonical origin for browser auth, callbacks, links, and attachments. Use `http://localhost:3000` locally. |
+| `PUBLIC_SIGNUP_ENABLED` | Defaults to `false`. Prepared public email/password registration and authenticated-user access; keep closed until BYOK enforcement is implemented. |
 | `AUTHORIZED_USER_EMAILS` | Comma-separated access allowlist; defaults to `developments@sensusinvista.ltd`. |
 | `POSTGRES_URL` | Railway Postgres connection string. `POSTGRESQL_URL` and `DATABASE_URL` are accepted aliases. |
 
-The allowlist does not create an account. Public signup is disabled. Existing email/password accounts persist in Postgres. Startup applies the migration journal, including authentication ID defaults and application KV tables. PGlite is a development fallback. Production images must build with `NUXT_HUB_DB_DRIVER=postgres-js` as configured in the Dockerfile.
+The allowlist does not create an account. Public signup remains disabled in the deployed environment. See [BYOK and signup rollout](plans/BYOK-AUTH-API.md) before activating the prepared switch. Existing email/password accounts persist in Postgres. Startup applies the migration journal, including authentication ID defaults and application KV tables. PGlite is a development fallback. Production images must build with `NUXT_HUB_DB_DRIVER=postgres-js` as configured in the Dockerfile.
 
 GitHub login is optional and separate from repository synchronization:
 
@@ -86,5 +87,7 @@ Uploads remain private in object storage. The app serves signed file links at `/
 GitHub bot variables are `NUXT_PUBLIC_GITHUB_APP_NAME` (the app slug), optional `NUXT_PUBLIC_GITHUB_BOT_TRIGGER`, `NUXT_GITHUB_APP_ID`, `NUXT_GITHUB_APP_PRIVATE_KEY`, and `NUXT_GITHUB_WEBHOOK_SECRET`. The webhook URL is `https://agent.acuity.institute/api/webhooks/github`. Posting replies requires the relevant GitHub App installation permissions.
 
 Discord uses `NUXT_DISCORD_BOT_TOKEN`, `NUXT_DISCORD_PUBLIC_KEY`, `NUXT_DISCORD_APPLICATION_ID`, optional `NUXT_DISCORD_MENTION_ROLE_IDS`, and optional `NUXT_PUBLIC_DISCORD_BOT_URL`. Enable its gateway only deliberately with `DISCORD_GATEWAY_ENABLED=true`.
+
+See [External API access](EXTERNAL-API.md) for personal keys, JSON corpus retrieval, hosted-agent SSE and caller-owned provider billing.
 
 External SDK clients use `SAVOIR_API_URL=https://agent.acuity.institute` and an administrator-created `SAVOIR_API_KEY`. Never commit real secrets or put them in `NUXT_PUBLIC_*` variables.

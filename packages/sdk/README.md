@@ -6,6 +6,8 @@ Provides [AI SDK](https://ai-sdk.dev) compatible tools to query content in a san
 
 > See also: [Main README](../../README.md), [Architecture](../../docs/ARCHITECTURE.md), [Environment Variables](../../docs/ENVIRONMENT.md)
 
+For the deployed JSON/SSE protocol, caller-owned AI billing, limits and a ready-to-run Python client, see [External API access](../../docs/EXTERNAL-API.md). The SDK itself provides corpus tools; hosted-agent research is a separate API flow.
+
 ## Installation
 
 ```bash
@@ -29,7 +31,7 @@ Set the following environment variables:
 
 ```ts
 import { createSavoir } from '@savoir/sdk'
-import { generateText } from 'ai'
+import { generateText, stepCountIs } from 'ai'
 
 const savoir = createSavoir({
   apiUrl: process.env.SAVOIR_API_URL!,
@@ -39,7 +41,7 @@ const savoir = createSavoir({
 const { text } = await generateText({
   model: 'deepseek/deepseek-v4-pro',
   tools: savoir.tools,
-  maxSteps: 10,
+  stopWhen: stepCountIs(10),
   prompt: 'How do I configure authentication?',
 })
 
@@ -97,7 +99,7 @@ interface Savoir {
 
 #### `bash`
 
-Execute a single bash command in the documentation [sandbox](https://vercel.com/docs/vercel-sandbox).
+Execute a single bash command in the documentation read-only corpus sandbox.
 
 ```ts
 const { text } = await generateText({
@@ -109,7 +111,7 @@ const { text } = await generateText({
 
 #### `bash_batch`
 
-Execute multiple bash commands in a single request. More efficient than multiple single calls as the [sandbox](https://vercel.com/docs/vercel-sandbox) is reused between commands.
+Execute multiple bash commands in a single request. More efficient than multiple single calls as the read-only corpus sandbox is reused between commands.
 
 ```ts
 const { text } = await generateText({
