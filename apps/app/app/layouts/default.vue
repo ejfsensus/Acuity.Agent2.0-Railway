@@ -223,18 +223,22 @@ defineShortcuts({
           </div>
 
           <div v-if="!collapsed" class="flex items-center justify-between w-full">
-            <div v-if="loggedIn" class="flex items-center gap-1">
-              <UserMenu size="sm" />
-              <UButton
-                label="Sign out"
-                icon="i-lucide-log-out"
-                color="neutral"
-                variant="ghost"
-                size="xs"
-                aria-label="Sign out"
-                data-testid="sign-out"
-                @click="signOutEverywhere()"
-              />
+            <div v-if="loggedIn" class="flex min-w-0 flex-1 items-center gap-1">
+              <div class="min-w-0 flex-1">
+                <UserMenu size="sm" />
+              </div>
+              <UTooltip text="Sign out">
+                <UButton
+                  icon="i-lucide-log-out"
+                  color="neutral"
+                  variant="ghost"
+                  size="xs"
+                  aria-label="Sign out"
+                  data-testid="sign-out"
+                  class="shrink-0"
+                  @click="signOutEverywhere()"
+                />
+              </UTooltip>
             </div>
             <UButton
               v-else
