@@ -6,7 +6,8 @@ defineProps<{
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }>()
 
-const { user, signOut } = useUserSession()
+const { user } = useUserSession()
+const signOutEverywhere = useSignOutEverywhere()
 const { isAdmin } = useAdmin()
 
 const items = computed<DropdownMenuItem[][]>(() => {
@@ -32,11 +33,10 @@ const items = computed<DropdownMenuItem[][]>(() => {
 
   baseItems.push([
     {
-      label: 'Log out',
+      label: 'Sign out',
       icon: 'i-lucide-log-out',
       async onSelect() {
-        await signOut()
-        await navigateTo('/login', { replace: true, external: true })
+        await signOutEverywhere()
       }
     }
   ])

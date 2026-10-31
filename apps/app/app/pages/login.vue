@@ -92,7 +92,7 @@ function onGitHub() {
       <div class="relative z-10 w-full max-w-md acuity-panel rounded-lg p-5 sm:p-8">
         <div class="text-center mb-8">
           <div class="inline-flex items-center justify-center mb-5">
-            <UIcon :name="appConfig.app.icon" class="size-10 acuity-brand-mark" />
+            <img src="/brand-mark.png" alt="" width="56" height="56" class="size-14 rounded-xl">
           </div>
           <p class="acuity-kicker text-[10px] mb-2">
             {{ appConfig.app.tagline }}

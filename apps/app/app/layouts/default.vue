@@ -5,6 +5,7 @@ import type { GetChatsResponse, UIChat } from '#shared/types/chat'
 const route = useRoute()
 const toast = useToast()
 const overlay = useOverlay()
+const signOutEverywhere = useSignOutEverywhere()
 const appConfig = useAppConfig()
 const { loggedIn } = useUserSession()
 
@@ -210,7 +211,7 @@ defineShortcuts({
 
         <template v-else>
           <div v-if="!collapsed" class="flex items-center gap-2 rounded-md border border-[#FADB5F]/20 bg-[#1A2235]/35 px-2.5 py-2">
-            <UIcon :name="appConfig.app.icon" class="size-7 acuity-brand-mark shrink-0" />
+            <img src="/brand-mark.png" alt="" width="28" height="28" class="size-7 rounded-md shrink-0">
             <div class="min-w-0">
               <p class="font-display text-xs font-semibold tracking-[0.22em] text-white uppercase truncate">
                 {{ appConfig.app.name }}
@@ -222,7 +223,19 @@ defineShortcuts({
           </div>
 
           <div v-if="!collapsed" class="flex items-center justify-between w-full">
-            <UserMenu v-if="loggedIn" size="sm" />
+            <div v-if="loggedIn" class="flex items-center gap-1">
+              <UserMenu size="sm" />
+              <UButton
+                label="Sign out"
+                icon="i-lucide-log-out"
+                color="neutral"
+                variant="ghost"
+                size="xs"
+                aria-label="Sign out"
+                data-testid="sign-out"
+                @click="signOutEverywhere()"
+              />
+            </div>
             <UButton
               v-else
               label="Sign in"
@@ -286,7 +299,7 @@ defineShortcuts({
                 class="flex items-center justify-center rounded-md border border-[#FADB5F]/25 bg-[#1A2235]/45 p-1.5"
                 @click="open = false"
               >
-                <UIcon :name="appConfig.app.icon" class="size-5 acuity-brand-mark" />
+                <img src="/brand-mark.png" alt="" width="20" height="20" class="size-5 rounded">
               </NuxtLink>
             </UTooltip>
             <NuxtLink
