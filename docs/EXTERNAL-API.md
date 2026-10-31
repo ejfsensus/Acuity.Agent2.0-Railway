@@ -109,3 +109,20 @@ console.log(result.text)
 This SDK exposes `bash`/`bash_batch`; the hosted agent additionally has its configured Brave and Sacred Text tools. For another provider, instantiate its native adapter or an explicitly OpenAI-compatible Chat Completions adapter with that provider's address and key. Never substitute the personal Acuity API key for the provider key.
 
 Errors: 401 means missing authentication. The auth plugin can return 403 for an invalid/expired key; 403 can also mean the owner is not approved or lacks the required role. Inspect the response code/message; 400 means invalid input/command; 429 means an application/provider limit; 503 means the knowledge base is unavailable. Check `/api/health` without authentication for deployment health.
+
+## Service callers (Acuity.Search Sacred Texts mode)
+
+A service account is a normal member whose email is listed in both `AUTHORIZED_USER_EMAILS` and `AGENT_SERVICE_ACCOUNT_EMAILS`. It authenticates with its own API key, is exempt from the daily limit, and may send `x-acuity-on-behalf-of: <opaque id>` (logged, max 120 chars; send no email or name).
+
+Flow: `POST /api/chats` (creates the chat; not counted) then `POST /api/chats/:id` (streams the answer; counted once for limited users). Each chat has its own sandbox session (`sandbox:chat-session:<chatId>`, 1 h TTL), so parallel chats never share a shell.
+
+Just before `finish`, the stream carries one persisted part:
+
+```json
+{ "type": "data-sources", "id": "sources", "data": { "schema": "acuity.agent-sources.v1", "sources": [
+  { "ref": "corpus:docs/sacred-texts/source1_ista/…:L10-14", "origin": "local-corpus", "title": "…", "path": "…",
+    "lineStart": 10, "lineEnd": 14, "sourceUrl": "https://sacred-texts.com/…", "edition": "…", "licence": "…",
+    "text": "…", "cited": true, "label": "S1", "category": "source1_ista", "file": "…" } ] } }
+```
+
+`origin` is `sacred-text-index` (with `passageId`, `bookCode`, `chunkIndex`, `tradition`) or `local-corpus` (grep/cat/sed reads of `docs/sacred-texts`). `cited` is true when the answer mentions the source's path, passage id, URL or title; cited sources are labelled `S1…` in order of first mention. `text` is capped at 4000 characters with control characters removed. The same part is returned by `GET /api/chats/:id`.

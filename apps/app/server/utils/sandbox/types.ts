@@ -60,6 +60,9 @@ export const KV_KEYS = {
   AGENT_CONFIG_CACHE: 'agent:config-cache',
   SYNC_STATUS: 'sync:status',
   session: (sessionId: string) => `session:${sessionId}`,
+  /** @deprecated global session shared by every chat; kept only so snapshot changes still clear it. */
   ACTIVE_SANDBOX_SESSION: 'sandbox:active-session',
+  /** Sandbox session for one chat, so concurrent chats (e.g. Search service runs) never share a shell. */
+  chatSandboxSession: (chatId: string) => `sandbox:chat-session:${chatId}`,
   rateLimit: (userId: string, date: string) => `ratelimit:${userId}:${date}`,
 } as const

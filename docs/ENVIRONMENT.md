@@ -12,6 +12,8 @@ Production runs on Railway. See [Railway deployment](RAILWAY-DEPLOYMENT.md) for 
 | `NUXT_PUBLIC_SITE_URL` | The same canonical origin for browser auth, callbacks, links, and attachments. Use `http://localhost:3000` locally. |
 | `PUBLIC_SIGNUP_ENABLED` | Defaults to `false`. Prepared public email/password registration and authenticated-user access; keep closed until BYOK enforcement is implemented. |
 | `AUTHORIZED_USER_EMAILS` | Comma-separated access allowlist; defaults to `developments@sensusinvista.ltd`. |
+| `AGENT_SERVICE_ACCOUNT_EMAILS` | Comma-separated member accounts used by other Acuity services (e.g. Search's Sacred Texts relay). Exempt from the daily question limit; still need to be in `AUTHORIZED_USER_EMAILS`; never admins. |
+| `AGENT_DAILY_MESSAGE_LIMIT` | Questions per non-admin user per UTC day (default 15). Each question counts once. |
 | `POSTGRES_URL` | Railway Postgres connection string. `POSTGRESQL_URL` and `DATABASE_URL` are accepted aliases. |
 
 The allowlist does not create an account. Public signup remains disabled in the deployed environment. See [BYOK and signup rollout](plans/BYOK-AUTH-API.md) before activating the prepared switch. Existing email/password accounts persist in Postgres. Startup applies the migration journal, including authentication ID defaults and application KV tables. PGlite is a development fallback. Production images must build with `NUXT_HUB_DB_DRIVER=postgres-js` as configured in the Dockerfile.
