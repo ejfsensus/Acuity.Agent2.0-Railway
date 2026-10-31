@@ -37,7 +37,7 @@ export async function routeQuestion(
       output: Output.object({ schema: agentConfigSchema }),
       messages: [
         { role: 'system', content: ROUTER_SYSTEM_PROMPT },
-        { role: 'user', content: `Question: ${question}` },
+        { role: 'user', content: `Question: ${question}\n\nRespond with the JSON object only.` },
       ],
       providerOptions: buildProviderOptions(ROUTER_MODEL, resolveGatewayMetadata()),
     })
