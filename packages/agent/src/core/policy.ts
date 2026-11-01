@@ -4,7 +4,7 @@ export function finalAnswerMessages(messages: ModelMessage[]): ModelMessage[] {
   return [
     ...messages, {
       role: 'system',
-      content: 'The research phase is complete. Tools are now disabled. Answer the user\'s original question using the evidence already retrieved, with source file citations. If evidence is insufficient, explain that limitation. Do not request more searches, describe future actions, or output tool-call markup. Provide the final user-facing answer now.',
+      content: 'The research phase is complete. Tools are now disabled. Answer the user\'s original question using the evidence accumulated across every successful research pass, with precise source citations. An earlier search miss does not invalidate evidence found later. If evidence is insufficient, provide the supported findings and explain the remaining limitation. A passage count, progress update, source list or promise to synthesise is not an answer. Do not request more searches, describe future actions, or output tool-call markup. Provide the substantive final user-facing answer now.',
     }
   ]
 }

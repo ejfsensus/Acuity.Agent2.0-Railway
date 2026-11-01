@@ -1,13 +1,16 @@
 import type { UIMessageChunk } from 'ai'
+import { isSubstantiveAnswer, SYNTHESIS_FAILURE_MESSAGE } from '@savoir/agent'
 
-export const SYNTHESIS_FAILURE_MESSAGE = 'The search finished, but the model service could not complete the synthesis. The retrieved results are retained above. Please retry this question to generate the answer.'
+export { SYNTHESIS_FAILURE_MESSAGE }
 
 /** Hold the finish event until an answer follows the last research tool result. */
-export function completeResponseStream({ stream, recover, onError, abortSignal }: {
+export function completeResponseStream({ stream, recover, onError, abortSignal, synthesizeAfterResearch = false, hasPreparedResearch = () => false }: {
   stream: ReadableStream<UIMessageChunk>
-  recover: () => Promise<string>
+  recover: () => Promise<string | { text: string, finishReason: 'stop' | 'error' }>
   onError: (error: unknown) => void
   abortSignal?: AbortSignal
+  synthesizeAfterResearch?: boolean
+  hasPreparedResearch?: () => boolean
 }): ReadableStream<UIMessageChunk> {
   return new ReadableStream({
     async start(controller) {
@@ -18,6 +21,7 @@ export function completeResponseStream({ stream, recover, onError, abortSignal }
       let started = false
       let aborted = false
       let stepOpen = false
+      let researched = false
       try {
         while (true) {
           const { done, value } = await reader.read()
@@ -34,9 +38,20 @@ export function completeResponseStream({ stream, recover, onError, abortSignal }
           if (value.type === 'start') started = true
           if (value.type === 'start-step') stepOpen = true
           if (value.type === 'finish-step') stepOpen = false
-          if (value.type === 'abort') aborted = true
-          if (value.type.startsWith('tool-')) answer = ''
+          if (value.type === 'abort') {
+            aborted = true
+            if (synthesizeAfterResearch && !abortSignal?.aborted) {
+              failed = true
+              continue
+            }
+          }
+          if (value.type.startsWith('tool-')) {
+            researched = true
+            answer = ''
+          }
           if (value.type === 'text-delta') answer += value.delta
+          // Research narration must never be persisted or displayed as the answer.
+          if (synthesizeAfterResearch && (value.type.startsWith('text-') || value.type.startsWith('reasoning-'))) continue
           controller.enqueue(value)
         }
       } catch (error) {
@@ -46,16 +61,23 @@ export function completeResponseStream({ stream, recover, onError, abortSignal }
         reader.releaseLock()
       }
 
-      if (aborted || abortSignal?.aborted) {
+      if (abortSignal?.aborted || (aborted && !synthesizeAfterResearch)) {
         controller.close()
         return
       }
 
-      if (!answer.trim() || failed) {
-        let text: string
+      const needsSynthesis = failed || !isSubstantiveAnswer(answer) || (finish !== undefined && finish.finishReason !== 'stop')
+        || (synthesizeAfterResearch && (researched || hasPreparedResearch()))
+      if (needsSynthesis || synthesizeAfterResearch) {
+        let text = answer
+        let finishReason: 'stop' | 'error' = 'stop'
         try {
-          text = await recover()
-          if (!text.trim()) throw new Error('Synthesis returned no answer text')
+          if (needsSynthesis) {
+            const result = await recover()
+            text = typeof result === 'string' ? result : result.text
+            finishReason = typeof result === 'string' ? 'stop' : result.finishReason
+          }
+          if (!isSubstantiveAnswer(text)) throw new Error('Synthesis returned no substantive answer')
         } catch (error) {
           if (abortSignal?.aborted) {
             controller.close()
@@ -63,6 +85,11 @@ export function completeResponseStream({ stream, recover, onError, abortSignal }
           }
           onError(error)
           text = SYNTHESIS_FAILURE_MESSAGE
+          finishReason = 'error'
+        }
+        if (abortSignal?.aborted) {
+          controller.close()
+          return
         }
         if (!started) controller.enqueue({ type: 'start' })
         if (stepOpen) controller.enqueue({ type: 'finish-step' })
@@ -72,7 +99,7 @@ export function completeResponseStream({ stream, recover, onError, abortSignal }
         controller.enqueue({ type: 'text-delta', id, delta: text })
         controller.enqueue({ type: 'text-end', id })
         controller.enqueue({ type: 'finish-step' })
-        finish = { ...finish, type: 'finish', finishReason: text === SYNTHESIS_FAILURE_MESSAGE ? 'error' : 'stop' }
+        finish = { ...finish, type: 'finish', finishReason }
       }
       controller.enqueue(finish ?? { type: 'finish', finishReason: 'stop' })
       controller.close()

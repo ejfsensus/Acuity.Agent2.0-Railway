@@ -112,3 +112,73 @@ test('a cancelled request does not start a synthesis recovery', async () => {
   }))
   assert.equal(recoveries, 0)
 })
+
+test('the screenshot failure gets a separate synthesis and only that answer is saved', async () => {
+  let saved: UIMessage[] = []
+  let calls = 0
+  const research: UIMessageChunk[] = [
+    ...toolChunks.slice(0, -1),
+    { type: 'start-step' },
+    { type: 'text-start', id: 'progress' },
+    { type: 'text-delta', id: 'progress', delta: 'Verified 11 passages from 6 selected texts' },
+    { type: 'text-end', id: 'progress' },
+    { type: 'finish-step' },
+    { type: 'finish', finishReason: 'stop' },
+  ]
+  const chunks = await collect(createUIMessageStream({
+    execute: ({ writer }) => writer.merge(completeResponseStream({ stream: source(research), synthesizeAfterResearch: true,
+      hasPreparedResearch: () => true, onError: unexpected, recover: () => {
+        calls++
+        return Promise.resolve('Providence is presented as divine care and watchfulness. [fixture.txt]')
+      },
+    })),
+    onFinish: ({ messages }) => {
+      saved = messages
+    },
+  }))
+  assert.equal(calls, 1)
+  assert.equal(chunks.filter(chunk => chunk.type === 'finish').length, 1)
+  const text = saved.flatMap(message => message.parts.filter(part => part.type === 'text').map(part => part.text)).join('')
+  assert.match(text, /Providence/)
+  assert.doesNotMatch(text, /Verified 11|I will search/)
+  assert.ok(saved[0]?.parts.some(part => part.type === 'dynamic-tool' || part.type === 'tool-lookup'))
+})
+
+test('tool-limit termination gets final synthesis even when research includes a plausible draft', async () => {
+  const chunks = await collect(completeResponseStream({
+    stream: source(toolChunks), synthesizeAfterResearch: true, onError: unexpected,
+    recover: () => Promise.resolve({ text: 'A final answer after the tool budget ended. [fixture.txt]', finishReason: 'stop' as const }),
+  }))
+  assert.ok(chunks.some(chunk => chunk.type === 'text-delta' && chunk.delta.includes('final answer')))
+  assert.deepEqual(chunks.at(-1), { type: 'finish', finishReason: 'stop' })
+})
+
+test('an evidence-only fallback is visible and finishes as an error rather than a successful synthesis', async () => {
+  const chunks = await collect(completeResponseStream({
+    stream: source(toolChunks), synthesizeAfterResearch: true, onError: unexpected,
+    recover: () => Promise.resolve({ text: 'Synthesis failed. Evidence-only fallback: a retrieved excerpt. [fixture.txt]', finishReason: 'error' as const }),
+  }))
+  assert.ok(chunks.some(chunk => chunk.type === 'text-delta' && chunk.delta.includes('Evidence-only')))
+  assert.deepEqual(chunks.at(-1), { type: 'finish', finishReason: 'error' })
+})
+
+test('plain conversation has one answer and no additional synthesis call', async () => {
+  const chunks = await collect(completeResponseStream({
+    stream: source([{ type: 'start' }, { type: 'text-start', id: 'hello' }, { type: 'text-delta', id: 'hello', delta: 'Hello, how can I help?' }, { type: 'text-end', id: 'hello' }, { type: 'finish', finishReason: 'stop' }]),
+    synthesizeAfterResearch: true, onError: unexpected, recover: () => {
+      throw new Error('Unexpected extra generation')
+    },
+  }))
+  assert.equal(chunks.filter(chunk => chunk.type === 'text-delta').length, 1)
+})
+
+test('cancellation during final synthesis does not persist a late answer', async () => {
+  const controller = new AbortController()
+  const chunks = await collect(completeResponseStream({ stream: source(toolChunks), synthesizeAfterResearch: true,
+    abortSignal: controller.signal, onError: unexpected, recover: () => {
+      controller.abort()
+      return Promise.resolve('This late answer must not be persisted.')
+    },
+  }))
+  assert.ok(!chunks.some(chunk => chunk.type === 'text-delta'))
+})

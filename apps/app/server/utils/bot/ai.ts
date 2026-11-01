@@ -14,6 +14,10 @@ import {
   ROUTER_SYSTEM_PROMPT,
   buildBotSystemPrompt,
   buildBotUserMessage,
+  generateFinalAnswer,
+  isSubstantiveAnswer,
+  SYNTHESIS_FAILURE_MESSAGE,
+  type ResearchReport,
 } from '@savoir/agent'
 import { createLibraryResearch } from '../library-research'
 import { createInternalSavoir } from './savoir'
@@ -83,65 +87,50 @@ export async function generateAIResponse(
       sourceId: context?.number ? `issue-${context.number}` : undefined,
     })
 
+    const reports: ResearchReport[] = []
+    let effectiveModel = DEFAULT_MODEL
+    let finalSystem = 'Answer the original question from the sources actually consulted, with citations.'
+    let temperature = 0.2
     const agent = createAgent({
       tools: savoir.tools,
-      research: createLibraryResearch(),
+      research: createLibraryResearch({ onReport: report => reports.push(report) }),
       getAgentConfig: savoir.getAgentConfig,
       route: () => routeQuestion(question, context),
       buildPrompt: (routerConfig, agentConfig) => buildBotSystemPrompt(context, routerConfig, agentConfig),
       resolveModel: (routerConfig, agentConfig) => agentConfig.defaultModel || routerConfig.model,
+      onRouted: ({ effectiveModel: model, agentConfig, routerConfig }) => {
+        effectiveModel = model
+        ;({ temperature } = agentConfig)
+        finalSystem = buildBotSystemPrompt(context, routerConfig, agentConfig)
+      },
     })
 
-    const result = await agent.generate({
-      prompt: buildBotUserMessage(question, context),
-      options: {},
-    })
+    let result: Awaited<ReturnType<typeof agent.generate>> | undefined
+    try {
+      result = await agent.generate({ prompt: buildBotUserMessage(question, context), options: {} })
+    } catch {
+      log.warn('bot', 'Research generation failed; attempting final synthesis from retained evidence')
+    }
 
-    savoir.reportUsage(result, {
+    if (result) savoir.reportUsage(result, {
       startTime,
       metadata: context ? { source: context.source } : undefined,
     }).catch(e => log.debug({ event: 'bot.usage_report.failed', error: e instanceof Error ? e.message : 'Unknown' }))
 
-    // If the agent exhausted all steps on tool calls without producing text,
-    // do one final call with NO tools to force a text response.
-    if (!result.text?.trim()) {
-      log.info('bot', 'Agent produced no text, forcing fallback generation')
-      const fallback = await generateText({
-        model: resolveModelWrapper()(DEFAULT_MODEL),
-        messages: [
-          { role: 'user', content: buildBotUserMessage(question, context) },
-          ...result.response.messages,
-        ],
-        ...buildGenerationSettings(DEFAULT_MODEL, 'final'),
+    if (reports.length || !result || !isSubstantiveAnswer(result.text) || result.finishReason !== 'stop' || result.steps.some(step => step.toolCalls.length)) {
+      const final = await generateFinalAnswer({
+        model: effectiveModel, system: finalSystem, tools: savoir.tools, reports, temperature,
+        messages: [{ role: 'user', content: buildBotUserMessage(question, context) }, ...(reports.length ? [] : result?.response.messages ?? [])],
       })
-      if (fallback.text?.trim()) {
-        return fallback.text
-      }
+      log.info({ event: 'bot.synthesis', status: final.status, passes: reports.length })
+      savoir.reportUsage({ response: { modelId: effectiveModel }, totalUsage: final.totalUsage }, {
+        startTime, metadata: { phase: 'synthesis' },
+      }).catch(() => log.debug('bot', 'Synthesis usage report failed'))
+      return final.text
     }
 
-    return result.text || `I searched the documentation but couldn't generate a helpful response for:
-
-> ${question}
-
-**Suggestions:**
-- Try rephrasing your question with different keywords
-- Check the official documentation directly
-- Open a discussion for more complex questions`
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-
-    return `Sorry, I encountered an error while processing your question:
-
-> ${question}
-
-<details>
-<summary>Error details</summary>
-
-\`\`\`
-${errorMessage}
-\`\`\`
-</details>
-
-Please try again later or open a discussion if this persists.`
+    return result.text
+  } catch {
+    return SYNTHESIS_FAILURE_MESSAGE
   }
 }

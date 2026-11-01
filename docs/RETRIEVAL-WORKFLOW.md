@@ -27,6 +27,12 @@ Each research pass has a 55-second deadline; individual remote requests time out
 
 ## Streaming, citations and recovery
 
+Library research now always ends with a separate tools-disabled synthesis call, outside the research iteration allowance. Web chat and bots retain verified evidence from every initial/refinement pass. The synthesis prompt interleaves and bounds that evidence without copying candidate catalogues or stale research drafts. An earlier empty pass cannot overwrite later retrieved evidence.
+
+Research narration is suppressed from the final web answer; tool activity and research progress remain visible. Completion rejects empty text, operational summaries such as “Verified 11 passages from 6 selected texts”, future-search promises and length-truncated generations. Final synthesis has an independent 90-second allowance and 8,192 output tokens, with at most two attempts. For tools-disabled generation, the protocol guard leaves retries to this finaliser instead of multiplying its attempts. User cancellation does not start recovery or persist a late answer.
+
+If both synthesis attempts fail, the runtime emits a clearly labelled evidence-only fallback containing actual verified excerpts and locators, or an explicit failure when no verified excerpts exist. This is recorded as an error, not a successful synthesis. Source chips and citation labels are generated from the final delivered text before persistence. Title generation uses the configured model provider and a separate ten-second timeout.
+
 A `data-research` stream part reports discovery, selection, retrieval, verification and completion. A persisted `data-research-selection` part records each pass's plan, selected works, selection reasons, coverage leads and limitations for audit. `library_research` / `refine_library` evidence feeds the existing `acuity.agent-sources.v1` projection with title, edition, translator, URL and passage/line locator. Unverified probes and discovery metadata are excluded. The progress and citations persist with the assistant message. Synthesis recovery receives the verified research context too.
 
 The previous DeepSeek task settings remain: router thinking off at temperature 0, research high effort, reserved/recovery synthesis thinking off, saved answer temperature respected (including zero). The router output allowance is now 2,048 tokens to accommodate the structured plan.
@@ -49,6 +55,8 @@ Record actual latency, API calls, selected works, verified passages, gaps and qu
 
 
 ## Verification on the review branch
+
+Runtime synthesis correction (1 November): 87 tests pass (8 SDK, 39 agent, 40 application), plus lint, type-checking and the production build. The SDK integration regression covers an initial retrieval miss, successful refinement, a separate tools-disabled synthesis request, source labelling and persistence of the final answer. Additional regressions cover progress-only replies, tool-limit termination, two-attempt enforcement, provider failure with evidence-only output, truncation and cancellation. These use deterministic model fixtures; deployed-provider/browser acceptance is a separate check.
 
 - 75 tests passed: 8 SDK, 33 agent and 34 application tests.
 - Repository lint and type-checking passed.

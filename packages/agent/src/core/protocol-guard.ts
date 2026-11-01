@@ -61,7 +61,8 @@ export const toolProtocolGuard: LanguageModelV3Middleware = {
   wrapGenerate: async ({ params, model }) => {
     let rejectedUsage: LanguageModelV3Usage | undefined
     let empty = false
-    for (let attempt = 0; attempt < 3; attempt++) {
+    const attempts = params.toolChoice?.type === 'none' ? 1 : 3
+    for (let attempt = 0; attempt < attempts; attempt++) {
       params.abortSignal?.throwIfAborted()
       const options = attempt ? retryParams(params, attempt, empty) : params
       const result = await model.doGenerate(options)

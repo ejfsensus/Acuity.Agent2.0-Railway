@@ -4,7 +4,7 @@ import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
 import { createSavoir } from '@savoir/sdk'
 import { useLogger } from 'evlog'
-import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, researchTools, researchContext, researchToolResult, LibraryResearch, type ResearchReport } from '@savoir/agent'
+import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, researchToolResult, type ResearchReport } from '@savoir/agent'
 import { createLibraryResearch } from '../../utils/library-research'
 import { completeResponseStream } from '../../utils/chat/complete-response'
 import { forwardAuthHeaders } from '../../utils/chat/forward-auth'
@@ -112,7 +112,7 @@ export default defineEventHandler(async (event) => {
 
     let researchMessages: ModelMessage[] = []
     const toolResults: ToolResultLike[] = []
-    let evidenceContext = ''
+    const researchReports: ResearchReport[] = []
     let emitResearch: ((stage: string, message: string) => void) | undefined
     let emitSelection: ((report: ResearchReport) => void) | undefined
     const onStepFinish = (step: StepResult<ToolSet>) => {
@@ -131,7 +131,7 @@ export default defineEventHandler(async (event) => {
         research: createLibraryResearch({
           onProgress: ({ stage, message }) => emitResearch?.(stage, message),
           onReport: (report) => {
-            evidenceContext += researchContext(report)
+            researchReports.push(report)
             emitSelection?.(report)
             toolResults.push({ toolName: 'library_research', output: researchToolResult(report) })
             requestLog.set({ researchSelected: report.selected.length, researchVerified: report.evidence.length, researchGaps: report.gaps.length, researchCalls: report.calls })
@@ -216,23 +216,28 @@ export default defineEventHandler(async (event) => {
           },
         })
         writer.merge(completeResponseStream({
-          stream: result.toUIMessageStream({ onError: onResponseError }),
+          stream: result.toUIMessageStream({ onError: onResponseError, sendReasoning: false }),
           abortSignal: abortController.signal,
           onError: onResponseError,
+          synthesizeAfterResearch: !isAdminChat,
+          hasPreparedResearch: () => researchReports.length > 0,
           recover: async () => {
-            requestLog.set({ synthesisRecovery: true, completedResearchMessages: researchMessages.length })
+            emitResearch?.('synthesize', 'Writing the answer from the retrieved evidence')
+            requestLog.set({ synthesisStarted: true, synthesisPasses: researchReports.length, completedResearchMessages: researchMessages.length })
             const config = isAdminChat ? undefined : await getAgentConfig()
             const final = await generateFinalAnswer({
               model: effectiveModel,
-              messages: [...modelMessages, ...researchMessages],
-              tools: (isAdminChat ? adminTools : { ...savoir.tools, ...researchTools, ...new LibraryResearch(createLibraryResearch()).tools }) as ToolSet,
-              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(config!) + evidenceContext,
+              messages: researchReports.length ? modelMessages : [...modelMessages, ...researchMessages],
+              tools: (isAdminChat ? adminTools : savoir.tools) as ToolSet,
+              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(config!),
+              reports: researchReports,
               temperature: config?.temperature,
               abortSignal: abortController.signal,
             })
             recoveryUsage = final.totalUsage
-            if (final.text.trim()) responseFailed = false
-            return final.text
+            responseFailed = final.status !== 'complete'
+            requestLog.set({ synthesisStatus: final.status })
+            return { text: final.text, finishReason: final.status === 'complete' ? 'stop' as const : 'error' as const }
           },
         }).pipeThrough(withSources))
 

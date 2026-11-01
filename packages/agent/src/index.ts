@@ -3,6 +3,7 @@ export { enterAIContext, setAIGatewayMetadata, resolveGatewayMetadata, resolveMo
 export type { GatewayMetadata } from './core/observe'
 export { toolProtocolGuard, hasToolProtocol, INVALID_RESPONSE_MESSAGE } from './core/protocol-guard'
 export { generateFinalAnswer } from './core/final-answer'
+export { isSubstantiveAnswer, SYNTHESIS_FAILURE_MESSAGE } from './core/synthesis'
 
 // Tools
 export { braveLlmContextTool, braveWebSearchTool, webSearchTool } from './tools/web-search'
