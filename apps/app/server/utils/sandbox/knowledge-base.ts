@@ -117,7 +117,7 @@ async function ignoreBundledLibrary(): Promise<void> {
   if (!isGitRepo()) return
 
   const exclude = join(SANDBOX_ROOT, '.git/info/exclude')
-  const lines = [`${SACRED_TEXTS_SANDBOX_DIR}/`, 'lost+found/', '.sync-*/', '.library-mount-*/']
+  const lines = [`${SACRED_TEXTS_SANDBOX_DIR}/`, 'lost+found/', '.sync-*/', '.library-mount-*/', '.library-catalogue-*.json', '.library-catalogue-*.json.*.tmp']
   const current = existsSync(exclude) ? await readFile(exclude, 'utf8') : ''
   const missing = lines.filter(line => !current.split('\n').includes(line))
   if (!missing.length) return

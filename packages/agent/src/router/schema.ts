@@ -1,5 +1,6 @@
 import type { JSONObject, SharedV3ProviderOptions } from '@ai-sdk/provider'
 import { z } from 'zod'
+import { researchPlanSchema } from '../retrieval/plan'
 import { resolveGatewayMetadata } from '../core/observe'
 
 const GATEWAY_DEFAULT_MODEL = 'deepseek/deepseek-v4-pro'
@@ -65,11 +66,12 @@ export const ROUTER_MODEL = CONFIGURED_ROUTER_MODEL && (getAIProviderKind() !== 
   : (getAIProviderKind() === 'gateway' ? GATEWAY_ROUTER_MODEL : DEFAULT_MODEL)
 
 export const agentConfigSchema = z.object({
+  plan: researchPlanSchema.optional(),
   complexity: z.enum(['trivial', 'simple', 'moderate', 'complex'])
     .describe('trivial=greeting, simple=single lookup, moderate=multi-search, complex=deep analysis'),
 
   maxSteps: z.number().int().min(1).max(120)
-    .describe('Research iterations: 4 trivial, 12 simple, 40 moderate, 80 complex; final synthesis has a separate reserved iteration'),
+    .describe('Additional research iterations after automatic evidence preparation: 1 conversation, 4 lookup, 6 thematic, 8 comparison; these are ceilings, not targets'),
 
   model: z.string()
     .describe(`Model id to use. Prefer one of: ${getConfiguredModels().join(', ')}`),
@@ -83,7 +85,7 @@ export type AgentConfig = z.infer<typeof agentConfigSchema>
 export function getDefaultConfig(): AgentConfig {
   return {
     complexity: 'moderate',
-    maxSteps: 40,
+    maxSteps: 6,
     model: DEFAULT_MODEL,
     reasoning: 'Default fallback configuration',
   }
@@ -137,7 +139,7 @@ export function buildGenerationSettings(
   const baseURL = readEnv('OPENAI_COMPATIBLE_BASE_URL', 'AI_BASE_URL') || ''
   const deepSeek = gateway ? model.startsWith('deepseek/') : /^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL)
   return {
-    maxOutputTokens: task === 'router' ? 1024 : task === 'title' ? 64 : task === 'research' && deepSeek ? 16384 : 8192,
+    maxOutputTokens: task === 'router' ? 2048 : task === 'title' ? 64 : task === 'research' && deepSeek ? 16384 : 8192,
     ...(!(task === 'research' && gateway && deepSeek) && { temperature: task === 'router' ? 0 : temperature }),
     providerOptions: buildProviderOptions(model, resolveGatewayMetadata(), task),
   }

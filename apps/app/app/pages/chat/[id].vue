@@ -380,9 +380,12 @@ watch(() => chat.status, (newStatus, oldStatus) => {
               :animated="chat.status === 'streaming'"
             />
             <template v-for="(part, index) in getContentParts(message)" :key="partKey(message.id, part, index)">
+              <p v-if="part.type === 'data-research'" class="text-xs text-muted mb-3" role="status">
+                {{ (part as any).data.message }}
+              </p>
               <!-- Markdown only for assistant (XSS prevention) -->
               <MDCCached
-                v-if="part.type === 'text' && message.role === 'assistant'"
+                v-else-if="part.type === 'text' && message.role === 'assistant'"
                 :value="part.text"
                 :cache-key="`${message.id}-${index}`"
                 :components

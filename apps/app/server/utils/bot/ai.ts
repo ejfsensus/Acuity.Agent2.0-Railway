@@ -6,6 +6,7 @@ import {
   createAgent,
   DEFAULT_MODEL,
   getDefaultConfig,
+  fallbackPlan,
   buildGenerationSettings,
   resolveModelWrapper,
   setAIGatewayMetadata,
@@ -14,6 +15,7 @@ import {
   buildBotSystemPrompt,
   buildBotUserMessage,
 } from '@savoir/agent'
+import { createLibraryResearch } from '../library-research'
 import { createInternalSavoir } from './savoir'
 import type { ThreadContext } from './types'
 
@@ -54,15 +56,15 @@ async function routeQuestion(question: string, context?: ThreadContext): Promise
 
     if (!output) {
       log.warn('bot', 'Router returned no output, using default config')
-      return getDefaultConfig()
+      return { ...getDefaultConfig(), plan: fallbackPlan(question) }
     }
 
     log.info('bot', `Router decision: ${output.complexity} (${output.model}, ${output.maxSteps} steps) - ${output.reasoning}`)
-    return output
+    return { ...output, plan: output.plan ?? fallbackPlan(question), maxSteps: Math.min(output.maxSteps, 8) }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     log.error('bot', `Router failed: ${errorMessage}, using default config`)
-    return getDefaultConfig()
+    return { ...getDefaultConfig(), plan: fallbackPlan(question) }
   }
 }
 
@@ -83,6 +85,7 @@ export async function generateAIResponse(
 
     const agent = createAgent({
       tools: savoir.tools,
+      research: createLibraryResearch(),
       getAgentConfig: savoir.getAgentConfig,
       route: () => routeQuestion(question, context),
       buildPrompt: (routerConfig, agentConfig) => buildBotSystemPrompt(context, routerConfig, agentConfig),

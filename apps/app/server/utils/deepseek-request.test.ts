@@ -84,7 +84,7 @@ test('JSON routing uses the actual adapter without hidden thinking', async () =>
     const result = await generateText({ model: provider('fixture'), prompt: 'Return a JSON route.', output: Output.object({ schema: z.object({ route: z.string() }) }), ...buildGenerationSettings('fixture', 'router') })
     assert.equal(result.output.route, 'lookup')
     assert.equal(sent.temperature, 0)
-    assert.equal(sent.max_tokens, 1024)
+    assert.equal(sent.max_tokens, 2048)
     assert.deepEqual(sent.thinking, { type: 'disabled' })
   } finally {
     keys.forEach((key, index) => {

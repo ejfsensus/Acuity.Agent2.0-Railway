@@ -1,4 +1,5 @@
 import type { z } from 'zod'
+import type { ResearchDependencies } from './retrieval/controller'
 import type { AgentConfig } from './router/schema'
 import type { callOptionsSchema } from './core/schemas'
 
@@ -50,6 +51,7 @@ export interface AgentExecutionContext {
 }
 
 export interface CreateAgentOptions {
+  research?: ResearchDependencies
   tools: Record<string, unknown>
   getAgentConfig: () => Promise<AgentConfigData>
   route: () => Promise<AgentConfig>

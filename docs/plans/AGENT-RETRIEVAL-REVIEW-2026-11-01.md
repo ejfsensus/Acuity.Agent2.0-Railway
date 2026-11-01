@@ -1,6 +1,6 @@
 # Acuity.Agent: routing and text selection review
 
-Reviewed 1 November 2026 against `gitbot/agent-unified-live` at `59707872a795d53badc5b3c5a81a20e6e8669058`. The retrieval redesign below is a proposal. This branch implements the generation-setting corrections described later; it does not yet enforce the proposed retrieval stages or change a deployed service.
+Reviewed 1 November 2026 against `gitbot/agent-unified-live` at `59707872a795d53badc5b3c5a81a20e6e8669058`. The retrieval redesign below was the original proposal. It is now implemented in the follow-up on this branch; see [the implementation and live-test runbook](../RETRIEVAL-WORKFLOW.md). The initial commit implemented only generation-setting corrections. The follow-up adds the staged controller. Live deployment testing remains pending.
 
 ## Findings
 

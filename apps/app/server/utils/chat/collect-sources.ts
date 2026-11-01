@@ -44,7 +44,7 @@ export interface CollectionAttribution {
   licence?: string
 }
 
- 
+
 const CONTROL = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g
 export function cleanText(value: unknown, max = MAX_TEXT): string {
   return (typeof value === 'string' ? value : '').replace(CONTROL, '').slice(0, max)
@@ -205,16 +205,36 @@ export function sourcesFromBash(output: unknown, attributions: CollectionAttribu
   return out
 }
 
+export function sourcesFromLibraryReport(output: unknown): AgentSource[] {
+  const result = output as { success?: boolean, text?: string }
+  if (!result?.success || typeof result.text !== 'string') return []
+  try {
+    const report = JSON.parse(result.text) as { evidence?: Array<Record<string, any>> }
+    return (report.evidence ?? []).filter(p => p.contextVerified === true && typeof p.text === 'string').map(p => ({
+      ref: p.id, origin: p.origin === 'local' ? 'local-corpus' : 'sacred-text-index', title: p.title,
+      tradition: p.tradition, bookCode: p.book, path: p.path || undefined,
+      passageId: p.origin === 'remote' ? p.id : undefined, chunkIndex: p.chunk_index,
+      lineStart: p.lineStart, lineEnd: p.lineEnd, sourceUrl: /^https?:\/\//i.test(p.source_url || '') ? p.source_url : undefined,
+      edition: cleanText(p.edition, 600), translator: cleanText(p.translator, 200), licence: cleanText(p.rights, 300),
+      text: cleanText(p.text), cited: false, category: p.tradition, file: p.path || p.book,
+    }))
+  } catch {
+    return []
+  }
+}
+
 export interface ToolResultLike { toolName: string, output: unknown }
 
 export function sourcesFromToolResults(results: ToolResultLike[], attributions: CollectionAttribution[] = []): AgentSource[] {
   const byRef = new Map<string, AgentSource>()
   for (const result of results) {
-    const found = result.toolName === 'sacred-text-mcp'
-      ? sourcesFromSacredText(result.output)
-      : (result.toolName === 'bash' || result.toolName === 'bash_batch')
-        ? sourcesFromBash(result.output, attributions)
-        : []
+    const found = result.toolName === 'library_research' || result.toolName === 'refine_library'
+      ? sourcesFromLibraryReport(result.output)
+      : result.toolName === 'sacred-text-mcp'
+        ? sourcesFromSacredText(result.output)
+        : (result.toolName === 'bash' || result.toolName === 'bash_batch')
+          ? sourcesFromBash(result.output, attributions)
+          : []
     for (const source of found) {
       if (!source.text.trim() || (source.path && isHousekeepingFile(source.path))) continue
       if (!byRef.has(source.ref)) byRef.set(source.ref, source)

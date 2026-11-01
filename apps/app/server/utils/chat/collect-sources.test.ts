@@ -79,3 +79,15 @@ test('housekeeping files are not sources', () => {
   const out = sourcesFromToolResults([{ toolName: 'bash', output: { commands: [{ command: 'cat docs/sacred-texts/ATTRIBUTION.txt', stdout: 'x' }] } }])
   assert.equal(out.length, 0)
 })
+
+test('staged research contributes only verified passages, retaining local edition and line locators', () => {
+  const report = { candidates: [{ title: 'Discovery metadata must not become evidence' }], evidence: [
+    { id: 'docs/sacred-texts/atlas.md:L10-16', origin: 'local', title: 'STAGING TEST Atlas', path: 'docs/sacred-texts/atlas.md', tradition: 'Hinduism', edition: '1901', translator: 'Fixture', rights: 'public_domain', lineStart: 10, lineEnd: 16, text: 'Divine light in the soul.', contextVerified: true },
+    { id: 'unverified', title: 'Probe snippet', text: 'Not read in context.', contextVerified: false },
+  ] }
+  const sources = sourcesFromToolResults([{ toolName: 'library_research', output: { status: 'done', success: true, text: JSON.stringify(report) } }])
+  assert.equal(sources.length, 1)
+  assert.equal(sources[0]?.origin, 'local-corpus')
+  assert.equal(sources[0]?.translator, 'Fixture')
+  assert.equal(sources[0]?.lineStart, 10)
+})

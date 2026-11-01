@@ -1,18 +1,14 @@
-import { stepCountIs, ToolLoopAgent, type StepResult, type ToolSet, type UIMessage } from 'ai'
-import { log } from 'evlog'
-import { DEFAULT_MODEL, buildGenerationSettings, buildProviderOptions } from '../router/schema'
+import type { UIMessage } from 'ai'
+import { DEFAULT_MODEL } from '../router/schema'
 import { routeQuestion } from '../router/route-question'
 import { buildChatSystemPrompt } from '../prompts/chat'
 import { applyComplexity } from '../prompts/shared'
-import { compactContext } from '../core/context'
-import { callOptionsSchema } from '../core/schemas'
-import { sanitizeToolCallInputs } from '../core/sanitize'
-import { finalAnswerMessages, researchStepBudget, shouldForceTextOnlyStep } from '../core/policy'
-import { researchTools } from '../tools/research'
-import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
-import type { AgentConfigData, AgentCallOptions, AgentExecutionContext, RoutingResult } from '../types'
+import type { ResearchDependencies } from '../retrieval/controller'
+import type { AgentConfigData, RoutingResult } from '../types'
+import { createAgent } from './base'
 
 export interface SourceAgentOptions {
+  research?: ResearchDependencies
   tools: Record<string, unknown>
   getAgentConfig: () => Promise<AgentConfigData>
   messages: UIMessage[]
@@ -28,83 +24,12 @@ export interface SourceAgentOptions {
   onFinish?: (result: any) => void
 }
 
-export function createSourceAgent({
-  tools,
-  getAgentConfig,
-  messages,
-  apiKey,
-  requestId,
-  defaultModel = DEFAULT_MODEL,
-  onRouted,
-  onStepFinish,
-  onFinish,
-}: SourceAgentOptions) {
-  const id = requestId ?? crypto.randomUUID().slice(0, 8)
-  let maxSteps = 15
-  let currentModel = defaultModel
-  const wrap = resolveModelWrapper()
-
-  return new ToolLoopAgent({
-    model: wrap(DEFAULT_MODEL),
-    callOptionsSchema,
-    prepareCall: async ({ options, ...settings }) => {
-      const modelOverride = (options as AgentCallOptions | undefined)?.model
-      const customContext = (options as AgentCallOptions | undefined)?.context
-
-      const [routerConfig, agentConfig] = await Promise.all([
-        routeQuestion(messages, id, apiKey),
-        getAgentConfig(),
-      ])
-
-      const effectiveMaxSteps = researchStepBudget(routerConfig.maxSteps, agentConfig.maxStepsMultiplier)
-      const effectiveModel = modelOverride ?? agentConfig.defaultModel ?? defaultModel
-      currentModel = effectiveModel
-      const { temperature } = agentConfig
-
-      maxSteps = effectiveMaxSteps
-      onRouted?.({ routerConfig, agentConfig, effectiveModel, effectiveMaxSteps })
-
-      const executionContext: AgentExecutionContext = {
-        mode: 'chat',
-        effectiveModel,
-        maxSteps: effectiveMaxSteps,
-        routerConfig,
-        agentConfig,
-        customContext,
-      }
-
-      return {
-        ...settings,
-        model: wrap(effectiveModel),
-        instructions: applyComplexity(buildChatSystemPrompt(agentConfig), { ...routerConfig, maxSteps: effectiveMaxSteps }),
-        tools: {
-          ...tools,
-          ...researchTools,
-        },
-        stopWhen: stepCountIs(effectiveMaxSteps + 1),
-        ...buildGenerationSettings(effectiveModel, 'research', temperature),
-        experimental_context: executionContext,
-      }
-    },
-    prepareStep: ({ stepNumber, messages: stepMessages, steps }) => {
-      sanitizeToolCallInputs(stepMessages)
-      const normalizedSteps = (steps as StepResult<ToolSet>[] | undefined) ?? []
-      const compactedMessages = compactContext({ messages: stepMessages, steps: normalizedSteps })
-
-      if (shouldForceTextOnlyStep({ stepNumber, maxSteps, steps: normalizedSteps })) {
-        log.info({ event: 'agent.force_text_step', step: stepNumber + 1, maxSteps })
-        return {
-          toolChoice: 'none' as const,
-          messages: finalAnswerMessages(compactedMessages),
-          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), 'final'),
-        }
-      }
-
-      if (compactedMessages !== stepMessages) {
-        return { messages: compactedMessages }
-      }
-    },
-    onStepFinish,
-    onFinish,
+export function createSourceAgent({ tools, research, getAgentConfig, messages, apiKey, requestId, defaultModel = DEFAULT_MODEL, onRouted, onStepFinish, onFinish }: SourceAgentOptions) {
+  return createAgent({
+    tools, research, getAgentConfig,
+    route: () => routeQuestion(messages, requestId ?? crypto.randomUUID().slice(0, 8), apiKey),
+    buildPrompt: (route, config) => applyComplexity(buildChatSystemPrompt(config), route),
+    resolveModel: (_route, config) => config.defaultModel ?? defaultModel,
+    onRouted, onStepFinish, onFinish,
   })
 }

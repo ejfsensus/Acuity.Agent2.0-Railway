@@ -32,7 +32,7 @@ test('DeepSeek helpers avoid thinking and bound auxiliary output while research 
   process.env.AI_PROVIDER = 'openai-compatible'
   process.env.OPENAI_COMPATIBLE_BASE_URL = 'https://api.deepseek.com'
   assert.deepEqual(buildGenerationSettings('deepseek-flash', 'router'), {
-    temperature: 0, maxOutputTokens: 1024, providerOptions: { openaiCompatible: { reasoningEffort: 'none' } },
+    temperature: 0, maxOutputTokens: 2048, providerOptions: { openaiCompatible: { reasoningEffort: 'none' } },
   })
   const title = buildGenerationSettings('deepseek-flash', 'title')
   assert.equal(title.temperature, 0.2)

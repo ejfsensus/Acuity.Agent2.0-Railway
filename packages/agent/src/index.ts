@@ -47,3 +47,11 @@ export type {
   AgentCallOptions,
 } from './types'
 export type { AgentConfig } from './router/schema'
+
+export { LibraryResearch, researchContext, researchToolResult } from './retrieval/controller'
+export type { ResearchReport, ResearchDependencies, ResearchEvent } from './retrieval/controller'
+export { buildLocalCatalogue, createLocalLibrary } from './retrieval/catalogue'
+export type { LibraryBook, LocalLibrary, Passage } from './retrieval/catalogue'
+export { fallbackPlan, researchPlanSchema, isLibraryPlan } from './retrieval/plan'
+export type { ResearchPlan } from './retrieval/plan'
+export { requestSacredText, SacredTextError } from './tools/sacred-text'

@@ -5,12 +5,15 @@ import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
 import { finalAnswerMessages, researchStepBudget, shouldForceTextOnlyStep } from '../core/policy'
+import { LibraryResearch, researchContext } from '../retrieval/controller'
+import { fallbackPlan, isLibraryPlan } from '../retrieval/plan'
 import { researchTools } from '../tools/research'
 import { resolveModelWrapper, resolveGatewayMetadata } from '../core/observe'
 import type { AgentCallOptions, AgentExecutionContext, CreateAgentOptions } from '../types'
 
 export function createAgent({
   tools,
+  research,
   getAgentConfig,
   route,
   buildPrompt,
@@ -35,7 +38,21 @@ export function createAgent({
         getAgentConfig(),
       ])
 
-      const effectiveMaxSteps = researchStepBudget(routerConfig.maxSteps, agentConfig.maxStepsMultiplier)
+      const plan = routerConfig.plan ?? fallbackPlan('Investigate the available sacred texts')
+      const effectiveMaxSteps = research ? Math.min(12, researchStepBudget(routerConfig.maxSteps, agentConfig.maxStepsMultiplier)) : researchStepBudget(routerConfig.maxSteps, agentConfig.maxStepsMultiplier)
+      let evidenceContext = ''
+      let effectiveTools = { ...tools, ...researchTools } as ToolSet
+      if (research && isLibraryPlan(plan)) {
+        const controller = new LibraryResearch(research)
+        const report = await controller.initial(plan, settings.abortSignal)
+        evidenceContext = researchContext(report)
+        effectiveTools = controller.tools
+      } else if (research && plan.intent === 'conversation') {
+        effectiveTools = {}
+      } else if (research) {
+        const { 'sacred-text-mcp': _legacy, ...otherTools } = effectiveTools
+        effectiveTools = otherTools
+      }
       const routedModel = resolveModel?.(routerConfig, agentConfig)
         ?? agentConfig.defaultModel
         ?? DEFAULT_MODEL
@@ -58,11 +75,8 @@ export function createAgent({
       return {
         ...settings,
         model: wrap(effectiveModel),
-        instructions: buildPrompt({ ...routerConfig, maxSteps: effectiveMaxSteps }, agentConfig),
-        tools: {
-          ...tools,
-          ...researchTools,
-        },
+        instructions: buildPrompt({ ...routerConfig, maxSteps: effectiveMaxSteps }, agentConfig) + evidenceContext,
+        tools: effectiveTools,
         stopWhen: stepCountIs(effectiveMaxSteps + 1),
         ...buildGenerationSettings(effectiveModel, 'research', temperature),
         experimental_context: executionContext,

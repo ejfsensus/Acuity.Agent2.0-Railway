@@ -49,7 +49,7 @@ The production service uses DeepSeek's OpenAI-compatible API:
 
 Generic aliases `AI_BASE_URL`, `AI_API_KEY`, `AI_MODELS`, `AI_DEFAULT_MODEL`, and `AI_ROUTER_MODEL` are also accepted. Keep model IDs valid for the selected provider. Gateway mode instead requires `AI_GATEWAY_API_KEY` on Railway; Railway does not supply Vercel OIDC credentials.
 
-The selected chat model is passed into the agent call. Direct DeepSeek research explicitly uses high reasoning effort, with a 16,384-token allowance per generation (including reasoning). The reserved final synthesis step disables further tool use and thinking, and explicitly requests an answer using the retrieved evidence. Recovery synthesis has an 8,192-token allowance. Routing uses thinking off, temperature 0 and at most 1,024 output tokens; title generation uses thinking off, temperature 0.2 and at most 64 output tokens.
+The selected chat model is passed into the agent call. Direct DeepSeek research explicitly uses high reasoning effort, with a 16,384-token allowance per generation (including reasoning). The reserved final synthesis step disables further tool use and thinking, and explicitly requests an answer using the retrieved evidence. Recovery synthesis has an 8,192-token allowance. Routing uses thinking off, temperature 0 and at most 2,048 output tokens; title generation uses thinking off, temperature 0.2 and at most 64 output tokens.
 
 The administrator's saved temperature is applied to supported non-thinking answer generation, including a saved value of 0. New/reset application configurations default to 0.2; existing saved preferences are retained. DeepSeek thinking ignores temperature and presence/frequency penalties, so the request transform removes those fields while thinking. No top-p override is set. See the [routing and retrieval review](plans/AGENT-RETRIEVAL-REVIEW-2026-11-01.md) for the source-selection proposal and settings rationale.
 
@@ -97,3 +97,6 @@ Discord uses `NUXT_DISCORD_BOT_TOKEN`, `NUXT_DISCORD_PUBLIC_KEY`, `NUXT_DISCORD_
 See [External API access](EXTERNAL-API.md) for personal keys, JSON corpus retrieval, hosted-agent SSE and caller-owned provider billing.
 
 External SDK clients use `SAVOIR_API_URL=https://agent.acuity.institute` and an administrator-created `SAVOIR_API_KEY`. Never commit real secrets or put them in `NUXT_PUBLIC_*` variables.
+
+
+The staged library controller runs automatically for library inquiries in both web chat and bots. See [Retrieval workflow](RETRIEVAL-WORKFLOW.md) for the catalogue cache, source constraints, progress/citation stream, optional index revision cache key, and live acceptance checklist.

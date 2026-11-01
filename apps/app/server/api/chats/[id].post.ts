@@ -4,7 +4,8 @@ import { db, schema } from '@nuxthub/db'
 import { and, eq } from 'drizzle-orm'
 import { createSavoir } from '@savoir/sdk'
 import { useLogger } from 'evlog'
-import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, researchTools } from '@savoir/agent'
+import { createSourceAgent, createAdminAgent, setAIGatewayMetadata, INVALID_RESPONSE_MESSAGE, generateFinalAnswer, buildChatSystemPrompt, ADMIN_SYSTEM_PROMPT, researchTools, researchContext, researchToolResult, LibraryResearch, type ResearchReport } from '@savoir/agent'
+import { createLibraryResearch } from '../../utils/library-research'
 import { completeResponseStream } from '../../utils/chat/complete-response'
 import { forwardAuthHeaders } from '../../utils/chat/forward-auth'
 import { generateTitle } from '../../utils/chat/generate-title'
@@ -111,6 +112,9 @@ export default defineEventHandler(async (event) => {
 
     let researchMessages: ModelMessage[] = []
     const toolResults: ToolResultLike[] = []
+    let evidenceContext = ''
+    let emitResearch: ((stage: string, message: string) => void) | undefined
+    let emitSelection: ((report: ResearchReport) => void) | undefined
     const onStepFinish = (step: StepResult<ToolSet>) => {
       researchMessages = step.response.messages
       for (const result of step.toolResults ?? []) {
@@ -124,6 +128,15 @@ export default defineEventHandler(async (event) => {
       })
       : createSourceAgent({
         tools: savoir.tools,
+        research: createLibraryResearch({
+          onProgress: ({ stage, message }) => emitResearch?.(stage, message),
+          onReport: (report) => {
+            evidenceContext += researchContext(report)
+            emitSelection?.(report)
+            toolResults.push({ toolName: 'library_research', output: researchToolResult(report) })
+            requestLog.set({ researchSelected: report.selected.length, researchVerified: report.evidence.length, researchGaps: report.gaps.length, researchCalls: report.calls })
+          },
+        }),
         getAgentConfig,
         onStepFinish,
         messages,
@@ -171,6 +184,12 @@ export default defineEventHandler(async (event) => {
     const stream = createUIMessageStream({
       onError: onResponseError,
       execute: async ({ writer }) => {
+        emitResearch = (stage, message) => writer.write({ type: 'data-research', id: 'research-progress', data: { stage, message } })
+        const passes: unknown[] = []
+        emitSelection = report => {
+          passes.push({ plan: report.plan, selected: report.selected.map(({ id, title, tradition, edition, translator, origin, reason }) => ({ id, title, tradition, edition, translator, origin, reason })), coverage: report.coverage, gaps: report.gaps, limitations: report.limitations, calls: report.calls })
+          writer.write({ type: 'data-research-selection', id: 'research-selection', data: { passes: [...passes] } })
+        }
         const modelMessages = await convertToModelMessages(messages)
         const result = await agent.stream({
           messages: modelMessages,
@@ -206,8 +225,8 @@ export default defineEventHandler(async (event) => {
             const final = await generateFinalAnswer({
               model: effectiveModel,
               messages: [...modelMessages, ...researchMessages],
-              tools: (isAdminChat ? adminTools : { ...savoir.tools, ...researchTools }) as ToolSet,
-              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(config!),
+              tools: (isAdminChat ? adminTools : { ...savoir.tools, ...researchTools, ...new LibraryResearch(createLibraryResearch()).tools }) as ToolSet,
+              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(config!) + evidenceContext,
               temperature: config?.temperature,
               abortSignal: abortController.signal,
             })
