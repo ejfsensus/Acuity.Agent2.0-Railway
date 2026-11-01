@@ -12,6 +12,7 @@ test('a bounded research loop keeps tool definitions and requests a final answer
   const model = new MockLanguageModelV3({
     doGenerate: (options) => {
       calls++
+      assert.equal(options.temperature, 0, 'the saved zero temperature reaches generation')
       const final = options.toolChoice?.type === 'none'
       if (final) {
         assert.ok(options.tools?.some(tool => tool.type === 'function' && tool.name === 'lookup'))
@@ -32,7 +33,7 @@ test('a bounded research loop keeps tool definitions and requests a final answer
   try {
     const agent = createAgent({
       tools: { lookup: tool({ inputSchema: z.object({}), execute: () => 'Synthetic fixture: wisdom guides action, repeated action changes habits.' }) },
-      getAgentConfig: () => Promise.resolve({ id: 'fixture', name: 'fixture', additionalPrompt: null, responseStyle: 'concise', language: 'en', defaultModel: 'configured-model', maxStepsMultiplier: 1, temperature: 0.7, searchInstructions: null, citationFormat: 'inline', isActive: true }),
+      getAgentConfig: () => Promise.resolve({ id: 'fixture', name: 'fixture', additionalPrompt: null, responseStyle: 'concise', language: 'en', defaultModel: 'configured-model', maxStepsMultiplier: 1, temperature: 0, searchInstructions: null, citationFormat: 'inline', isActive: true }),
       route: () => Promise.resolve({ complexity: 'simple', model: 'routed-model', maxSteps: 4, reasoning: 'fixture' }),
       buildPrompt: () => 'Use the fixture to answer the question.',
     })

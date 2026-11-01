@@ -1,6 +1,6 @@
 import { stepCountIs, ToolLoopAgent, type StepResult, type ToolSet, type UIMessage } from 'ai'
 import { log } from 'evlog'
-import { DEFAULT_MODEL, buildProviderOptions } from '../router/schema'
+import { DEFAULT_MODEL, buildGenerationSettings, buildProviderOptions } from '../router/schema'
 import { routeQuestion } from '../router/route-question'
 import { buildChatSystemPrompt } from '../prompts/chat'
 import { applyComplexity } from '../prompts/shared'
@@ -59,6 +59,7 @@ export function createSourceAgent({
       const effectiveMaxSteps = researchStepBudget(routerConfig.maxSteps, agentConfig.maxStepsMultiplier)
       const effectiveModel = modelOverride ?? agentConfig.defaultModel ?? defaultModel
       currentModel = effectiveModel
+      const { temperature } = agentConfig
 
       maxSteps = effectiveMaxSteps
       onRouted?.({ routerConfig, agentConfig, effectiveModel, effectiveMaxSteps })
@@ -81,8 +82,7 @@ export function createSourceAgent({
           ...researchTools,
         },
         stopWhen: stepCountIs(effectiveMaxSteps + 1),
-        maxOutputTokens: 8192,
-        providerOptions: buildProviderOptions(effectiveModel, resolveGatewayMetadata()),
+        ...buildGenerationSettings(effectiveModel, 'research', temperature),
         experimental_context: executionContext,
       }
     },
@@ -96,7 +96,7 @@ export function createSourceAgent({
         return {
           toolChoice: 'none' as const,
           messages: finalAnswerMessages(compactedMessages),
-          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), true),
+          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), 'final'),
         }
       }
 

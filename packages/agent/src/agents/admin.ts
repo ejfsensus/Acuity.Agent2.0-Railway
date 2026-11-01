@@ -1,5 +1,5 @@
 import { stepCountIs, ToolLoopAgent, type StepResult, type ToolSet } from 'ai'
-import { DEFAULT_MODEL, buildProviderOptions } from '../router/schema'
+import { DEFAULT_MODEL, buildGenerationSettings, buildProviderOptions } from '../router/schema'
 import { ADMIN_SYSTEM_PROMPT } from '../prompts/chat'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
@@ -51,8 +51,7 @@ export function createAdminAgent({
         instructions: systemPrompt,
         tools,
         stopWhen: stepCountIs(maxSteps + 1),
-        maxOutputTokens: 8192,
-        providerOptions: buildProviderOptions(effectiveModel, resolveGatewayMetadata()),
+        ...buildGenerationSettings(effectiveModel, 'research'),
         experimental_context: executionContext,
       }
     },
@@ -61,7 +60,7 @@ export function createAdminAgent({
       const normalizedSteps = (steps as StepResult<ToolSet>[] | undefined) ?? []
       const compactedMessages = compactContext({ messages, steps: normalizedSteps })
       if (shouldForceTextOnlyStep({ stepNumber, maxSteps, steps: normalizedSteps })) {
-        return { toolChoice: 'none' as const, messages: finalAnswerMessages(compactedMessages), providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), true) }
+        return { toolChoice: 'none' as const, messages: finalAnswerMessages(compactedMessages), providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), 'final') }
       }
       if (compactedMessages !== messages) {
         return { messages: compactedMessages }

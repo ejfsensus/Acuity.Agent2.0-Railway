@@ -202,11 +202,13 @@ export default defineEventHandler(async (event) => {
           onError: onResponseError,
           recover: async () => {
             requestLog.set({ synthesisRecovery: true, completedResearchMessages: researchMessages.length })
+            const config = isAdminChat ? undefined : await getAgentConfig()
             const final = await generateFinalAnswer({
               model: effectiveModel,
               messages: [...modelMessages, ...researchMessages],
               tools: (isAdminChat ? adminTools : { ...savoir.tools, ...researchTools }) as ToolSet,
-              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(await getAgentConfig()),
+              system: isAdminChat ? ADMIN_SYSTEM_PROMPT : buildChatSystemPrompt(config!),
+              temperature: config?.temperature,
               abortSignal: abortController.signal,
             })
             recoveryUsage = final.totalUsage

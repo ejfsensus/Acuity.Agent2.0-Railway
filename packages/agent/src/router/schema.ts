@@ -1,5 +1,6 @@
 import type { JSONObject, SharedV3ProviderOptions } from '@ai-sdk/provider'
 import { z } from 'zod'
+import { resolveGatewayMetadata } from '../core/observe'
 
 const GATEWAY_DEFAULT_MODEL = 'deepseek/deepseek-v4-pro'
 const GATEWAY_ROUTER_MODEL = 'minimax/minimax-m2.7'
@@ -104,14 +105,15 @@ export function getModelFallbackOptions(model: string): SharedV3ProviderOptions 
 export function buildProviderOptions(
   model: string,
   metadata?: { userId?: string, tags?: string[] },
-  finalAnswer = false,
+  task: boolean | 'research' | 'router' | 'title' | 'final' = false,
 ): SharedV3ProviderOptions | undefined {
   if (getAIProviderKind() !== 'gateway') {
     const baseURL = readEnv('OPENAI_COMPATIBLE_BASE_URL', 'AI_BASE_URL') || ''
-    if (!finalAnswer || !/^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL)) return undefined
+    if (!/^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL)) return undefined
     const name = readEnv('OPENAI_COMPATIBLE_NAME', 'AI_PROVIDER_NAME') || 'openai-compatible'
     const namespace = name.split('.')[0]!.replace(/-([a-z])/g, (_match, letter: string) => letter.toUpperCase())
-    return { [namespace]: { reasoningEffort: 'none' } }
+    const research = task === false || task === 'research'
+    return { [namespace]: { reasoningEffort: research ? 'high' : 'none' } }
   }
 
   const fallbacks = MODEL_FALLBACKS[model]
@@ -122,6 +124,23 @@ export function buildProviderOptions(
   if (metadata?.tags?.length) gateway.tags = metadata.tags
 
   return Object.keys(gateway).length > 0 ? { gateway } : undefined
+}
+
+export const DEFAULT_TEMPERATURE = 0.2
+
+export function buildGenerationSettings(
+  model: string,
+  task: 'research' | 'router' | 'title' | 'final',
+  temperature = DEFAULT_TEMPERATURE,
+) {
+  const gateway = getAIProviderKind() === 'gateway'
+  const baseURL = readEnv('OPENAI_COMPATIBLE_BASE_URL', 'AI_BASE_URL') || ''
+  const deepSeek = gateway ? model.startsWith('deepseek/') : /^https:\/\/api\.deepseek\.com(?:\/|$)/i.test(baseURL)
+  return {
+    maxOutputTokens: task === 'router' ? 1024 : task === 'title' ? 64 : task === 'research' && deepSeek ? 16384 : 8192,
+    ...(!(task === 'research' && gateway && deepSeek) && { temperature: task === 'router' ? 0 : temperature }),
+    providerOptions: buildProviderOptions(model, resolveGatewayMetadata(), task),
+  }
 }
 
 export function buildGatewayProviderOptions(

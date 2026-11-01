@@ -1,6 +1,6 @@
 import { db, schema } from '@nuxthub/db'
 import { eq } from 'drizzle-orm'
-import type { AgentConfigData } from '@savoir/agent'
+import { DEFAULT_TEMPERATURE, type AgentConfigData } from '@savoir/agent'
 import { KV_KEYS } from './sandbox/types'
 import { appKvDel, appKvGet, appKvSet } from './app-kv'
 
@@ -14,7 +14,7 @@ const DEFAULT_CONFIG: AgentConfigData = {
   language: 'en',
   defaultModel: null,
   maxStepsMultiplier: 1.0,
-  temperature: 0.7,
+  temperature: DEFAULT_TEMPERATURE,
   searchInstructions: null,
   citationFormat: 'inline',
   isActive: true,
@@ -47,7 +47,7 @@ export async function getAgentConfig(): Promise<AgentConfigData> {
       language: config.language || 'en',
       defaultModel: config.defaultModel,
       maxStepsMultiplier: config.maxStepsMultiplier || 1.0,
-      temperature: config.temperature || 0.7,
+      temperature: config.temperature ?? DEFAULT_TEMPERATURE,
       searchInstructions: config.searchInstructions,
       citationFormat: config.citationFormat || 'inline',
       isActive: config.isActive,

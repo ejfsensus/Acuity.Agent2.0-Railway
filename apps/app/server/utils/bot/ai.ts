@@ -6,8 +6,8 @@ import {
   createAgent,
   DEFAULT_MODEL,
   getDefaultConfig,
-  buildProviderOptions,
-  resolveGatewayMetadata,
+  buildGenerationSettings,
+  resolveModelWrapper,
   setAIGatewayMetadata,
   ROUTER_MODEL,
   ROUTER_SYSTEM_PROMPT,
@@ -43,13 +43,13 @@ function buildRouterInput(question: string, context?: ThreadContext): string {
 async function routeQuestion(question: string, context?: ThreadContext): Promise<AgentConfig> {
   try {
     const { output } = await generateText({
-      model: ROUTER_MODEL,
+      model: resolveModelWrapper()(ROUTER_MODEL),
       output: Output.object({ schema: agentConfigSchema }),
       messages: [
         { role: 'system', content: ROUTER_SYSTEM_PROMPT },
         { role: 'user', content: buildRouterInput(question, context) },
       ],
-      providerOptions: buildProviderOptions(ROUTER_MODEL, resolveGatewayMetadata()),
+      ...buildGenerationSettings(ROUTER_MODEL, 'router'),
     })
 
     if (!output) {
@@ -104,12 +104,12 @@ export async function generateAIResponse(
     if (!result.text?.trim()) {
       log.info('bot', 'Agent produced no text, forcing fallback generation')
       const fallback = await generateText({
-        model: DEFAULT_MODEL,
+        model: resolveModelWrapper()(DEFAULT_MODEL),
         messages: [
           { role: 'user', content: buildBotUserMessage(question, context) },
           ...result.response.messages,
         ],
-        providerOptions: buildProviderOptions(DEFAULT_MODEL, resolveGatewayMetadata()),
+        ...buildGenerationSettings(DEFAULT_MODEL, 'final'),
       })
       if (fallback.text?.trim()) {
         return fallback.text

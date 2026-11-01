@@ -1,6 +1,6 @@
 import { stepCountIs, ToolLoopAgent, type StepResult, type ToolSet } from 'ai'
 import { log } from 'evlog'
-import { DEFAULT_MODEL, buildProviderOptions } from '../router/schema'
+import { DEFAULT_MODEL, buildGenerationSettings, buildProviderOptions } from '../router/schema'
 import { compactContext } from '../core/context'
 import { callOptionsSchema } from '../core/schemas'
 import { sanitizeToolCallInputs } from '../core/sanitize'
@@ -41,6 +41,7 @@ export function createAgent({
         ?? DEFAULT_MODEL
       const effectiveModel = modelOverride ?? routedModel
       currentModel = effectiveModel
+      const { temperature } = agentConfig
 
       maxSteps = effectiveMaxSteps
       onRouted?.({ routerConfig, agentConfig, effectiveModel, effectiveMaxSteps })
@@ -63,8 +64,7 @@ export function createAgent({
           ...researchTools,
         },
         stopWhen: stepCountIs(effectiveMaxSteps + 1),
-        maxOutputTokens: 8192,
-        providerOptions: buildProviderOptions(effectiveModel, resolveGatewayMetadata()),
+        ...buildGenerationSettings(effectiveModel, 'research', temperature),
         experimental_context: executionContext,
       }
     },
@@ -78,7 +78,7 @@ export function createAgent({
         return {
           toolChoice: 'none' as const,
           messages: finalAnswerMessages(compactedMessages),
-          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), true),
+          providerOptions: buildProviderOptions(currentModel, resolveGatewayMetadata(), 'final'),
         }
       }
 

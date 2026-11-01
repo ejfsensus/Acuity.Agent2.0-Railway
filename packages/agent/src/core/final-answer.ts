@@ -1,14 +1,15 @@
 import { generateText, type LanguageModelUsage, type ModelMessage, type ToolSet } from 'ai'
-import { buildProviderOptions } from '../router/schema'
-import { resolveGatewayMetadata, resolveModelWrapper } from './observe'
+import { buildGenerationSettings } from '../router/schema'
+import { resolveModelWrapper } from './observe'
 import { finalAnswerMessages } from './policy'
 
-export async function generateFinalAnswer({ model, messages, tools, system, abortSignal }: {
+export async function generateFinalAnswer({ model, messages, tools, system, abortSignal, temperature }: {
   model: string
   messages: ModelMessage[]
   tools: ToolSet
   system: string
   abortSignal?: AbortSignal
+  temperature?: number
 }): Promise<{ text: string, totalUsage: LanguageModelUsage }> {
   const result = await generateText({
     model: resolveModelWrapper()(model),
@@ -16,8 +17,7 @@ export async function generateFinalAnswer({ model, messages, tools, system, abor
     messages: finalAnswerMessages(messages),
     tools,
     toolChoice: 'none',
-    maxOutputTokens: 8192,
-    providerOptions: buildProviderOptions(model, resolveGatewayMetadata(), true),
+    ...buildGenerationSettings(model, 'final', temperature),
     abortSignal,
   })
   return { text: result.text, totalUsage: result.totalUsage }

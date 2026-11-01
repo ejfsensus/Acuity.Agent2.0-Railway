@@ -1,7 +1,7 @@
 import { db, schema } from '@nuxthub/db'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { invalidateAgentConfigCache } from '../../utils/agent-config'
+import { invalidateAgentConfigCache, getDefaultAgentConfig } from '../../utils/agent-config'
 
 const bodySchema = z.object({
   additionalPrompt: z.string().nullable().optional(),
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
         language: body.language ?? 'en',
         defaultModel: body.defaultModel ?? null,
         maxStepsMultiplier: body.maxStepsMultiplier ?? 1.0,
-        temperature: body.temperature ?? 0.7,
+        temperature: body.temperature ?? getDefaultAgentConfig().temperature,
         searchInstructions: body.searchInstructions ?? null,
         citationFormat: body.citationFormat ?? 'inline',
         isActive: true,

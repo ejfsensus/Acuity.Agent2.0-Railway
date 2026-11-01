@@ -45,7 +45,7 @@ const form = ref<{
   language: 'en',
   defaultModel: 'auto',
   maxStepsMultiplier: 1.0,
-  temperature: 0.7,
+  temperature: 0.2,
   searchInstructions: '',
   citationFormat: 'inline',
 })
@@ -248,7 +248,10 @@ async function resetConfig() {
         <div class="rounded-lg border border-default divide-y divide-default">
           <div class="px-4 py-3">
             <p class="text-sm text-highlighted mb-3">
-              Creativity
+              Answer temperature
+            </p>
+            <p class="text-xs text-muted mb-3">
+              Applied to answers when supported. DeepSeek thinking ignores temperature; research uses high reasoning effort.
             </p>
             <USlider
               v-model="form.temperature"

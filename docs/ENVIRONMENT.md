@@ -49,7 +49,9 @@ The production service uses DeepSeek's OpenAI-compatible API:
 
 Generic aliases `AI_BASE_URL`, `AI_API_KEY`, `AI_MODELS`, `AI_DEFAULT_MODEL`, and `AI_ROUTER_MODEL` are also accepted. Keep model IDs valid for the selected provider. Gateway mode instead requires `AI_GATEWAY_API_KEY` on Railway; Railway does not supply Vercel OIDC credentials.
 
-The selected chat model is passed into the agent call. DeepSeek final synthesis disables further tool use and thinking, and explicitly requests an answer using the retrieved evidence.
+The selected chat model is passed into the agent call. Direct DeepSeek research explicitly uses high reasoning effort, with a 16,384-token allowance per generation (including reasoning). The reserved final synthesis step disables further tool use and thinking, and explicitly requests an answer using the retrieved evidence. Recovery synthesis has an 8,192-token allowance. Routing uses thinking off, temperature 0 and at most 1,024 output tokens; title generation uses thinking off, temperature 0.2 and at most 64 output tokens.
+
+The administrator's saved temperature is applied to supported non-thinking answer generation, including a saved value of 0. New/reset application configurations default to 0.2; existing saved preferences are retained. DeepSeek thinking ignores temperature and presence/frequency penalties, so the request transform removes those fields while thinking. No top-p override is set. See the [routing and retrieval review](plans/AGENT-RETRIEVAL-REVIEW-2026-11-01.md) for the source-selection proposal and settings rationale.
 
 ## Structured sacred-text retrieval
 
