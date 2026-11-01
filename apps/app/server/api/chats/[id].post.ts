@@ -219,8 +219,7 @@ export default defineEventHandler(async (event) => {
           stream: result.toUIMessageStream({ onError: onResponseError, sendReasoning: false }),
           abortSignal: abortController.signal,
           onError: onResponseError,
-          synthesizeAfterResearch: !isAdminChat,
-          hasPreparedResearch: () => researchReports.length > 0,
+          finalAnswerOnly: !isAdminChat,
           recover: async () => {
             emitResearch?.('synthesize', 'Writing the answer from the retrieved evidence')
             requestLog.set({ synthesisStarted: true, synthesisPasses: researchReports.length, completedResearchMessages: researchMessages.length })

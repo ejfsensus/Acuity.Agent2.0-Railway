@@ -3,13 +3,19 @@ import { test } from 'node:test'
 import { SacredTextError } from '../tools/sacred-text'
 import { LibraryResearch } from './controller'
 import { fallbackPlan } from './plan'
-import type { LocalLibrary } from './catalogue'
+import type { LibraryBook, LocalLibrary } from './catalogue'
 
 const local: LocalLibrary = { discover: () => Promise.resolve([]), search: () => Promise.resolve([]) }
 const catalogue = [
   { book: 'lightA', path: 'chr/a.txt.gz', title: 'Light edition A', tradition: 'Christianity', status: 'done' },
   { book: 'lightB', path: 'isl/b.txt.gz', title: 'Light edition B', tradition: 'Islam', status: 'done' },
 ]
+const localBooks: LibraryBook[] = catalogue.map((book, index) => ({
+  id: `local:${index}`, editionId: `local:${index}`, workId: `work:${index}`, title: book.title, tradition: book.tradition,
+  path: `docs/sacred-texts/source1_ista/${book.path.replace(/\.gz$/, '')}`, origin: 'local', source_url: '',
+  edition: 'STAGING TEST Translator 1901', translator: 'STAGING TEST Translator', language: 'English', kind: 'text',
+  rights: 'public_domain', readable: true, format: 'txt', description: '', descriptionOrigin: 'metadata',
+}))
 function fixture() {
   const calls: string[] = []
   const remote = async (input: any) => {
@@ -25,19 +31,32 @@ function fixture() {
     }
     return {}
   }
-  return { calls, remote }
+  const local: LocalLibrary = {
+    discover: request => {
+      assert.ok(request.screened?.length)
+      return Promise.resolve(localBooks.map(book => ({ ...book, rank: 1 })))
+    },
+    search: book => {
+      calls.push(`local-read:${book.id}`)
+      return Promise.resolve([{ ...book, id: `${book.path}:L10-16`, bookId: book.id, text: 'Divine light transforms the soul.', contextVerified: true }])
+    },
+  }
+  return { calls, remote, local }
 }
 
 test('discovery precedes selection and context verification with balanced traditions', async () => {
   const mock = fixture()
   const events: string[] = []
-  const engine = new LibraryResearch({ local, remote: mock.remote, onProgress: event => events.push(event.stage) })
+  const engine = new LibraryResearch({ local: mock.local, remote: mock.remote, onProgress: event => events.push(event.stage) })
   const report = await engine.initial({ ...fallbackPlan('divine light'), intent: 'comparison', traditions: ['Christianity', 'Sufism'] })
   assert.equal(mock.calls[0], 'list_books')
   assert.ok(mock.calls.includes('compare_traditions'))
   assert.equal(report.selected.length, 2)
   assert.equal(report.evidence.length, 2)
   assert.ok(report.evidence.every(p => p.contextVerified))
+  assert.ok(report.selected.every(book => book.origin === 'local'))
+  assert.ok(report.evidence.every(p => p.origin === 'local' && p.id.includes(':L')))
+  assert.ok(mock.calls.every(call => ['list_books', 'compare_traditions'].includes(call) || call.startsWith('local-read:')))
   assert.ok(report.coverage.every(group => group.passages > 0))
   assert.deepEqual(events.slice(0, 3), ['discover', 'select', 'retrieve'])
   assert.equal(events.at(-1), 'complete')
@@ -45,7 +64,7 @@ test('discovery precedes selection and context verification with balanced tradit
 
 test('forged identities and wrong editions never become quotation evidence', async () => {
   const mock = fixture()
-  const engine = new LibraryResearch({ local, remote: mock.remote })
+  const engine = new LibraryResearch({ local: mock.local, remote: mock.remote })
   const report = await engine.initial({ ...fallbackPlan('divine light'), edition: 'Missing Translator 2000' })
   assert.equal(report.evidence.length, 0)
   assert.ok(report.candidates.every(book => book.book !== 'forged'))
@@ -78,10 +97,21 @@ test('429 stops remote retries and local-only verified evidence remains availabl
   assert.equal(calls, 1)
 })
 
-test('a wrong get_passage response is rejected even when the probe looked relevant', async () => {
+test('external probe snippets cannot become evidence without a local read', async () => {
   const mock = fixture()
   const engine = new LibraryResearch({ local, remote: input => input.action === 'get_passage'
     ? Promise.resolve({ id: 'wrong#00001', book: 'lightA', text: 'Divine light.' }) : mock.remote(input) })
+  const report = await engine.initial(fallbackPlan('divine light'))
+  assert.equal(report.evidence.length, 0)
+  assert.equal(report.selected.length, 0)
+  assert.ok(!mock.calls.includes('get_passage'))
+})
+
+test('a local read for a different edition or file cannot enter the evidence set', async () => {
+  const mock = fixture()
+  const engine = new LibraryResearch({ remote: mock.remote, local: { discover: mock.local.discover,
+    search: () => Promise.resolve([{ ...localBooks[0]!, id: 'foreign:L1-2', bookId: 'foreign', path: 'docs/sacred-texts/foreign.txt', text: 'Divine light.', contextVerified: true }]),
+  } })
   const report = await engine.initial(fallbackPlan('divine light'))
   assert.equal(report.evidence.length, 0)
 })

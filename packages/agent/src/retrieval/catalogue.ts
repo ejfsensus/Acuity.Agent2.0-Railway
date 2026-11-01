@@ -40,8 +40,19 @@ export interface Passage extends LibraryBook {
   contextVerified: boolean
 }
 export interface LocalLibrary {
-  discover: (request: { query: string, traditions: string[], works: string[], phrase: string }, signal?: AbortSignal) => Promise<Array<LibraryBook & { rank: number }>>
+  discover: (request: { query: string, traditions: string[], works: string[], phrase: string, screened?: ScreenedWork[] }, signal?: AbortSignal) => Promise<Array<LibraryBook & { rank: number }>>
   search: (book: LibraryBook, query: string, phrase: string, signal?: AbortSignal) => Promise<Passage[]>
+}
+export interface ScreenedWork { title: string, remotePath: string, sourceUrl: string, phrase?: string }
+
+/** A discovery hint identifies a catalogue entry; it never substitutes for reading that local edition. */
+export function screenedWorkMatches(book: LibraryBook, lead: ScreenedWork): boolean {
+  const remote = lead.remotePath.replace(/\.gz$/i, '').replace(/^\/+/, '')
+  const local = book.path.replace(/^docs\/sacred-texts\/source1_ista\//, '').replace(/\.gz$/i, '')
+  if (remote && local === remote) return true
+  if (lead.sourceUrl && book.source_url && lead.sourceUrl.replace(/\/$/, '') === book.source_url.replace(/\/$/, '')) return true
+  const title = normalize(lead.title)
+  return title.length > 4 && [book.title, ...(book.aliases ?? [])].some(value => normalize(value) === title)
 }
 const VERSION = 1
 const FORMATS = new Set(['.md', '.txt', '.html', '.htm', '.usx', '.pdf', '.epub', '.docx'])
@@ -220,18 +231,27 @@ export function createLocalLibrary(root: string, cacheFile: string): LocalLibrar
   }
   return {
     search,
-    discover: async ({ query, traditions, works, phrase }, signal) => {
+    discover: async ({ query, traditions, works, phrase, screened = [] }, signal) => {
       const catalogue = await buildLocalCatalogue(root, cacheFile)
       const scoped = catalogue.books.filter(book => (!traditions.length || traditions.some(t => traditionMatches(book.tradition, t)))
         && (!works.length || works.some(work => normalize(`${book.title} ${(book.aliases ?? []).join(' ')}`).includes(normalize(work)) || normalize(book.path).includes(normalize(work)))))
       const scores = bm25(scoped, query)
-      let ranked = scoped.map(book => ({ ...book, rank: scores.get(book.id) ?? 0 })).sort((a, b) => b.rank - a.rank || a.id.localeCompare(b.id))
+      let ranked = scoped.map(book => {
+        const screen = screened.findIndex(lead => screenedWorkMatches(book, lead))
+        return { ...book, rank: (scores.get(book.id) ?? 0) + (screen >= 0 ? 10_000 / (screen + 1) : 0) }
+      }).sort((a, b) => b.rank - a.rank || a.id.localeCompare(b.id))
       if (phrase) {
         const matches: typeof ranked = []
-        for (const book of ranked) {
-          signal?.throwIfAborted()
-          if ((await search(book, query, phrase, signal)).length) matches.push({ ...book, rank: book.rank + 100 })
-          if (matches.length >= 12) break
+        const screenedBooks = ranked.filter(book => screened.some(lead => screenedWorkMatches(book, lead)))
+        const screenedIds = new Set(screenedBooks.map(book => book.id))
+        const pools = screenedBooks.length ? [screenedBooks, ranked.filter(book => !screenedIds.has(book.id))] : [ranked]
+        for (const pool of pools) {
+          for (const book of pool) {
+            signal?.throwIfAborted()
+            if ((await search(book, query, phrase, signal)).length) matches.push({ ...book, rank: book.rank + 100 })
+            if (matches.length >= 12) break
+          }
+          if (matches.length) break
         }
         ranked = matches
       }

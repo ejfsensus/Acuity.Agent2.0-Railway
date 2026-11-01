@@ -126,8 +126,8 @@ test('the screenshot failure gets a separate synthesis and only that answer is s
     { type: 'finish', finishReason: 'stop' },
   ]
   const chunks = await collect(createUIMessageStream({
-    execute: ({ writer }) => writer.merge(completeResponseStream({ stream: source(research), synthesizeAfterResearch: true,
-      hasPreparedResearch: () => true, onError: unexpected, recover: () => {
+    execute: ({ writer }) => writer.merge(completeResponseStream({ stream: source(research), finalAnswerOnly: true,
+      onError: unexpected, recover: () => {
         calls++
         return Promise.resolve('Providence is presented as divine care and watchfulness. [fixture.txt]')
       },
@@ -146,7 +146,7 @@ test('the screenshot failure gets a separate synthesis and only that answer is s
 
 test('tool-limit termination gets final synthesis even when research includes a plausible draft', async () => {
   const chunks = await collect(completeResponseStream({
-    stream: source(toolChunks), synthesizeAfterResearch: true, onError: unexpected,
+    stream: source(toolChunks), finalAnswerOnly: true, onError: unexpected,
     recover: () => Promise.resolve({ text: 'A final answer after the tool budget ended. [fixture.txt]', finishReason: 'stop' as const }),
   }))
   assert.ok(chunks.some(chunk => chunk.type === 'text-delta' && chunk.delta.includes('final answer')))
@@ -155,7 +155,7 @@ test('tool-limit termination gets final synthesis even when research includes a 
 
 test('an evidence-only fallback is visible and finishes as an error rather than a successful synthesis', async () => {
   const chunks = await collect(completeResponseStream({
-    stream: source(toolChunks), synthesizeAfterResearch: true, onError: unexpected,
+    stream: source(toolChunks), finalAnswerOnly: true, onError: unexpected,
     recover: () => Promise.resolve({ text: 'Synthesis failed. Evidence-only fallback: a retrieved excerpt. [fixture.txt]', finishReason: 'error' as const }),
   }))
   assert.ok(chunks.some(chunk => chunk.type === 'text-delta' && chunk.delta.includes('Evidence-only')))
@@ -165,16 +165,37 @@ test('an evidence-only fallback is visible and finishes as an error rather than 
 test('plain conversation has one answer and no additional synthesis call', async () => {
   const chunks = await collect(completeResponseStream({
     stream: source([{ type: 'start' }, { type: 'text-start', id: 'hello' }, { type: 'text-delta', id: 'hello', delta: 'Hello, how can I help?' }, { type: 'text-end', id: 'hello' }, { type: 'finish', finishReason: 'stop' }]),
-    synthesizeAfterResearch: true, onError: unexpected, recover: () => {
+    finalAnswerOnly: true, onError: unexpected, recover: () => {
       throw new Error('Unexpected extra generation')
     },
   }))
   assert.equal(chunks.filter(chunk => chunk.type === 'text-delta').length, 1)
 })
 
+test('a valid answer after research is delivered once without a second synthesis', async () => {
+  let recoveries = 0
+  const chunks = await collect(completeResponseStream({
+    stream: source([
+      ...toolChunks.slice(0, -1),
+      { type: 'text-start', id: 'final' },
+      { type: 'text-delta', id: 'final', delta: 'The passages connect providence with divine care. [fixture.txt]' },
+      { type: 'text-end', id: 'final' },
+      { type: 'finish', finishReason: 'stop' },
+    ]),
+    finalAnswerOnly: true, onError: unexpected, recover: () => {
+      recoveries++
+      return Promise.resolve('A duplicate answer must not be generated.')
+    },
+  }))
+  assert.equal(recoveries, 0)
+  const text = chunks.filter(chunk => chunk.type === 'text-delta').map(chunk => chunk.delta).join('')
+  assert.equal(text, 'The passages connect providence with divine care. [fixture.txt]')
+  assert.equal(chunks.filter(chunk => chunk.type === 'finish').length, 1)
+})
+
 test('cancellation during final synthesis does not persist a late answer', async () => {
   const controller = new AbortController()
-  const chunks = await collect(completeResponseStream({ stream: source(toolChunks), synthesizeAfterResearch: true,
+  const chunks = await collect(completeResponseStream({ stream: source(toolChunks), finalAnswerOnly: true,
     abortSignal: controller.signal, onError: unexpected, recover: () => {
       controller.abort()
       return Promise.resolve('This late answer must not be persisted.')

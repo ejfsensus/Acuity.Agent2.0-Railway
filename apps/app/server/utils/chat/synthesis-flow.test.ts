@@ -7,7 +7,7 @@ import { createAgent, enterAIContext, fallbackPlan, generateFinalAnswer, researc
 import { completeResponseStream } from './complete-response'
 import { buildSourcesChunk, labelCitedSources, sourcesFromToolResults, type ToolResultLike } from './collect-sources'
 
-test('retrieval miss → successful refinement → separate synthesis → cited, persisted final answer', async () => {
+async function verifyFlow(progressOnly: boolean) {
   const reports: ResearchReport[] = []
   const results: ToolResultLike[] = []
   const question = 'STAGING TEST What do the texts say about divine care?'
@@ -29,7 +29,7 @@ test('retrieval miss → successful refinement → separate synthesis → cited,
           controller.enqueue({ type: 'tool-call', toolCallId: 'refine', toolName: 'refine_library', input: JSON.stringify({ gap: 'Need a passage about divine care', query: 'divine care' }) })
         } else {
           controller.enqueue({ type: 'text-start', id: 'progress' })
-          controller.enqueue({ type: 'text-delta', id: 'progress', delta: 'Verified 11 passages from 6 selected texts' })
+          controller.enqueue({ type: 'text-delta', id: 'progress', delta: progressOnly ? 'Verified 11 passages from 6 selected texts' : `The retrieved text connects divine care with watchfulness. [${passage.id}]` })
           controller.enqueue({ type: 'text-end', id: 'progress' })
         }
         controller.enqueue({ type: 'finish', finishReason: { unified: refine ? 'tool-calls' : 'stop', raw: refine ? 'tool_calls' : 'stop' }, usage })
@@ -56,7 +56,7 @@ test('retrieval miss → successful refinement → separate synthesis → cited,
           route: () => Promise.resolve({ complexity: 'moderate', model: 'selected', maxSteps: 2, reasoning: 'STAGING TEST', plan: fallbackPlan(question) }),
           buildPrompt: () => 'Answer from the retrieved passages.',
           research: { remote: () => Promise.reject(new Error('STAGING TEST REST unavailable')),
-            local: { discover: () => Promise.resolve(++discoveries === 1 ? [] : [{ ...passage, rank: 1 }]), search: () => Promise.resolve([passage]) },
+            local: { discover: () => Promise.resolve(++discoveries === 1 ? [] : [{ ...passage, id: passage.bookId, rank: 1 }]), search: () => Promise.resolve([passage]) },
             onReport: report => {
               reports.push(report)
               results.push({ toolName: 'library_research', output: researchToolResult(report) })
@@ -66,8 +66,8 @@ test('retrieval miss → successful refinement → separate synthesis → cited,
         })
         const result = await agent.stream({ prompt: question, options: {} })
         let answer = ''
-        writer.merge(completeResponseStream({ stream: result.toUIMessageStream(), synthesizeAfterResearch: true,
-          hasPreparedResearch: () => reports.length > 0, onError: error => {
+        writer.merge(completeResponseStream({ stream: result.toUIMessageStream(), finalAnswerOnly: true,
+          onError: error => {
             throw error
           },
           recover: async () => {
@@ -98,14 +98,19 @@ test('retrieval miss → successful refinement → separate synthesis → cited,
     }
     assert.equal(reports[0]?.evidence.length, 0)
     assert.equal(reports[1]?.evidence.length, 1)
-    assert.equal(finalCalls, 1)
+    assert.equal(finalCalls, progressOnly ? 1 : 0)
+    assert.equal(saved.filter(message => message.role === 'assistant').length, 1)
     const text = saved.flatMap(message => message.parts.filter(part => part.type === 'text').map(part => part.text)).join('')
     assert.match(text, /connects divine care with watchfulness/)
     assert.doesNotMatch(text, /Verified 11 passages/)
+    assert.equal((text.match(/connects divine care/g) ?? []).length, 1)
     const sources = saved[0]?.parts.find(part => part.type === 'data-sources') as { data: { sources: Array<{ cited: boolean, label: string }> } } | undefined
     assert.equal(sources?.data.sources[0]?.cited, true)
     assert.equal(sources?.data.sources[0]?.label, 'S1')
   } finally {
     enterAIContext(id => id)
   }
-})
+}
+
+test('retrieval miss → successful refinement → recovery of missing synthesis → cited, persisted final answer', () => verifyFlow(true))
+test('retrieval miss → local refinement → one valid synthesis without another answer generation', () => verifyFlow(false))

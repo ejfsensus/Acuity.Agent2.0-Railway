@@ -117,7 +117,7 @@ export async function generateAIResponse(
       metadata: context ? { source: context.source } : undefined,
     }).catch(e => log.debug({ event: 'bot.usage_report.failed', error: e instanceof Error ? e.message : 'Unknown' }))
 
-    if (reports.length || !result || !isSubstantiveAnswer(result.text) || result.finishReason !== 'stop' || result.steps.some(step => step.toolCalls.length)) {
+    if (!result || !isSubstantiveAnswer(result.text) || result.finishReason !== 'stop' || result.toolCalls.length) {
       const final = await generateFinalAnswer({
         model: effectiveModel, system: finalSystem, tools: savoir.tools, reports, temperature,
         messages: [{ role: 'user', content: buildBotUserMessage(question, context) }, ...(reports.length ? [] : result?.response.messages ?? [])],

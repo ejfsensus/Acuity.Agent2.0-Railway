@@ -4,6 +4,8 @@ import { mkdtemp, mkdir, writeFile, symlink, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { buildLocalCatalogue, createLocalLibrary } from './catalogue'
+import { LibraryResearch } from './controller'
+import { fallbackPlan } from './plan'
 
 async function fixture(run: (root: string, cache: string) => Promise<void>) {
   const dir = await mkdtemp(join(tmpdir(), 'acuity-research-'))
@@ -52,5 +54,43 @@ test('known quotation discovery treats regex and shell syntax as literal text', 
     const library = createLocalLibrary(root, cache)
     assert.equal((await library.discover({ query: 'divine light', traditions: [], works: [], phrase: 'DIVINE LIGHT' })).length, 2)
     assert.equal((await library.discover({ query: 'divine light', traditions: [], works: [], phrase: '.*$(touch /tmp/acuity-pwned)' })).length, 0)
+  })
+})
+
+test('external screening maps a work before local literal search and context verification', async () => {
+  await fixture(async (root, cache) => {
+    await mkdir(join(root, 'source1_ista/chr'), { recursive: true })
+    await writeFile(join(root, 'source1_ista/chr/watch.txt'), '# STAGING TEST Watchfulness\n\nWatchfulness governs both dawn and evening.\nThe seeker listens.\n')
+    const calls: string[] = []
+    const engine = new LibraryResearch({ local: createLocalLibrary(root, cache), remote: input => {
+      calls.push(input.action)
+      if (input.action === 'list_books') return Promise.resolve({ books: [{ book: 'watch', path: 'chr/watch.txt.gz', title: 'STAGING TEST Watchfulness', tradition: 'Christianity', status: 'done' }] })
+      if (input.action === 'search_texts') return Promise.resolve({ results: [{ book: 'watch', id: 'chr/watch.txt.gz#00001', text: 'Watchfulness governs both dawn and evening.' }] })
+      throw new Error('The external service is only allowed to screen candidates')
+    } })
+    const report = await engine.initial(fallbackPlan('providence'))
+    assert.deepEqual(calls, ['list_books', 'search_texts'])
+    assert.equal(report.selected.length, 1)
+    assert.equal(report.evidence.length, 1)
+    assert.equal(report.evidence[0]?.origin, 'local')
+    assert.match(report.evidence[0]!.id, /source1_ista\/chr\/watch.txt:L\d+-\d+$/)
+    assert.match(report.evidence[0]!.text, /Watchfulness governs/)
+    assert.match(report.selected[0]!.reason, /External content screening/)
+  })
+})
+
+test('literal discovery greps screened local works first and widens only after a miss', async () => {
+  await fixture(async (root, cache) => {
+    await mkdir(join(root, 'source1_ista/chr'), { recursive: true })
+    await writeFile(join(root, 'source1_ista/chr/care.txt'), '# Candidate Care\n\nThe divine light awakens the soul.\n')
+    await writeFile(join(root, 'source1_ista/chr/miss.txt'), '# Candidate Miss\n\nThe traveller rests.\n')
+    const library = createLocalLibrary(root, cache)
+    const request = { query: 'divine light', traditions: [], works: [], phrase: 'divine light' }
+    const missing = await library.discover({ ...request, screened: [{ title: 'Candidate Miss', remotePath: 'chr/miss.txt.gz', sourceUrl: '' }] })
+    assert.equal(missing.length, 3, 'a screening miss retains local discovery')
+    await rm(join(root, 'source6_ancient_wisdom_atlas/hinduism/b.md'))
+    const found = await library.discover({ ...request, screened: [{ title: 'Candidate Care', remotePath: 'chr/care.txt.gz', sourceUrl: '' }] })
+    assert.equal(found.length, 1, 'a verified screened match avoids reading unrelated files')
+    assert.match(found[0]!.path, /chr\/care.txt$/)
   })
 })

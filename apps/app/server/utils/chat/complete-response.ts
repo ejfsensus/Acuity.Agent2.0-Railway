@@ -4,13 +4,12 @@ import { isSubstantiveAnswer, SYNTHESIS_FAILURE_MESSAGE } from '@savoir/agent'
 export { SYNTHESIS_FAILURE_MESSAGE }
 
 /** Hold the finish event until an answer follows the last research tool result. */
-export function completeResponseStream({ stream, recover, onError, abortSignal, synthesizeAfterResearch = false, hasPreparedResearch = () => false }: {
+export function completeResponseStream({ stream, recover, onError, abortSignal, finalAnswerOnly = false }: {
   stream: ReadableStream<UIMessageChunk>
   recover: () => Promise<string | { text: string, finishReason: 'stop' | 'error' }>
   onError: (error: unknown) => void
   abortSignal?: AbortSignal
-  synthesizeAfterResearch?: boolean
-  hasPreparedResearch?: () => boolean
+  finalAnswerOnly?: boolean
 }): ReadableStream<UIMessageChunk> {
   return new ReadableStream({
     async start(controller) {
@@ -21,7 +20,6 @@ export function completeResponseStream({ stream, recover, onError, abortSignal, 
       let started = false
       let aborted = false
       let stepOpen = false
-      let researched = false
       try {
         while (true) {
           const { done, value } = await reader.read()
@@ -40,18 +38,17 @@ export function completeResponseStream({ stream, recover, onError, abortSignal, 
           if (value.type === 'finish-step') stepOpen = false
           if (value.type === 'abort') {
             aborted = true
-            if (synthesizeAfterResearch && !abortSignal?.aborted) {
+            if (finalAnswerOnly && !abortSignal?.aborted) {
               failed = true
               continue
             }
           }
           if (value.type.startsWith('tool-')) {
-            researched = true
             answer = ''
           }
           if (value.type === 'text-delta') answer += value.delta
           // Research narration must never be persisted or displayed as the answer.
-          if (synthesizeAfterResearch && (value.type.startsWith('text-') || value.type.startsWith('reasoning-'))) continue
+          if (finalAnswerOnly && (value.type.startsWith('text-') || value.type.startsWith('reasoning-'))) continue
           controller.enqueue(value)
         }
       } catch (error) {
@@ -61,14 +58,13 @@ export function completeResponseStream({ stream, recover, onError, abortSignal, 
         reader.releaseLock()
       }
 
-      if (abortSignal?.aborted || (aborted && !synthesizeAfterResearch)) {
+      if (abortSignal?.aborted || (aborted && !finalAnswerOnly)) {
         controller.close()
         return
       }
 
       const needsSynthesis = failed || !isSubstantiveAnswer(answer) || (finish !== undefined && finish.finishReason !== 'stop')
-        || (synthesizeAfterResearch && (researched || hasPreparedResearch()))
-      if (needsSynthesis || synthesizeAfterResearch) {
+      if (needsSynthesis || finalAnswerOnly) {
         let text = answer
         let finishReason: 'stop' | 'error' = 'stop'
         try {
